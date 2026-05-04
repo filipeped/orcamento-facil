@@ -9,6 +9,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { ProposalsProvider } from "@/contexts/ProposalsContext";
 import { CatalogProvider } from "@/contexts/CatalogContext";
 import { NotificationsProvider } from "@/contexts/NotificationsContext";
+import { ExpensesProvider } from "@/contexts/ExpensesContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { AdminRoute } from "@/components/AdminRoute";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
@@ -37,6 +38,9 @@ const Termos = lazy(() => import("./pages/Termos"));
 const Privacidade = lazy(() => import("./pages/Privacidade"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const AuthCallback = lazy(() => import("./pages/AuthCallback"));
+const Despesas = lazy(() => import("./pages/Despesas"));
+const NovaDespesa = lazy(() => import("./pages/NovaDespesa"));
+const FaturasStub = lazy(() => import("./pages/FaturasStub"));
 
 // Admin Pages
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
@@ -116,6 +120,7 @@ const App = () => (
             <NotificationsProvider>
               <ProposalsProvider>
                 <CatalogProvider>
+                  <ExpensesProvider>
                   <Suspense fallback={<PageLoader />}>
                     <Routes>
                       <Route path="/" element={<LandingPage />} />
@@ -133,13 +138,27 @@ const App = () => (
                       <Route path="/p/:id" element={<PropostaPublica />} />
 
                       {/* Protected Routes */}
-                      <Route path="/dashboard" element={<Navigate to="/propostas" replace />} />
+                      <Route path="/dashboard" element={<Navigate to="/orcamentos" replace />} />
+
+                      {/* Orcamentos (canonical) + Propostas (legacy alias) */}
+                      <Route path="/orcamentos" element={<ProtectedRoute><Propostas /></ProtectedRoute>} />
+                      <Route path="/orcamentos/novo" element={<ProtectedRoute><NovaProposta /></ProtectedRoute>} />
+                      <Route path="/orcamentos/:id" element={<ProtectedRoute><PropostaDetalhe /></ProtectedRoute>} />
+                      <Route path="/orcamentos/:id/editar" element={<ProtectedRoute><EditarProposta /></ProtectedRoute>} />
                       <Route path="/propostas" element={<ProtectedRoute><Propostas /></ProtectedRoute>} />
                       <Route path="/propostas/nova" element={<ProtectedRoute><NovaProposta /></ProtectedRoute>} />
                       <Route path="/propostas/:id" element={<ProtectedRoute><PropostaDetalhe /></ProtectedRoute>} />
                       <Route path="/propostas/:id/editar" element={<ProtectedRoute><EditarProposta /></ProtectedRoute>} />
+
+                      {/* Faturas (stub - aguardando backend doc_type) */}
+                      <Route path="/faturas" element={<ProtectedRoute><FaturasStub /></ProtectedRoute>} />
+                      <Route path="/faturas/nova" element={<ProtectedRoute><FaturasStub /></ProtectedRoute>} />
+                      <Route path="/faturas/:id" element={<ProtectedRoute><FaturasStub /></ProtectedRoute>} />
+                      <Route path="/faturas/:id/editar" element={<ProtectedRoute><FaturasStub /></ProtectedRoute>} />
                       <Route path="/meus-itens" element={<ProtectedRoute><Catalogo /></ProtectedRoute>} />
                       <Route path="/clientes" element={<ProtectedRoute><Clientes /></ProtectedRoute>} />
+                      <Route path="/despesas" element={<ProtectedRoute><Despesas /></ProtectedRoute>} />
+                      <Route path="/despesas/nova" element={<ProtectedRoute><NovaDespesa /></ProtectedRoute>} />
                       <Route path="/relatorios" element={<ProtectedRoute><Relatorios /></ProtectedRoute>} />
                       <Route path="/agenda" element={<ProtectedRoute><Agenda /></ProtectedRoute>} />
                       <Route path="/configuracoes" element={<ProtectedRoute><Configuracoes /></ProtectedRoute>} />
@@ -158,6 +177,7 @@ const App = () => (
                       <Route path="*" element={<NotFound />} />
                     </Routes>
                   </Suspense>
+                  </ExpensesProvider>
                 </CatalogProvider>
               </ProposalsProvider>
             </NotificationsProvider>

@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getSupabase } from "@/lib/supabase";
 import {
   FileText,
+  Receipt,
   Settings,
   LogOut,
   Menu,
@@ -19,6 +20,7 @@ import {
   Sparkles,
   Shield,
   Clock,
+  Wallet,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/Logo";
@@ -220,7 +222,9 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   };
 
   const navigation = [
-    { name: "Propostas", icon: FileText, href: "/propostas" },
+    { name: "Orçamentos", icon: FileText, href: "/orcamentos" },
+    { name: "Faturas", icon: Receipt, href: "/faturas" },
+    { name: "Despesas", icon: Wallet, href: "/despesas" },
     { name: "Clientes", icon: Users, href: "/clientes" },
     { name: "Agenda", icon: CalendarDays, href: "/agenda" },
     { name: "Meus Itens", icon: Package, href: "/meus-itens" },
