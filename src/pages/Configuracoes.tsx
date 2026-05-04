@@ -929,7 +929,7 @@ export default function Configuracoes() {
                     id="companyBio"
                     value={company.bio}
                     onChange={(e) => setCompany({ ...company, bio: e.target.value })}
-                    placeholder="Ex: Jardineiro há 10 anos, especialista em paisagismo residencial..."
+                    placeholder="Ex: Prestador de serviço há 10 anos, especialista em atendimento residencial..."
                     className="w-full min-h-[80px] px-3 py-2 text-sm rounded-md border border-input bg-background resize-none"
                     maxLength={200}
                   />
@@ -1180,7 +1180,7 @@ export default function Configuracoes() {
                       </div>
                       {proposalSettings.showBio && (
                         <p className="text-xs text-stone-500 italic mt-3 pt-3 border-t border-dashed">
-                          "{company.bio || "Jardineiro profissional há mais de 10 anos. Especialista em paisagismo, poda e manutenção de jardins residenciais e comerciais."}"
+                          "{company.bio || "Prestador de servico profissional ha mais de 10 anos. Especialista em atendimento residencial e comercial com qualidade e pontualidade."}"
                         </p>
                       )}
                     </div>
@@ -1207,7 +1207,7 @@ export default function Configuracoes() {
                     {/* Título */}
                     <div className="px-3 py-2 border-b border-stone-200" style={{ backgroundColor: `${proposalSettings.primaryColor}08` }}>
                       <p className="text-[10px] text-stone-400 uppercase">Referente a</p>
-                      <p className="font-semibold text-stone-900 text-xs">Manutenção de Jardim</p>
+                      <p className="font-semibold text-stone-900 text-xs">Serviço Prestado</p>
                     </div>
 
                     {/* Tabela */}

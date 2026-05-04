@@ -66,12 +66,12 @@ interface CatalogContextType {
 
 const CatalogContext = createContext<CatalogContextType | undefined>(undefined);
 
-// Serviços básicos fixos
+// Itens base genéricos — usuário substitui pelos seus no onboarding por ramo
 const defaultServices: CatalogItem[] = [
-  { id: 100, name: "Mão de Obra", category: "Serviços", image: "👷", imageUrl: "https://globalserviceseg.com.br/wp-content/uploads/2021/11/jardinagem.png", defaultPrice: 250, unit: "diária" },
-  { id: 101, name: "Frete", category: "Serviços", image: "🚚", imageUrl: "https://comprovei.com/wp-content/uploads/2023/02/frete-valor.jpg", defaultPrice: 150 },
-  { id: 102, name: "Composto Orgânico", category: "Serviços", image: "🌿", imageUrl: "https://compostcheira.eco.br/wp-content/uploads/2021/04/terra_vegetal_composto_organico_55_1_20200920095119.jpg", defaultPrice: 25, unit: "kg" },
-  { id: 103, name: "Divisor de Solo", category: "Serviços", image: "🧱", imageUrl: "https://http2.mlstatic.com/D_948662-MLB91915100453_092025-O.jpg", defaultPrice: 45, unit: "metro" },
+  { id: 100, name: "Mão de Obra", category: "Mão de Obra", image: "👷", defaultPrice: 250, unit: "dia" },
+  { id: 101, name: "Hora Técnica", category: "Mão de Obra", image: "⏱️", defaultPrice: 120, unit: "hr" },
+  { id: 102, name: "Deslocamento", category: "Deslocamento", image: "🚚", defaultPrice: 50, unit: "serviço" },
+  { id: 103, name: "Material", category: "Materiais", image: "📦", defaultPrice: 0, unit: "un" },
 ];
 
 // Interface para plantas do Supabase

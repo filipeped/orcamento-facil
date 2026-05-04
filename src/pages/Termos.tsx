@@ -25,16 +25,16 @@ export default function Termos() {
           <div className="prose prose-sm max-w-none">
             <h2 className="text-xl font-semibold mt-8 mb-4">1. Aceitação dos Termos</h2>
             <p className="text-muted-foreground mb-4">
-              Ao acessar e usar o JARDINEI, você concorda em cumprir e estar vinculado a estes
+              Ao acessar e usar o OrçaFácil, você concorda em cumprir e estar vinculado a estes
               Termos de Uso. Se você não concordar com qualquer parte destes termos, não poderá
               acessar o serviço.
             </p>
 
             <h2 className="text-xl font-semibold mt-8 mb-4">2. Descrição do Serviço</h2>
             <p className="text-muted-foreground mb-4">
-              O JARDINEI é uma plataforma SaaS (Software as a Service) que permite a profissionais
-              de jardinagem e paisagismo criar, gerenciar e enviar propostas comerciais para seus
-              clientes.
+              O OrçaFácil é uma plataforma SaaS (Software as a Service) que permite a prestadores
+              de serviço criar, gerenciar e enviar orçamentos e faturas profissionais para seus
+              clientes, além de receber pagamentos via Pix e cartão.
             </p>
 
             <h2 className="text-xl font-semibold mt-8 mb-4">3. Cadastro e Conta</h2>
@@ -46,7 +46,7 @@ export default function Termos() {
 
             <h2 className="text-xl font-semibold mt-8 mb-4">4. Uso Aceitável</h2>
             <p className="text-muted-foreground mb-4">
-              Você concorda em usar o JARDINEI apenas para fins legais e de acordo com estes
+              Você concorda em usar o OrçaFácil apenas para fins legais e de acordo com estes
               Termos. Você não deve:
             </p>
             <ul className="list-disc list-inside text-muted-foreground mb-4 space-y-2">
@@ -59,7 +59,7 @@ export default function Termos() {
 
             <h2 className="text-xl font-semibold mt-8 mb-4">5. Propriedade Intelectual</h2>
             <p className="text-muted-foreground mb-4">
-              Todo o conteúdo, recursos e funcionalidades do JARDINEI são de propriedade
+              Todo o conteúdo, recursos e funcionalidades do OrçaFácil são de propriedade
               exclusiva da empresa e estão protegidos por leis de propriedade intelectual.
               O uso do serviço não lhe concede nenhum direito de propriedade sobre o mesmo.
             </p>
@@ -80,7 +80,7 @@ export default function Termos() {
 
             <h2 className="text-xl font-semibold mt-8 mb-4">8. Limitação de Responsabilidade</h2>
             <p className="text-muted-foreground mb-4">
-              O JARDINEI é fornecido "como está", sem garantias de qualquer tipo. Não nos
+              O OrçaFácil é fornecido "como está", sem garantias de qualquer tipo. Não nos
               responsabilizamos por quaisquer danos diretos, indiretos, incidentais ou
               consequenciais decorrentes do uso do serviço.
             </p>

@@ -66,7 +66,7 @@ export function OnboardingChecklist({ userId, hasProposals, hasCatalogItems }: O
   const items: ChecklistItem[] = [
     {
       id: "tour",
-      label: "Conhecer o Jardinei",
+      label: "Conhecer o OrçaFácil",
       completed: tourCompleted,
     },
     {

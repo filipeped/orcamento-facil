@@ -155,7 +155,7 @@ export function OnboardingWizard({ userId, userName, onComplete }: OnboardingWiz
                 <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
                   <Leaf className="w-4 h-4" />
                 </div>
-                <span className="text-xs font-medium text-white/80">Bem-vindo ao Jardinei</span>
+                <span className="text-xs font-medium text-white/80">Bem-vindo ao OrçaFácil</span>
               </div>
               <h1 className="text-2xl font-semibold tracking-tight">
                 {firstName ? `Olá, ${firstName}!` : "Bem-vindo!"}
@@ -219,7 +219,7 @@ export function OnboardingWizard({ userId, userName, onComplete }: OnboardingWiz
                 <Input
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
-                  placeholder="Ex: João Jardinagem"
+                  placeholder="Ex: João Serviços"
                   className="pl-10 h-12 rounded-xl"
                 />
               </div>

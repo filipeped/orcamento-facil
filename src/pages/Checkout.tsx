@@ -481,7 +481,7 @@ export default function Checkout() {
 
       if (resp.status === 409 || data.alreadyExists) {
         setErrors({
-          email: "Este e-mail já tem cadastro no Jardinei.",
+          email: "Este e-mail já tem cadastro no OrçaFácil.",
         });
         setTouched((t) => ({ ...t, email: true }));
         setEmailAlreadyExists(true);
@@ -600,7 +600,7 @@ export default function Checkout() {
             </div>
             <div className="flex items-center gap-1.5">
               <Users size={13} className="text-jd-accent" strokeWidth={1.5} />
-              <span>+500 paisagistas já usam</span>
+              <span>+500 prestadores já usam</span>
             </div>
           </div>
           <div className="md:hidden flex items-center gap-1.5 text-xs text-jd-muted">
@@ -719,7 +719,7 @@ export default function Checkout() {
                   </div>
                   {emailAlreadyExists ? (
                     <div id="email-error" role="alert" className="mt-2 p-3 bg-amber-50 border border-amber-200 rounded-lg">
-                      <p className="text-sm font-semibold text-amber-900 mb-1.5">E-mail já cadastrado no Jardinei</p>
+                      <p className="text-sm font-semibold text-amber-900 mb-1.5">E-mail já cadastrado no OrçaFácil</p>
                       <p className="text-xs text-amber-800 leading-relaxed mb-2.5">
                         Já existe uma conta com esse e-mail. Você pode entrar com sua senha ou usar outro e-mail pra criar nova conta.
                       </p>
@@ -987,7 +987,7 @@ export default function Checkout() {
             <details className="md:hidden bg-jd-surface rounded-xl border border-jd-border mb-4 overflow-hidden group">
               <summary className="px-4 py-3 flex items-center justify-between cursor-pointer list-none">
                 <div className="flex items-center gap-2 min-w-0">
-                  <span className="text-sm font-medium text-jd-ink truncate">Jardinei {plan.name}</span>
+                  <span className="text-sm font-medium text-jd-ink truncate">OrçaFácil {plan.name}</span>
                   {plan.key === "pro" && (
                     <span className="text-[10px] uppercase tracking-[0.2em] text-jd-accent italic font-display">destacado</span>
                   )}
@@ -1042,7 +1042,7 @@ export default function Checkout() {
                 <p className="text-[11px] font-medium text-jd-accent uppercase tracking-[0.22em] mb-1.5">
                   Seu plano
                 </p>
-                <h2 className="font-display text-2xl md:text-3xl font-medium text-jd-ink mb-5 tracking-tight">Jardinei {plan.name}</h2>
+                <h2 className="font-display text-2xl md:text-3xl font-medium text-jd-ink mb-5 tracking-tight">OrçaFácil {plan.name}</h2>
 
                 {/* Breakdown de preço */}
                 <div className="border border-jd-border rounded-lg p-4 mb-5">
@@ -1111,7 +1111,7 @@ export default function Checkout() {
 
                 {/* Depoimento em destaque — serif */}
                 <blockquote className="font-display text-[15px] text-jd-ink leading-relaxed mb-4">
-                  "Fechei 11 projetos mês passado usando o Jardinei. Melhor investimento que fiz."
+                  "Fechei 11 projetos mês passado usando o OrçaFácil. Melhor investimento que fiz."
                 </blockquote>
 
                 {/* Autor */}
@@ -1128,7 +1128,7 @@ export default function Checkout() {
                 {/* Rodapé */}
                 <div className="mt-4 pt-3 border-t border-jd-border flex items-center justify-center gap-1.5">
                   <Users size={11} className="text-jd-muted" strokeWidth={1.5} />
-                  <p className="text-[10px] font-medium text-jd-muted">+500 paisagistas já assinaram</p>
+                  <p className="text-[10px] font-medium text-jd-muted">+500 prestadores já assinaram</p>
                 </div>
               </div>
             </div>

@@ -65,10 +65,21 @@ export interface ProposalClient {
   phone: string;
 }
 
-export type ServiceType = "manutencao" | "paisagismo" | "outro";
+export type ServiceType =
+  | "servico"
+  | "manutencao"
+  | "instalacao"
+  | "reparo"
+  | "consultoria"
+  | "paisagismo"
+  | "outro";
 
 export const SERVICE_TYPES: Record<ServiceType, { label: string; icon: string }> = {
-  manutencao: { label: "Manutenção", icon: "scissors" },
+  servico: { label: "Serviço", icon: "briefcase" },
+  manutencao: { label: "Manutenção", icon: "wrench" },
+  instalacao: { label: "Instalação", icon: "tool" },
+  reparo: { label: "Reparo", icon: "hammer" },
+  consultoria: { label: "Consultoria", icon: "message-square" },
   paisagismo: { label: "Paisagismo", icon: "palette" },
   outro: { label: "Outro", icon: "clipboard-list" },
 };
@@ -740,7 +751,7 @@ export function ProposalsProvider({ children }: { children: ReactNode }) {
         if (error) throw error;
 
         // Create notification for proposal owner (in-app only, sem WhatsApp)
-        // O jardineiro vê a notificação no dashboard, não precisa de WhatsApp
+        // O prestador vê a notificação no dashboard, não precisa de WhatsApp
         if (current.user_id) {
           await createProposalViewedNotification(
             current.user_id,
@@ -777,7 +788,7 @@ export function ProposalsProvider({ children }: { children: ReactNode }) {
 
       // Create notification for proposal owner (in-app only)
       // WhatsApp é enviado apenas quando o CLIENTE aprova via /api/approve-proposal
-      // Não enviamos WhatsApp aqui porque é o próprio jardineiro aprovando manualmente
+      // Não enviamos WhatsApp aqui porque é o próprio prestador aprovando manualmente
       if (proposal?.user_id) {
         await createProposalApprovedNotification(
           proposal.user_id,

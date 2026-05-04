@@ -284,7 +284,7 @@ export default function Relatorios() {
                 Gerado em ${new Date().toLocaleDateString("pt-BR")} às ${new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}
               </p>
               <p style="margin: 0; font-size: 10px; color: #94a3b8;">
-                Powered by <span style="color: #10b981; font-weight: 600;">JARDINEI</span>
+                Powered by <span style="color: #10b981; font-weight: 600;">OrçaFácil</span>
               </p>
             </div>
           </div>

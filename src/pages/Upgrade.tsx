@@ -331,7 +331,7 @@ export default function Upgrade() {
       features: [
         "Nao pode criar propostas novas",
         "Historico limitado a 30 dias",
-        "Propostas com marca d'agua JARDINEI",
+        "Propostas com marca d'agua OrçaFácil",
       ],
       highlighted: false,
       badge: null,
@@ -518,7 +518,7 @@ export default function Upgrade() {
 
           <p className="text-base md:text-lg text-neutral-500 mb-4 md:mb-6 max-w-2xl mx-auto">
             {currentPlanId === "free"
-              ? "Jardineiro que manda orcamento no WhatsApp perde cliente pra quem manda proposta bonita."
+              ? "OrçaFácilro que manda orcamento no WhatsApp perde cliente pra quem manda proposta bonita."
               : currentPlanId === "pro"
               ? "Voce tem acesso ilimitado a tudo. Aproveite!"
               : `Voce esta no ${user?.plan}. Veja o que esta perdendo.`}
@@ -728,7 +728,7 @@ export default function Upgrade() {
         <div className="text-center">
           <p className="text-sm text-neutral-500 mb-3">Ainda tem dúvidas?</p>
           <a
-            href="https://wa.me/5551992185607?text=Oi! Estou vendo os planos do JARDINEI e quero saber mais sobre como funciona."
+            href="https://wa.me/5551992185607?text=Oi! Estou vendo os planos do OrçaFácil e quero saber mais sobre como funciona."
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-5 py-2.5 border border-neutral-200 hover:bg-neutral-100 text-neutral-700 text-sm font-medium rounded-full transition-colors"

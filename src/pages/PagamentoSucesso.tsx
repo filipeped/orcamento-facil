@@ -233,8 +233,8 @@ export default function PagamentoSucesso() {
   }, [user?.id]);
 
   const planNames: Record<string, string> = {
-    essential: 'JARDINEI Mensal',
-    pro: 'JARDINEI Anual',
+    essential: 'OrçaFácil Mensal',
+    pro: 'OrçaFácil Anual',
   };
 
   // Tracking: PageView + ViewContent
@@ -268,7 +268,7 @@ export default function PagamentoSucesso() {
       trackPurchaseAndSubscribe({
         value: value,
         plan: plan,
-        planName: planNames[plan] || `JARDINEI ${plan}`,
+        planName: planNames[plan] || `OrçaFácil ${plan}`,
         paymentId: paymentId,
         userEmail: user?.email,
         userName: user?.name,
@@ -323,7 +323,7 @@ export default function PagamentoSucesso() {
 
         {/* Subtitle */}
         <p className="text-lg text-neutral-600 mb-2">
-          Bem-vindo ao <span className="font-semibold text-emerald-600">{planNames[plan] || 'JARDINEI'}</span>
+          Bem-vindo ao <span className="font-semibold text-emerald-600">{planNames[plan] || 'OrçaFácil'}</span>
         </p>
 
         {value > 0 && (

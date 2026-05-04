@@ -80,7 +80,7 @@ function Nav() {
       }`}
     >
       <div className="max-w-4xl mx-auto px-5 sm:px-6 flex items-center justify-between">
-        <Link to="/v2" aria-label="Jardinei">
+        <Link to="/v2" aria-label="OrçaFácil">
           <Logo />
         </Link>
         <div className="flex items-center gap-1 md:gap-2">
@@ -112,7 +112,7 @@ function Hero() {
       <div className="relative max-w-3xl mx-auto px-5 sm:px-6 text-center">
         {/* Kicker sobrio — sem motion, evita bug de hidratacao mobile */}
         <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-jd-muted mb-8">
-          Para paisagistas · jardineiros · floriculturas
+          Para todo prestador de serviço
         </p>
 
         {/* Headline direto ao benefício — promessa clara. leading 1.15 pra
@@ -123,7 +123,7 @@ function Hero() {
 
         {/* Sub alinhada com o anúncio — direto no fluxo */}
         <p className="text-base md:text-lg text-jd-muted max-w-xl mx-auto leading-relaxed mb-10">
-          Escolhe as plantas, põe o valor, manda o link pelo WhatsApp. O cliente abre no celular, vê tudo organizado e aprova com 1 clique.
+          Monta seu orçamento, manda o link pelo WhatsApp. O cliente abre no celular, vê tudo organizado, aprova com 1 clique e paga via Pix.
         </p>
 
         {/* Um CTA so, sem stack de bullets */}
@@ -188,11 +188,11 @@ function TrustBar() {
             ))}
           </div>
           <p className="text-center text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
-            Paisagistas, jardineiros e floriculturas de todo Brasil
+            Prestadores de serviço de todo Brasil
           </p>
         </Reveal>
         <Stagger className="grid grid-cols-3 gap-y-4 gap-x-4 items-center max-w-2xl mx-auto" stagger={0.1}>
-          <TrustStatAnimated counter={800} suffix="+" label="espécies no catálogo" highlight />
+          <TrustStatAnimated counter={20} suffix="+" label="ramos atendidos" highlight />
           <TrustStat value="3 min" label="pra montar proposta" />
           <TrustStat value="12 meses" label="de acesso no Anual" />
         </Stagger>
@@ -474,16 +474,16 @@ function Bubble({ from, text, time }: { from: "me" | "client"; text: string; tim
 // =============================================================================
 function ForWho() {
   const fits = [
-    { bold: "Você é paisagista, jardineiro, floricultor ou trabalha com horticultura", rest: "" },
+    { bold: "Você é prestador de serviço", rest: "— eletricista, encanador, pintor, diarista, jardineiro, fotógrafo, personal, marceneiro, qualquer ramo" },
     { bold: "Você manda orçamento pelo WhatsApp", rest: "e perde cliente porque chega mal apresentado" },
     { bold: "Você cobra o preço justo", rest: "mas parece caro porque o cliente não entende o que tá comprando" },
-    { bold: "Você monta orçamento à mão em cada cliente", rest: "e cansa de digitar planta por planta" },
-    { bold: "Você quer um painel", rest: "pra saber o que mandou, pra quem, quanto e quando" },
+    { bold: "Você monta orçamento à mão em cada cliente", rest: "e perde tempo digitando item por item" },
+    { bold: "Você quer um painel", rest: "pra saber o que mandou, pra quem, quanto e quando — e receber via Pix" },
   ];
   const notFits = [
     { bold: "Você fecha a maioria dos orçamentos", rest: "que manda hoje no WhatsApp" },
     { bold: "Você vende só no balcão", rest: "e não manda proposta pra cliente fora" },
-    { bold: "Você não mexe com plantas", rest: "nem com paisagismo ou jardinagem" },
+    { bold: "Você só revende produto pronto", rest: "sem prestar nenhum tipo de serviço" },
     { bold: "Você não quer mudar nada", rest: "em como já trabalha hoje" },
   ];
 
@@ -864,7 +864,7 @@ function MockDashboard() {
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center">
             <Leaf size={16} className="text-white" />
           </div>
-          <span className="font-bold text-sm text-neutral-900">Jardinei</span>
+          <span className="font-bold text-sm text-neutral-900">OrçaFácil</span>
         </div>
         <nav className="space-y-1 text-sm">
           {[
@@ -1147,17 +1147,17 @@ function Proof() {
   // So 2 testemunhos — mais humano, menos parede de texto
   const testimonials = [
     {
-      quote: "Eu fechava 2 serviço por mês chorando. No primeiro mês de Jardinei bati R$18 mil. O cliente responde diferente quando chega link bonito.",
+      quote: "Eu fechava 2 serviços por mês chorando. No primeiro mês de OrçaFácil bati R$18 mil. O cliente responde diferente quando chega link bonito.",
       headline: "R$ 7k → R$ 18k/mês",
       name: "Carlos Oliveira",
-      role: "Paisagista · São Paulo",
+      role: "Eletricista · São Paulo",
       initials: "CO",
     },
     {
       quote: "Era péssima com computador, mas é só arrastar e clicar. Recuperei R$14k em orçamentos que sumiam. Cobrei 20% mais caro e ninguém reclamou.",
       headline: "+R$ 14k em 60 dias",
       name: "Ana Ferreira",
-      role: "Paisagista · Curitiba",
+      role: "Diarista · Curitiba",
       initials: "AF",
     },
   ];
@@ -1170,7 +1170,7 @@ function Proof() {
             Gente como você
           </p>
           <h2 className="font-display text-jd-ink text-[28px] md:text-[40px] leading-[1.1] tracking-[-0.015em] font-medium">
-            Quem usa Jardinei <em className="italic text-jd-accent font-normal">fecha mais.</em>
+            Quem usa OrçaFácil <em className="italic text-jd-accent font-normal">fecha mais.</em>
           </h2>
         </Reveal>
 
@@ -1354,22 +1354,22 @@ function FAQ() {
   const faqs = [
     {
       q: "Não manjo muito de computador. Vou conseguir?",
-      a: "Se você usa WhatsApp, você usa Jardinei. Só escolher as plantas, colocar o valor e apertar enviar. Feito pra quem detesta tecnologia. E se travar, tem suporte no WhatsApp respondendo em minutos.",
+      a: "Se você usa WhatsApp, você usa OrçaFácil. Só escolher os itens, colocar o valor e apertar enviar. Feito pra quem detesta tecnologia. E se travar, tem suporte no WhatsApp respondendo em minutos.",
     },
     {
       q: "Preciso ter CNPJ ou empresa formalizada?",
-      a: "Não. Jardinei funciona pra MEI, autônomo, pessoa física, empresa registrada — qualquer um. Você coloca o nome ou razão social que quiser aparecer pro cliente.",
+      a: "Não. OrçaFácil atende MEI, autônomo, pessoa física, empresa registrada — qualquer um. Você coloca o nome ou razão social que quiser aparecer pro cliente.",
     },
     {
-      q: "Funciona junto com o WhatsApp? Não quero parar de usar.",
-      a: "Funciona em cima dele. Você monta a proposta no Jardinei e manda o link ou o PDF pelo WhatsApp. O cliente clica, vê proposta bonita, aprova. O zap continua sendo seu canal — só que agora sua proposta chega profissional.",
+      q: "Combina com meu WhatsApp? Não quero parar de usar.",
+      a: "Combina, é feito pra isso. Você monta o orçamento no OrçaFácil e manda o link ou o PDF pelo WhatsApp. O cliente clica, vê tudo bonito e aprova. O zap continua sendo seu canal — só que agora seu orçamento chega profissional.",
     },
     {
-      q: "Tem limite de propostas ou clientes?",
-      a: "No plano pago, tudo ilimitado. Propostas, clientes, catálogo. Sem pegadinha de 'upgrade pra fazer mais uma proposta'.",
+      q: "Tem limite de orçamentos, faturas ou clientes?",
+      a: "No plano pago, tudo ilimitado. Orçamentos, faturas, clientes, catálogo. Sem pegadinha de 'upgrade pra fazer mais um'.",
     },
     {
-      q: "Como funciona a garantia de 7 dias?",
+      q: "Como é a garantia de 7 dias?",
       a: "Você paga, entra direto no produto e usa sem limite. Se em 7 dias não gostar, manda mensagem e devolvemos 100% do valor no Pix em 24h. Zero pergunta, zero burocracia. Não é trial — é garantia de satisfação.",
     },
     {
@@ -1487,7 +1487,7 @@ function Footer() {
           <div className="flex items-center gap-3">
             <Logo />
             <span className="hidden md:inline text-xs text-jd-muted">·</span>
-            <p className="text-xs text-jd-muted italic font-display text-center md:text-left">Propostas que fazem jardineiro parecer empresa grande</p>
+            <p className="text-xs text-jd-muted italic font-display text-center md:text-left">Orçamentos que fazem prestador de serviço parecer empresa grande</p>
           </div>
           <div className="flex items-center gap-5 text-xs text-jd-muted">
             <Link to="/termos" className="hover:text-jd-ink transition-colors">Termos</Link>
@@ -1495,7 +1495,7 @@ function Footer() {
             <a href="https://wa.me/5551992185607" target="_blank" rel="noopener" className="hover:text-jd-ink transition-colors">WhatsApp</a>
           </div>
           <p className="text-xs text-jd-muted">
-            © {new Date().getFullYear()} Jardinei
+            © {new Date().getFullYear()} OrçaFácil
           </p>
         </div>
       </div>

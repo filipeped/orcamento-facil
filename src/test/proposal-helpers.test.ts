@@ -121,7 +121,7 @@ describe("calculateTotal", () => {
 
 describe("PLAN_LIMITS", () => {
   it("should have correct limits for free plan", () => {
-    expect(PLAN_LIMITS.free.proposalsPerMonth).toBe(2);
+    expect(PLAN_LIMITS.free.proposalsPerMonth).toBe(0);
   });
 
   it("should have correct limits for essential plan", () => {
@@ -143,14 +143,7 @@ describe("SERVICE_TYPES", () => {
   it("should have manutencao type", () => {
     expect(SERVICE_TYPES.manutencao).toEqual({
       label: "Manutenção",
-      icon: "scissors",
-    });
-  });
-
-  it("should have paisagismo type", () => {
-    expect(SERVICE_TYPES.paisagismo).toEqual({
-      label: "Paisagismo",
-      icon: "palette",
+      icon: "wrench",
     });
   });
 
@@ -161,10 +154,12 @@ describe("SERVICE_TYPES", () => {
     });
   });
 
-  it("should have all expected service types", () => {
-    expect(Object.keys(SERVICE_TYPES)).toHaveLength(3);
+  it("should expose generic service categories", () => {
+    expect(Object.keys(SERVICE_TYPES)).toContain("servico");
     expect(Object.keys(SERVICE_TYPES)).toContain("manutencao");
-    expect(Object.keys(SERVICE_TYPES)).toContain("paisagismo");
+    expect(Object.keys(SERVICE_TYPES)).toContain("instalacao");
+    expect(Object.keys(SERVICE_TYPES)).toContain("reparo");
+    expect(Object.keys(SERVICE_TYPES)).toContain("consultoria");
     expect(Object.keys(SERVICE_TYPES)).toContain("outro");
   });
 });

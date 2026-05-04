@@ -1,4 +1,5 @@
 import { Proposal } from "@/contexts/ProposalsContext";
+import { BRAND } from "@/lib/brand";
 
 // Converte uma imagem URL para base64
 async function imageToBase64(url: string): Promise<string | null> {
@@ -73,12 +74,12 @@ function generateProposalHTML(proposal: Proposal, isFreePlan: boolean = false): 
   const watermarkHTML = isFreePlan ? `
     <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); z-index: 1000; pointer-events: none;">
       <p style="font-size: 60px; color: rgba(16, 185, 129, 0.15); font-weight: bold; white-space: nowrap; margin: 0;">
-        Feito com JARDINEI
+        ${BRAND.watermarkText}
       </p>
     </div>
     <div style="position: fixed; bottom: 20px; left: 0; right: 0; text-align: center; z-index: 1000;">
       <p style="font-size: 10px; color: #10b981; margin: 0;">
-        ✨ Proposta criada com JARDINEI - jardinei.com
+        ${BRAND.watermarkFooter}
       </p>
     </div>
   ` : '';
@@ -253,7 +254,7 @@ function generateProposalHTML(proposal: Proposal, isFreePlan: boolean = false): 
 }
 
 // Gera PDF a partir de uma proposta
-// isFreePlan: se true, adiciona marca d'água "Feito com JARDINEI"
+// isFreePlan: se true, adiciona marca d'agua da marca
 export async function generateProposalPDF(proposal: Proposal, isFreePlan: boolean = false): Promise<void> {
   // Criar elemento temporário com o HTML do orçamento
   const container = document.createElement('div');

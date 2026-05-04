@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 /* ============================================================
-   JARDINEI v3 — Design System: Terra/Natureza
+   OrçaFácil v3 — Design System: Terra/Natureza
    Unica fonte de verdade pra cor, tipografia, espaco, sombra.
    ============================================================ */
 @layer base {
@@ -112,7 +112,7 @@ select:focus-visible {
   }
 }
 
-/* JARDINEI Design System - Brazilian Landscaper SaaS */
+/* OrçaFácil Design System - Brazilian Landscaper SaaS */
 
 @layer base {
   :root {
@@ -159,7 +159,7 @@ select:focus-visible {
 
     --radius: 0.75rem;
 
-    /* Custom JARDINEI tokens */
+    /* Custom OrçaFácil tokens */
     --verde-50: 138 76% 97%;
     --verde-100: 141 84% 93%;
     --verde-200: 141 79% 85%;
