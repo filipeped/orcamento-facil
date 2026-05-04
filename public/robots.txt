@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jardinei.com/sitemap.xml
+
+# Bloquear áreas privadas
+Disallow: /dashboard
+Disallow: /propostas
+Disallow: /clientes
+Disallow: /catalogo
+Disallow: /agenda
+Disallow: /configuracoes
+Disallow: /upgrade
+Disallow: /api/

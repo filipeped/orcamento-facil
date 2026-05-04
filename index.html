@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+    <title>JARDINEI - Crie propostas profissionais e feche mais orçamentos</title>
+    <meta name="description" content="O app que jardineiros e paisagistas brasileiros usam para criar propostas profissionais e fechar mais orçamentos." />
+    <meta name="author" content="JARDINEI" />
+
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#16a34a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="JARDINEI" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="JARDINEI" />
+    <meta name="msapplication-TileColor" content="#16a34a" />
+    <meta name="msapplication-tap-highlight" content="no" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Preconnect para recursos externos (performance) -->
+    <link rel="preconnect" href="https://nnqctrjvtacswjvdgred.supabase.co" />
+    <link rel="preconnect" href="https://connect.facebook.net" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://api.ipgeolocation.io" />
+
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-192x192.png" />
+
+    <!-- Open Graph / WhatsApp / Facebook -->
+    <meta property="og:title" content="JARDINEI - Propostas para Jardineiros" />
+    <meta property="og:description" content="O app que jardineiros e paisagistas brasileiros usam para criar propostas profissionais e fechar mais orçamentos." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://jardinei.com" />
+    <meta property="og:image" content="https://jardinei.com/imagens/logo%20jardinei.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="JARDINEI - Propostas profissionais para jardineiros" />
+    <meta property="og:site_name" content="JARDINEI" />
+    <meta property="og:locale" content="pt_BR" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@jardinei" />
+    <meta name="twitter:image" content="https://jardinei.com/imagens/logo%20jardinei.png" />
+    <meta name="twitter:image:alt" content="JARDINEI - Propostas profissionais para jardineiros" />
+
+    <!-- Structured Data (JSON-LD) para SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "JARDINEI",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "description": "O app que jardineiros e paisagistas brasileiros usam para criar propostas profissionais e fechar mais orçamentos.",
+      "url": "https://jardinei.com",
+      "image": "https://jardinei.com/imagens/logo%20jardinei.png",
+      "author": {
+        "@type": "Organization",
+        "name": "JARDINEI",
+        "url": "https://jardinei.com"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL",
+        "description": "Plano gratuito disponível"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "150",
+        "bestRating": "5"
+      }
+    }
+    </script>
+
+    <!-- Meta Pixel Code com FBC Auto-Setup -->
+    <script>
+      // ✅ 0. SINCRONIZAR COOKIE _FBC EXISTENTE COM LOCALSTORAGE (backup para navegação SPA)
+      (function() {
+        try {
+          const existingFbcMatch = document.cookie.match(/(?:^|;\s*)_fbc=([^;]*)/);
+          if (existingFbcMatch && existingFbcMatch[1] && existingFbcMatch[1].length > 10) {
+            const existingFbc = existingFbcMatch[1];
+            const storedFbc = localStorage.getItem('_fbc_backup');
+            if (!storedFbc || storedFbc !== existingFbc) {
+              localStorage.setItem('_fbc_backup', existingFbc);
+              localStorage.setItem('_fbc_backup_time', Date.now().toString());
+              console.log('🔄 Cookie _fbc sincronizado com localStorage:', existingFbc.substring(0, 30) + '...');
+            }
+          }
+        } catch (e) {
+          // Ignorar erros de localStorage
+        }
+      })();
+
+      // ✅ V9.4: APENAS SINCRONIZAR cookie _fbc do Pixel com localStorage (NUNCA criar manualmente)
+      // REMOVIDO: Criação manual de _fbc cookie (causava erro "fbclid modificado" na Meta)
+      // O Meta Pixel é o ÚNICO responsável por criar o cookie _fbc
+      (function() {
+        try {
+          const urlParams = new URLSearchParams(window.location.search);
+          const fbclid = urlParams.get('fbclid');
+
+          if (fbclid && fbclid.length >= 10) {
+            // Salvar timestamp do clique para referência
+            const clickTimestamp = Date.now();
+            sessionStorage.setItem('_fbclid_click_time', clickTimestamp.toString());
+
+            console.log('📌 fbclid detectado na URL, aguardando Pixel criar cookie _fbc...');
+
+            // Aguardar Pixel criar o cookie _fbc e sincronizar com localStorage
+            setTimeout(function() {
+              const existingFbc = document.cookie.match(/(?:^|;\s*)_fbc=([^;]*)/);
+
+              if (existingFbc && existingFbc[1] && existingFbc[1].length > 20) {
+                console.log('✅ Cookie _fbc criado pelo Pixel, sincronizando backup:', existingFbc[1].substring(0, 30) + '...');
+                try {
+                  localStorage.setItem('_fbc_backup', existingFbc[1]);
+                  localStorage.setItem('_fbc_backup_time', Date.now().toString());
+                } catch (e) {}
+              } else {
+                // NÃO criar manualmente - melhor omitir do que enviar valor fabricado
+                console.log('ℹ️ Pixel não criou _fbc após 3s - fbc será omitido nos eventos CAPI');
+              }
+            }, 3000); // Aguardar 3 segundos para Pixel criar
+          }
+        } catch (error) {
+          console.warn('⚠️ Erro ao processar fbclid:', error);
+        }
+      })();
+
+      // ✅ 2. FUNÇÃO BRIDGE PARA DEDUPLICATIONENGINE CENTRALIZADO
+      async function generateExternalId() {
+        try {
+          // Aguardar o DeduplicationEngine estar disponível
+          if (typeof window.DeduplicationEngine !== 'undefined') {
+            const externalId = await window.DeduplicationEngine.getValidExternalId();
+            console.log('🆔 External ID obtido do DeduplicationEngine:', externalId.substring(0, 20) + '...');
+            return externalId;
+          } else {
+            // Fallback: gerar SHA256 hash para consistência com Pixel e CAPI
+            console.warn('⚠️ DeduplicationEngine não disponível, gerando SHA256 fallback');
+            let existingId = localStorage.getItem('external_id');
+            // Se já existe um ID SHA256 válido (64 hex chars), reutilizar
+            if (existingId && existingId.length === 64 && /^[a-f0-9]{64}$/.test(existingId)) {
+              return existingId;
+            }
+            // Gerar novo SHA256 external_id
+            const baseId = `${Date.now()}_${Math.random().toString(36).substr(2, 12)}`;
+            const hashedId = await hashSHA256(baseId);
+            if (hashedId && hashedId.length === 64) {
+              localStorage.setItem('external_id', hashedId);
+              localStorage.setItem('external_id_created', Date.now().toString());
+              console.log('🆔 External ID SHA256 gerado:', hashedId.substring(0, 20) + '...');
+              return hashedId;
+            }
+            // Último recurso se crypto.subtle falhar (HTTP/dev)
+            const fallbackId = baseId.split('').reduce((hash, char) => {
+              return ((hash << 5) - hash + char.charCodeAt(0)) & 0x7fffffff;
+            }, 0).toString(16).padStart(16, '0').repeat(4);
+            localStorage.setItem('external_id', fallbackId);
+            localStorage.setItem('external_id_created', Date.now().toString());
+            return fallbackId;
+          }
+        } catch (error) {
+          console.error('❌ Erro ao gerar External ID:', error);
+          const baseId = `${Date.now()}_${Math.random().toString(36).substr(2, 12)}`;
+          const fallbackId = baseId.split('').reduce((hash, char) => {
+            return ((hash << 5) - hash + char.charCodeAt(0)) & 0x7fffffff;
+          }, 0).toString(16).padStart(16, '0').repeat(4);
+          localStorage.setItem('external_id', fallbackId);
+          localStorage.setItem('external_id_created', Date.now().toString());
+          return fallbackId;
+        }
+      }
+
+      // ✅ 2.2. SINCRONIZAÇÃO COM DEDUPLICATIONENGINE
+      function setupAutoSync() {
+        const syncInterval = setInterval(async () => {
+          try {
+            if (typeof window.DeduplicationEngine !== 'undefined') {
+              // Garantir que DeduplicationEngine use o mesmo ID já gerado
+              const currentId = localStorage.getItem('external_id');
+              if (currentId && currentId.length === 64 && /^[a-f0-9]{64}$/.test(currentId)) {
+                console.log('✅ External ID SHA256 já consistente, sincronização OK');
+              } else if (currentId) {
+                // ID antigo em formato não-SHA256, atualizar
+                const definitiveId = await window.DeduplicationEngine.getValidExternalId();
+                console.log('🔄 External ID atualizado para SHA256:', definitiveId.substring(0, 20) + '...');
+              }
+              clearInterval(syncInterval);
+            }
+          } catch (error) {
+            console.warn('⚠️ Erro na sincronização:', error);
+          }
+        }, 1000);
+        setTimeout(() => clearInterval(syncInterval), 10000);
+      }
+      setupAutoSync();
+
+      // ✅ Função para hash SHA256 (consistência com Meta CAPI)
+      async function hashSHA256(value) {
+        if (!value || typeof value !== 'string') {
+          console.warn('⚠️ hashSHA256: Valor inválido:', value);
+          return '';
+        }
+
+        // ✅ CORREÇÃO: Verificar se crypto.subtle está disponível (não funciona em HTTP)
+        if (typeof crypto === 'undefined' || !crypto.subtle) {
+          console.warn('⚠️ crypto.subtle não disponível (HTTP). Geolocalização desabilitada.');
+          return '';
+        }
+
+        try {
+          // Usar Web Crypto API (disponível em navegadores modernos)
+          const encoder = new TextEncoder();
+          const data = encoder.encode(value.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
+          const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+          const hashArray = Array.from(new Uint8Array(hashBuffer));
+          const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+          return hashHex;
+        } catch (error) {
+          console.error('❌ Erro ao gerar hash SHA256:', error);
+          return ''; // ✅ CORREÇÃO CRÍTICA: Retornar string vazia em vez do valor original para evitar vazamento de PII
+        }
+      }
+
+      // ✅ 2.1. OBTER DADOS DE GEOLOCALIZAÇÃO PARA ADVANCED MATCHING (com hash SHA256)
+      // Retorna { hashed: { ct, st, zp, country }, plain: { ct, st, zp, country } }
+      // - hashed: SHA256 para payloads CAPI
+      // - plain: texto puro (lowercase) para fbq('init') (Pixel hasheia automaticamente)
+      async function getGeoDataForAdvancedMatching() {
+        try {
+          const CACHE_KEY = '__geo_enrichment_cache';
+          const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 horas
+
+          // Verificar cache primeiro
+          const cached = localStorage.getItem(CACHE_KEY);
+          if (cached) {
+            const { data, timestamp } = JSON.parse(cached);
+            if (Date.now() - timestamp < CACHE_TTL) {
+              console.log('🌍 GEO: Dados obtidos do cache IPGeolocation.io para Advanced Matching');
+              return {
+                hashed: {
+                  ct: data.city ? await hashSHA256(data.city) : null,
+                  st: data.state_prov ? await hashSHA256(data.state_prov) : null,
+                  zp: data.zipcode ? await hashSHA256(data.zipcode) : null,
+                  country: data.country_code2 ? await hashSHA256(data.country_code2) : null
+                },
+                plain: {
+                  ct: data.city ? data.city.trim().toLowerCase() : null,
+                  st: data.state_prov ? data.state_prov.trim().toLowerCase() : null,
+                  zp: data.zipcode ? data.zipcode.trim().toLowerCase() : null,
+                  country: data.country_code2 ? data.country_code2.trim().toLowerCase() : null
+                }
+              };
+            }
+          }
+
+          // Buscar dados da API IPGeolocation.io com timeout
+          console.log('🌍 GEO: Buscando dados da API IPGeolocation.io para Advanced Matching...');
+          const controller = new AbortController();
+          const timeout = setTimeout(() => controller.abort(), 3000);
+
+          // Para arquivo HTML estático, usamos a chave diretamente
+          // A variável de ambiente é usada nos arquivos TypeScript/React
+          const API_KEY = '86ceb141b4964e02931f28ce31951e9f';
+          const response = await fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}&fields=geo,time_zone,currency,isp`, {
+            signal: controller.signal,
+            headers: { 'Accept': 'application/json' }
+          });
+
+          clearTimeout(timeout);
+
+          if (response.ok) {
+            const data = await response.json();
+
+            // Salvar no cache
+            localStorage.setItem(CACHE_KEY, JSON.stringify({
+              data: data,
+              timestamp: Date.now()
+            }));
+
+            console.log('🌍 GEO: Dados obtidos da API IPGeolocation.io para Advanced Matching:', {
+              country: data.country_code2,
+              state: data.state_prov,
+              city: data.city,
+              postal: data.zipcode
+            });
+
+            // ✅ Retornar ambas versões: hashed para CAPI, plain para fbq('init')
+            // ✅ CORREÇÃO: Usar state_prov para consistência com GeoEnrichment.ts
+            return {
+              hashed: {
+                ct: data.city ? await hashSHA256(data.city) : null,
+                st: data.state_prov ? await hashSHA256(data.state_prov) : null,
+                zp: data.zipcode ? await hashSHA256(data.zipcode) : null,
+                country: data.country_code2 ? await hashSHA256(data.country_code2) : null
+              },
+              plain: {
+                ct: data.city ? data.city.trim().toLowerCase() : null,
+                st: data.state_prov ? data.state_prov.trim().toLowerCase() : null,
+                zp: data.zipcode ? data.zipcode.trim().toLowerCase() : null,
+                country: data.country_code2 ? data.country_code2.trim().toLowerCase() : null
+              }
+            };
+          }
+
+        } catch (error) {
+          console.warn('⚠️ GEO: Erro ao obter geolocalização para Advanced Matching:', error);
+        }
+
+        return null;
+      }
+
+      // ✅ 2.2. SISTEMA DE DETECÇÃO DE TIMEZONE E DADOS DEMOGRÁFICOS
+      class TimezoneDetection {
+        static getTimezoneData() {
+          try {
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const locale = navigator.language || navigator.userLanguage;
+            const now = new Date();
+            const offset = now.getTimezoneOffset();
+
+            return {
+              timezone: timezone,
+              locale: locale,
+              offset: offset,
+              timestamp: now.toISOString()
+            };
+          } catch (error) {
+            console.warn('⚠️ Erro ao detectar timezone:', error);
+            return null;
+          }
+        }
+
+        static inferDemographicData(geoData, timezoneData) {
+          const demographics = {};
+
+          // Inferir dados baseados na localização
+          if (geoData && geoData.country) {
+            demographics.country_code = geoData.country_code;
+            demographics.region = geoData.region;
+
+            // Mapear países para possíveis idiomas predominantes
+            const countryLanguageMap = {
+              'BR': 'pt',
+              'US': 'en',
+              'GB': 'en',
+              'ES': 'es',
+              'FR': 'fr',
+              'DE': 'de',
+              'IT': 'it'
+            };
+
+            if (countryLanguageMap[geoData.country_code]) {
+              demographics.inferred_language = countryLanguageMap[geoData.country_code];
+            }
+          }
+
+          // ✅ timezone e locale não são reconhecidos pela Meta no Advanced Matching
+          // Removidos para evitar "peso morto" nos dados
+
+          return demographics;
+        }
+      }
+
+
+
+      // ✅ 3. INICIALIZAR META PIXEL COM ADVANCED MATCHING
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+
+      // ✅ Gerar external_id e configurar Advanced Matching com geolocalização
+      (async () => {
+        const externalId = await generateExternalId();
+
+        // ✅ Buscar dados de geolocalização ANTES de inicializar o Pixel
+        const geoData = await getGeoDataForAdvancedMatching();
+
+        // ✅ Buscar dados do profile cacheados (se usuário já visitou logado antes)
+        // IMPORTANTE: Preparar 2 versões - texto puro para fbq('init') e hasheado para CAPI
+        var cachedProfile = null;
+        var cachedUserDataPlain = {};  // Texto puro para fbq('init') - Pixel hasheia sozinho
+        var cachedUserDataHashed = {}; // SHA256 para CAPI
+        try {
+          var profileJson = localStorage.getItem('jardinei_profile_tracking');
+          if (profileJson) {
+            cachedProfile = JSON.parse(profileJson);
+            if (cachedProfile.email) {
+              cachedUserDataPlain.em = cachedProfile.email.toLowerCase().trim();
+              cachedUserDataHashed.em = await hashSHA256(cachedProfile.email.toLowerCase().trim());
+            }
+            if (cachedProfile.full_name) {
+              var parts = cachedProfile.full_name.trim().split(' ');
+              if (parts[0]) {
+                cachedUserDataPlain.fn = parts[0].toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                cachedUserDataHashed.fn = await hashSHA256(parts[0].toLowerCase());
+              }
+              if (parts.length > 1) {
+                cachedUserDataPlain.ln = parts[parts.length - 1].toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                cachedUserDataHashed.ln = await hashSHA256(parts[parts.length - 1].toLowerCase());
+              }
+            }
+            if (cachedProfile.phone) {
+              var digits = cachedProfile.phone.replace(/\D/g, '');
+              if (digits.length === 10 || digits.length === 11) digits = '55' + digits;
+              if (digits.length >= 10) {
+                cachedUserDataPlain.ph = digits;
+                cachedUserDataHashed.ph = await hashSHA256(digits);
+              }
+            }
+            if (Object.keys(cachedUserDataPlain).length > 0) {
+              console.log('👤 Dados do profile cache encontrados:', Object.keys(cachedUserDataPlain));
+            }
+          }
+        } catch (e) { /* ignore */ }
+
+        // ✅ CORREÇÃO ADVANCED MATCHING: Incluir ct, st, zp, country + em/fn/ln/ph no fbq('init')
+        const advancedMatchingData = {
+          external_id: externalId
+        };
+
+        // Adicionar dados geográficos em TEXTO PURO (Pixel hasheia automaticamente)
+        if (geoData && geoData.plain) {
+          if (geoData.plain.ct) advancedMatchingData.ct = geoData.plain.ct;
+          if (geoData.plain.st) advancedMatchingData.st = geoData.plain.st;
+          if (geoData.plain.zp) advancedMatchingData.zp = geoData.plain.zp;
+          if (geoData.plain.country) advancedMatchingData.country = geoData.plain.country;
+        }
+
+        // Adicionar dados do usuário em TEXTO PURO (Pixel hasheia automaticamente)
+        if (cachedUserDataPlain.em) advancedMatchingData.em = cachedUserDataPlain.em;
+        if (cachedUserDataPlain.fn) advancedMatchingData.fn = cachedUserDataPlain.fn;
+        if (cachedUserDataPlain.ln) advancedMatchingData.ln = cachedUserDataPlain.ln;
+        if (cachedUserDataPlain.ph) advancedMatchingData.ph = cachedUserDataPlain.ph;
+
+        // Inicializar com todos os dados de Advanced Matching
+        fbq('init', '888149620416465', advancedMatchingData);
+
+        console.log('✅ Meta Pixel inicializado com Advanced Matching completo:', {
+          external_id: externalId.substring(0, 20) + '...',
+          hasGeoData: !!(geoData && geoData.plain && (geoData.plain.ct || geoData.plain.st || geoData.plain.zp)),
+          hasUserData: Object.keys(cachedUserDataPlain).length > 0,
+          fields: Object.keys(advancedMatchingData)
+        });
+
+        // ✅ CORREÇÃO COBERTURA CAPI: Disparar PageView automático com CAPI
+        // Gera event_id único para deduplicação Pixel/CAPI
+        const pageviewEventId = `pv_${Date.now()}_${Math.random().toString(36).substr(2, 8)}`;
+
+        // ✅ Marcar que PageView e ViewContent iniciais serão disparados pelo HTML (evita duplicação no React)
+        window.__initialPageViewFired = true;
+        window.__initialPageViewEventId = pageviewEventId;
+        window.__initialViewContentFired = true;
+
+        // ✅ Capturar event_time NO MOMENTO do fbq('track'), antes do setTimeout/polling
+        const pageviewTimeSec = Math.floor(Date.now() / 1000);
+
+        // Disparar PageView no Pixel com eventID
+        fbq('track', 'PageView', {
+          content_name: 'pagina_jardinei',
+          content_category: 'jardinei_app'
+        }, {
+          eventID: pageviewEventId
+        });
+        console.log('📄 PageView disparado via Pixel (eventID:', pageviewEventId + ')');
+
+        // ✅ AGUARDAR FBP CARREGAR (timeout 3s) antes de enviar CAPI
+        setTimeout(async function() {
+          try {
+            // ✅ DETECÇÃO DE IP: Buscar IP real do usuário (IPv6 preferido) para melhor EMQ
+            var clientIPAddress = null;
+            try {
+              var ipResponse = await Promise.race([
+                fetch('https://api64.ipify.org?format=json').then(r => r.json()),
+                new Promise((_, reject) => setTimeout(() => reject('timeout'), 3000))
+              ]);
+              if (ipResponse && ipResponse.ip) {
+                clientIPAddress = ipResponse.ip;
+                console.log('🌐 IP detectado para CAPI:', clientIPAddress.includes(':') ? 'IPv6' : 'IPv4');
+              }
+            } catch (ipErr) {
+              try {
+                var ipv4Response = await Promise.race([
+                  fetch('https://api.ipify.org?format=json').then(r => r.json()),
+                  new Promise((_, reject) => setTimeout(() => reject('timeout'), 2000))
+                ]);
+                if (ipv4Response && ipv4Response.ip) {
+                  clientIPAddress = ipv4Response.ip;
+                  console.log('🌐 IP (IPv4 fallback) detectado para CAPI');
+                }
+              } catch (e) {
+                console.warn('⚠️ Não foi possível detectar IP para CAPI');
+              }
+            }
+
+            // ✅ Converter IPv4 para IPv6-mapped (Meta recomenda IPv6)
+            if (clientIPAddress && !clientIPAddress.includes(':')) {
+              clientIPAddress = '::ffff:' + clientIPAddress;
+              console.log('🌐 IPv4 convertido para IPv6-mapped:', clientIPAddress);
+            }
+
+            // ✅ CORREÇÃO CRÍTICA: Aguardar FBP ser criado pelo Pixel (máx 3s)
+            var fbpCookie = null;
+            var fbcCookie = null;
+            var attempts = 0;
+            var maxAttempts = 50; // 50 x 100ms = 5 segundos (igual ao metaPixel.ts)
+
+            // Polling para aguardar FBP ser criado
+            while (!fbpCookie && attempts < maxAttempts) {
+              var match = document.cookie.match(/(?:^|;\s*)_fbp=([^;]*)/);
+              if (match && match[1]) {
+                fbpCookie = match[1];
+                console.log('✅ FBP encontrado após ' + (attempts * 100) + 'ms:', fbpCookie.substring(0, 20) + '...');
+                break;
+              }
+              await new Promise(resolve => setTimeout(resolve, 100));
+              attempts++;
+            }
+
+            if (!fbpCookie) {
+              console.warn('⚠️ FBP não encontrado após 5s - enviando CAPI sem FBP');
+            }
+
+            // ✅ CORREÇÃO: Polling para FBC também (igual FBP) - aguardar cookie ser criado
+            var fbcAttempts = 0;
+            var maxFbcAttempts = 30; // 30 x 100ms = 3 segundos para FBC
+
+            while (!fbcCookie && fbcAttempts < maxFbcAttempts) {
+              var fbcMatch = document.cookie.match(/(?:^|;\s*)_fbc=([^;]*)/);
+              if (fbcMatch && fbcMatch[1] && fbcMatch[1].length > 10) {
+                fbcCookie = fbcMatch[1];
+                console.log('✅ FBC encontrado após ' + (fbcAttempts * 100) + 'ms:', fbcCookie.substring(0, 30) + '...');
+                // Sincronizar com localStorage
+                try {
+                  localStorage.setItem('_fbc_backup', fbcCookie);
+                  localStorage.setItem('_fbc_backup_time', Date.now().toString());
+                } catch (e) {}
+                break;
+              }
+              await new Promise(resolve => setTimeout(resolve, 100));
+              fbcAttempts++;
+            }
+
+            // ✅ V9.4: FALLBACK ÚNICO - localStorage backup (cópia exata do cookie do Pixel)
+            // REMOVIDO: Criação manual de fbc a partir de fbclid (causava erro "fbclid modificado")
+            if (!fbcCookie) {
+              try {
+                var storedFbc = localStorage.getItem('_fbc_backup');
+                var storedTime = localStorage.getItem('_fbc_backup_time');
+                // Só usar backup se é formato válido do Pixel (fb.X.timestamp.fbclid)
+                if (storedFbc && storedFbc.length > 20 && /^fb\.[0-9]+\.[0-9]{10,}\..+$/.test(storedFbc)) {
+                  if (storedTime) {
+                    var ageInDays = (Date.now() - parseInt(storedTime)) / (1000 * 60 * 60 * 24);
+                    if (ageInDays < 90) {
+                      fbcCookie = storedFbc;
+                      console.log('💾 FBC recuperado do localStorage (backup cookie Pixel):', storedFbc.substring(0, 30) + '...');
+                    }
+                  }
+                }
+              } catch (e) {
+                // Ignorar erro de localStorage
+              }
+            }
+
+            // Se não tem fbc, não inventar um - melhor omitir
+            if (!fbcCookie) {
+              console.log('ℹ️ FBC não disponível - omitindo para evitar erro Meta "fbclid modificado"');
+            }
+
+          const capiPayload = {
+            data: [{
+              event_name: 'PageView',
+              event_id: pageviewEventId,
+              event_time: pageviewTimeSec,
+              event_source_url: window.location.href,
+              action_source: 'website',
+              user_data: {
+                external_id: externalId,
+                client_user_agent: navigator.userAgent,
+                ...(clientIPAddress && { client_ip_address: clientIPAddress }),
+                ...(fbcCookie && { fbc: fbcCookie }),
+                ...(fbpCookie && { fbp: fbpCookie }),
+                ...(geoData?.hashed?.ct && { ct: geoData.hashed.ct }),
+                ...(geoData?.hashed?.st && { st: geoData.hashed.st }),
+                ...(geoData?.hashed?.zp && { zp: geoData.hashed.zp }),
+                ...(geoData?.hashed?.country && { country: geoData.hashed.country }),
+                ...(cachedUserDataHashed.em && { em: cachedUserDataHashed.em }),
+                ...(cachedUserDataHashed.fn && { fn: cachedUserDataHashed.fn }),
+                ...(cachedUserDataHashed.ln && { ln: cachedUserDataHashed.ln }),
+                ...(cachedUserDataHashed.ph && { ph: cachedUserDataHashed.ph })
+              },
+              custom_data: {
+                content_name: 'pagina_jardinei',
+                content_category: 'jardinei_app'
+              }
+            }]
+          };
+
+          fetch('https://cap.jardinei.com/api/events', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(capiPayload),
+            keepalive: true
+          }).then(res => {
+            if (res.ok) {
+              console.log('✅ PageView enviado via CAPI');
+            } else {
+              console.warn('⚠️ CAPI PageView falhou:', res.status);
+            }
+          }).catch(err => {
+            console.warn('⚠️ Erro CAPI PageView:', err);
+          });
+
+          // ✅ VIEWCONTENT: Disparar 2s após PageView (mesmo padrão do React)
+          // Usa os MESMOS dados (fbp, fbc, geo, em/fn/ln/ph) para qualidade idêntica
+          setTimeout(function() {
+            try {
+              const vcEventId = `vc_${Date.now()}_${Math.random().toString(36).substr(2, 8)}`;
+
+              // ✅ Capturar event_time NO MOMENTO do fbq('track'), antes de qualquer delay
+              const viewContentTimeSec = Math.floor(Date.now() / 1000);
+
+              // Marcar que ViewContent inicial já foi disparado (evita duplicação no React)
+              window.__initialViewContentFired = true;
+              window.__initialViewContentEventId = vcEventId;
+
+              // Disparar ViewContent no Pixel com eventID
+              fbq('track', 'ViewContent', {
+                content_name: 'conteudo_jardinei',
+                content_category: 'jardinei_content',
+                content_type: 'service',
+                source: 'content_view',
+                value: 5,
+                currency: 'BRL'
+              }, {
+                eventID: vcEventId
+              });
+              console.log('👁️ ViewContent disparado via Pixel (eventID:', vcEventId + ')');
+
+              // Enviar ViewContent via CAPI com MESMOS dados do PageView
+              const vcPayload = {
+                data: [{
+                  event_name: 'ViewContent',
+                  event_id: vcEventId,
+                  event_time: viewContentTimeSec,
+                  event_source_url: window.location.href,
+                  action_source: 'website',
+                  user_data: {
+                    external_id: externalId,
+                    client_user_agent: navigator.userAgent,
+                    ...(clientIPAddress && { client_ip_address: clientIPAddress }),
+                    ...(fbcCookie && { fbc: fbcCookie }),
+                    ...(fbpCookie && { fbp: fbpCookie }),
+                    ...(geoData?.hashed?.ct && { ct: geoData.hashed.ct }),
+                    ...(geoData?.hashed?.st && { st: geoData.hashed.st }),
+                    ...(geoData?.hashed?.zp && { zp: geoData.hashed.zp }),
+                    ...(geoData?.hashed?.country && { country: geoData.hashed.country }),
+                    ...(cachedUserDataHashed.em && { em: cachedUserDataHashed.em }),
+                    ...(cachedUserDataHashed.fn && { fn: cachedUserDataHashed.fn }),
+                    ...(cachedUserDataHashed.ln && { ln: cachedUserDataHashed.ln }),
+                    ...(cachedUserDataHashed.ph && { ph: cachedUserDataHashed.ph })
+                  },
+                  custom_data: {
+                    content_name: 'conteudo_jardinei',
+                    content_category: 'jardinei_content',
+                    content_type: 'service',
+                    source: 'content_view',
+                    value: 5,
+                    currency: 'BRL'
+                  }
+                }]
+              };
+
+              fetch('https://cap.jardinei.com/api/events', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(vcPayload),
+                keepalive: true
+              }).then(res => {
+                if (res.ok) {
+                  console.log('✅ ViewContent enviado via CAPI');
+                } else {
+                  console.warn('⚠️ CAPI ViewContent falhou:', res.status);
+                }
+              }).catch(err => {
+                console.warn('⚠️ Erro CAPI ViewContent:', err);
+              });
+            } catch (vcError) {
+              console.warn('⚠️ Erro ao disparar ViewContent:', vcError);
+            }
+          }, 2000); // ViewContent 2s após PageView
+
+          } catch (capiError) {
+            console.warn('⚠️ Erro ao preparar CAPI PageView:', capiError);
+          }
+        }, 500); // ✅ Aguardar 500ms para Pixel inicializar antes de buscar FBP
+      })();
+
+      // Sistema de backup removido - agora gerenciado pelo CookieManager robusto
+      console.log('🍪 Sistema de FBP gerenciado pelo CookieManager');
+
+      // ✅ 4. INICIALIZAR SISTEMAS
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('🚀 Sistema de tracking avançado inicializado');
+        console.log('✅ Meta Pixel funcionando apenas com dados seguros (external_id + geolocalização)');
+      });
+    </script>
+    <!-- End Meta Pixel Code -->
+  </head>
+
+  <body>
+    <!-- Meta Pixel Noscript -->
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=888149620416465&ev=PageView&noscript=1"/></noscript>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('✅ Service Worker registrado:', registration.scope);
+            })
+            .catch((error) => {
+              console.warn('⚠️ Service Worker não registrado:', error);
+            });
+        });
+      }
+    </script>
+  </body>
+</html>

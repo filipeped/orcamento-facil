@@ -1,0 +1,73 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://connect.facebook.net https://*.supabase.co https://scripts.converteai.net https://*.converteai.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src * data: blob:; media-src 'self' blob: https://*.converteai.net https://*.cloudfront.net; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://connect.facebook.net https://www.facebook.com https://graph.facebook.com https://api.ipgeolocation.io https://cap.jardinei.com https://*.jardinei.com https://fonts.googleapis.com https://fonts.gstatic.com https://api.ipify.org https://api64.ipify.org https://api.myip.com https://*.converteai.net https://api.vturb.com.br; frame-src 'self' https://www.facebook.com https://*.converteai.net; frame-ancestors 'self'"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    {
+      "source": "/p/:id",
+      "has": [
+        { "type": "header", "key": "user-agent", "value": ".*(WhatsApp|facebookexternalhit|Facebot|Twitterbot|TelegramBot|LinkedInBot|Slackbot|Discordbot|Googlebot|bingbot|Applebot|Pinterest).*" }
+      ],
+      "destination": "/api/og-proposal?id=:id"
+    },
+    {
+      "source": "/p/:code/:name",
+      "has": [
+        { "type": "header", "key": "user-agent", "value": ".*(WhatsApp|facebookexternalhit|Facebot|Twitterbot|TelegramBot|LinkedInBot|Slackbot|Discordbot|Googlebot|bingbot|Applebot|Pinterest).*" }
+      ],
+      "destination": "/api/og-proposal?id=:code&name=:name"
+    },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron?job=check-plans",
+      "schedule": "0 8 * * *"
+    },
+    {
+      "path": "/api/cron?job=recurring",
+      "schedule": "0 7 1 * *"
+    },
+    {
+      "path": "/api/cron?job=monthly-report",
+      "schedule": "0 10 1 * *"
+    },
+    {
+      "path": "/api/cron?job=reengagement",
+      "schedule": "0 13 * * *"
+    },
+    {
+      "path": "/api/cron?job=proposal-reminders",
+      "schedule": "0 14 * * *"
+    }
+  ]
+}

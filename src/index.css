@@ -1,0 +1,1014 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   JARDINEI v3 — Design System: Terra/Natureza
+   Unica fonte de verdade pra cor, tipografia, espaco, sombra.
+   ============================================================ */
+@layer base {
+  :root {
+    /* Paleta terra/natureza (substituindo emerald saturado) */
+    --jd-bg: 40 33% 96%;          /* creme papel, bg principal */
+    --jd-surface: 0 0% 100%;       /* branco puro pra cards */
+    --jd-ink: 120 12% 11%;         /* verde-preto, texto principal */
+    --jd-muted: 110 8% 45%;        /* verde-cinza, texto secundario */
+    --jd-border: 40 20% 88%;       /* bege claro pra bordas */
+    --jd-accent: 161 94% 30%;      /* esmeralda (emerald-600 Tailwind) */
+    --jd-accent-soft: 152 76% 88%; /* esmeralda claro pra badges */
+    --jd-warm: 32 35% 50%;         /* caramelo pra destaques raros */
+  }
+}
+
+@layer utilities {
+  /* Tipografia do sistema v3 */
+  .font-display {
+    font-family: 'Fraunces', 'Georgia', serif;
+    font-optical-sizing: auto;
+    font-variation-settings: 'opsz' 72;
+  }
+  .font-body {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* Cores semanticas do sistema v3 */
+  .bg-jd-bg { background-color: hsl(var(--jd-bg)); }
+  .bg-jd-surface { background-color: hsl(var(--jd-surface)); }
+  .bg-jd-accent { background-color: hsl(var(--jd-accent)); }
+  .bg-jd-accent-soft { background-color: hsl(var(--jd-accent-soft)); }
+  .text-jd-ink { color: hsl(var(--jd-ink)); }
+  .text-jd-muted { color: hsl(var(--jd-muted)); }
+  .text-jd-accent { color: hsl(var(--jd-accent)); }
+  .text-jd-warm { color: hsl(var(--jd-warm)); }
+  .border-jd-border { border-color: hsl(var(--jd-border)); }
+  .border-jd-accent { border-color: hsl(var(--jd-accent)); }
+
+  /* Sombras do sistema v3 — so 2 tokens */
+  .shadow-jd-flat { box-shadow: 0 1px 0 0 hsl(var(--jd-border) / 0.5); }
+  .shadow-jd-lift { box-shadow: 0 12px 32px -16px hsl(120 15% 15% / 0.12), 0 2px 6px -2px hsl(120 15% 15% / 0.04); }
+}
+
+/* Scroll suave global (anchors, etc) */
+html {
+  scroll-behavior: smooth;
+}
+/* Horizontal overflow apenas no body — html precisa scrollar livre */
+body {
+  overflow-x: hidden;
+  width: 100%;
+  background-color: hsl(210 20% 98%);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Campo ativo sempre visivel no mobile quando teclado abre.
+   scroll-margin reserva espaco pra evitar que teclado cubra o input. */
+@media (max-width: 768px) {
+  input, textarea, select {
+    scroll-margin-top: 100px;
+    scroll-margin-bottom: 100px;
+  }
+  /* Padding extra no form mobile pra conteudo nao colar no teclado */
+  form {
+    scroll-padding-bottom: 80px;
+  }
+}
+
+/* Respeita prefers-reduced-motion — desliga scroll smooth */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+#root {
+  width: 100%;
+}
+
+/* Remove highlight azul iOS em todos elementos interativos */
+input, button, a, select, textarea, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Focus visible consistente — substitui highlight iOS.
+   Inputs tem override inline (focus-visible:ring-0 + border jd-accent)
+   entao nao ganham o outline geral. */
+*:focus-visible {
+  outline: 2px solid hsl(var(--jd-accent));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+/* Inputs, textareas e selects: sem outline — feedback so pela borda */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+}
+
+/* iOS: evita zoom automático em input focus — font >= 16px sempre */
+@supports (-webkit-touch-callout: none) {
+  input, select, textarea {
+    font-size: 16px;
+  }
+}
+
+/* JARDINEI Design System - Brazilian Landscaper SaaS */
+
+@layer base {
+  :root {
+    /* Core Brand Colors */
+    --background: 0 0% 100%;
+    --foreground: 220 13% 18%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 13% 18%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 13% 18%;
+
+    /* Primary Green - Emerald 500 */
+    --primary: 160 84% 39%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Dark Green for depth */
+    --secondary: 142 72% 29%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Muted - Soft backgrounds */
+    --muted: 210 20% 98%;
+    --muted-foreground: 220 9% 46%;
+
+    /* Accent - Golden Yellow for CTAs */
+    --accent: 38 92% 50%;
+    --accent-foreground: 220 13% 9%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Success */
+    --success: 160 84% 39%;
+    --success-foreground: 0 0% 100%;
+
+    /* Warning */
+    --warning: 38 92% 50%;
+    --warning-foreground: 220 13% 9%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 142 76% 36%;
+
+    --radius: 0.75rem;
+
+    /* Custom JARDINEI tokens */
+    --verde-50: 138 76% 97%;
+    --verde-100: 141 84% 93%;
+    --verde-200: 141 79% 85%;
+    --verde-300: 142 77% 73%;
+    --verde-400: 142 69% 58%;
+    --verde-500: 142 76% 46%;
+    --verde-600: 142 76% 36%;
+    --verde-700: 142 72% 29%;
+    --verde-800: 143 64% 24%;
+    --verde-900: 144 61% 20%;
+
+    --gold-400: 38 92% 60%;
+    --gold-500: 38 92% 50%;
+    --gold-600: 32 95% 44%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(142 76% 36%) 0%, hsl(142 72% 29%) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(38 92% 50%) 0%, hsl(32 95% 44%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(138 76% 97%) 100%);
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --shadow-card: 0 4px 20px -2px rgb(34 197 94 / 0.1);
+    --shadow-card-hover: 0 8px 30px -4px rgb(34 197 94 / 0.15);
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 220 13% 18%;
+    --sidebar-primary: 142 76% 36%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 138 76% 97%;
+    --sidebar-accent-foreground: 142 72% 29%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 142 76% 36%;
+  }
+
+  .dark {
+    --background: 220 13% 9%;
+    --foreground: 210 20% 98%;
+
+    --card: 220 13% 12%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 220 13% 12%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 160 84% 39%;
+    --primary-foreground: 220 13% 9%;
+
+    --secondary: 142 72% 29%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 13% 15%;
+    --muted-foreground: 220 9% 60%;
+
+    --accent: 38 92% 50%;
+    --accent-foreground: 220 13% 9%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 20%;
+    --input: 220 13% 20%;
+    --ring: 142 76% 46%;
+
+    --sidebar-background: 220 13% 9%;
+    --sidebar-foreground: 210 20% 98%;
+    --sidebar-primary: 142 76% 46%;
+    --sidebar-primary-foreground: 220 13% 9%;
+    --sidebar-accent: 220 13% 15%;
+    --sidebar-accent-foreground: 210 20% 98%;
+    --sidebar-border: 220 13% 20%;
+    --sidebar-ring: 142 76% 46%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+    @apply font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  /* Hero Button Variant */
+  .btn-hero {
+    @apply bg-gradient-to-r from-primary to-secondary text-primary-foreground font-semibold px-4 py-3 sm:px-6 sm:py-3.5 md:px-8 md:py-4 rounded-lg sm:rounded-xl shadow-lg text-sm sm:text-base;
+    @apply hover:shadow-xl hover:scale-[1.02] transition-all duration-300;
+  }
+
+  .btn-hero-outline {
+    @apply border-2 border-white/30 text-white font-semibold px-4 py-3 sm:px-6 sm:py-3.5 md:px-8 md:py-4 rounded-lg sm:rounded-xl backdrop-blur-sm text-sm sm:text-base;
+    @apply hover:bg-white/10 hover:border-white/50 transition-all duration-300;
+  }
+
+  .btn-cta {
+    @apply bg-gradient-to-r from-accent to-gold-600 text-accent-foreground font-bold px-4 py-2.5 sm:px-5 sm:py-3 md:px-6 md:py-3 rounded-lg sm:rounded-xl text-sm sm:text-base;
+    @apply hover:shadow-lg hover:scale-[1.02] transition-all duration-300;
+  }
+
+  .btn-whatsapp {
+    @apply bg-[#25D366] text-white font-semibold px-4 py-2.5 sm:px-5 sm:py-3 md:px-6 md:py-3 rounded-lg sm:rounded-xl text-sm sm:text-base;
+    @apply hover:bg-[#20BD5A] hover:shadow-lg transition-all duration-300;
+  }
+
+  /* Card Variants */
+  .card-elevated {
+    @apply bg-card rounded-xl sm:rounded-2xl shadow-md border border-border/50;
+    @apply hover:shadow-lg hover:-translate-y-1 transition-all duration-300;
+  }
+
+  .card-feature {
+    @apply bg-gradient-to-b from-card to-verde-50 rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border border-verde-100;
+    @apply hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300;
+  }
+
+  .card-pricing {
+    @apply bg-card rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border-2 border-border;
+    @apply hover:border-primary/50 hover:shadow-card-hover transition-all duration-300;
+  }
+
+  .card-pricing-featured {
+    @apply bg-card rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border-2 border-primary shadow-card;
+    @apply relative overflow-hidden;
+  }
+
+  /* Status Pills */
+  .pill-sent {
+    @apply bg-warning/10 text-warning px-3 py-1 rounded-full text-xs font-medium;
+  }
+
+  .pill-viewed {
+    @apply bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-medium;
+  }
+
+  .pill-accepted {
+    @apply bg-success/10 text-success px-3 py-1 rounded-full text-xs font-medium;
+  }
+
+  .pill-expired {
+    @apply bg-muted text-muted-foreground px-3 py-1 rounded-full text-xs font-medium;
+  }
+
+  .pill-draft {
+    @apply bg-muted text-muted-foreground px-3 py-1 rounded-full text-xs font-medium;
+  }
+
+  /* Gradient Text */
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+  }
+
+  .text-gradient-gold {
+    @apply bg-gradient-to-r from-accent to-gold-600 bg-clip-text text-transparent;
+  }
+
+  /* Section Backgrounds */
+  .section-verde {
+    @apply bg-gradient-to-br from-primary to-secondary;
+  }
+
+  .section-muted {
+    @apply bg-muted;
+  }
+
+  /* Animations */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out forwards;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-muted rounded-full;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-border rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-muted-foreground/50;
+}
+
+/* Hide scrollbar but allow scrolling */
+.no-scrollbar, .scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar, .scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Marquee animation - loop infinito perfeito */
+@keyframes marquee-infinite {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-25%);
+  }
+}
+
+.animate-marquee-infinite {
+  animation: marquee-infinite 30s linear infinite;
+}
+
+/* Float up animation - clean e elegante */
+@keyframes float-up {
+  0% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float-up {
+  animation: float-up 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Notification animation - aparece e some em loop */
+@keyframes notification {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  10%, 70% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  85% {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+}
+
+.animate-notification {
+  opacity: 0;
+  animation: notification 4s ease-in-out infinite;
+  animation-delay: 1.5s;
+  animation-fill-mode: backwards;
+}
+
+/* ========================================
+   APP-LIKE ANIMATIONS (GPU Accelerated)
+   Using only transform & opacity for 60fps
+   ======================================== */
+
+/* Page transition - fade in */
+.animate-page-in {
+  animation: pageIn 0.3s ease-out forwards;
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Card entrance - stagger effect */
+.animate-card-in {
+  animation: cardIn 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* List item stagger */
+.animate-list-item {
+  animation: listItemIn 0.3s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes listItemIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Button press effect - mobile friendly */
+.btn-press {
+  transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+  will-change: transform;
+}
+
+.btn-press:active {
+  transform: scale(0.97);
+  opacity: 0.9;
+}
+
+/* Card tap effect */
+.card-tap {
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+  will-change: transform;
+}
+
+.card-tap:active {
+  transform: scale(0.985);
+}
+
+@media (hover: hover) {
+  .card-tap:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px -5px rgb(0 0 0 / 0.1);
+  }
+}
+
+/* Smooth reveal for lazy loaded content */
+.animate-reveal {
+  animation: reveal 0.5s ease-out forwards;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Pulse animation for notifications/badges */
+.animate-pulse-subtle {
+  animation: pulseSub 2s ease-in-out infinite;
+}
+
+@keyframes pulseSub {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Shimmer loading effect */
+.animate-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Success checkmark animation */
+.animate-check {
+  animation: checkIn 0.4s ease-out forwards;
+}
+
+@keyframes checkIn {
+  0% {
+    transform: scale(0) rotate(-45deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(0deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* Bounce in for modals/dialogs */
+.animate-bounce-in {
+  animation: bounceIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes bounceIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Slide up from bottom (for bottom sheets) */
+.animate-slide-up-sheet {
+  animation: slideUpSheet 0.3s ease-out forwards;
+}
+
+@keyframes slideUpSheet {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Fade overlay */
+.animate-fade-overlay {
+  animation: fadeOverlay 0.2s ease-out forwards;
+}
+
+@keyframes fadeOverlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Number counter animation */
+.animate-number {
+  animation: numberPop 0.3s ease-out;
+}
+
+@keyframes numberPop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Spin for loaders */
+.animate-spin-smooth {
+  animation: spinSmooth 0.8s linear infinite;
+}
+
+@keyframes spinSmooth {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Stagger delays for lists */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
+.stagger-6 { animation-delay: 0.3s; }
+.stagger-7 { animation-delay: 0.35s; }
+.stagger-8 { animation-delay: 0.4s; }
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Touch feedback for mobile */
+@media (hover: none) {
+  .touch-feedback {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .touch-feedback:active {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* Smooth transitions for all interactive elements */
+button, a, input, select, textarea, [role="button"] {
+  transition: transform 0.15s ease-out, opacity 0.15s ease-out,
+              background-color 0.15s ease-out, border-color 0.15s ease-out,
+              box-shadow 0.15s ease-out;
+}
+
+/* iOS-style spring animation */
+.animate-spring {
+  animation: spring 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes spring {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ========================================
+   PREMIUM MICRO-INTERACTIONS
+   ======================================== */
+
+/* Input focus glow effect */
+input:focus, textarea:focus, select:focus {
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+  border-color: rgb(16, 185, 129) !important;
+}
+
+/* Image smooth load */
+.img-load {
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+.img-load.loaded {
+  opacity: 1;
+}
+
+/* Notification badge pulse */
+.badge-pulse {
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0);
+  }
+}
+
+/* Value change animation */
+.value-change {
+  animation: valueChange 0.3s ease-out;
+}
+
+@keyframes valueChange {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+    color: rgb(16, 185, 129);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Floating action button */
+.fab {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.2s ease-out;
+}
+
+.fab:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px -5px rgba(16, 185, 129, 0.4);
+}
+
+.fab:active {
+  transform: scale(0.95);
+}
+
+/* Icon hover micro-animation */
+.icon-hover {
+  transition: transform 0.2s ease-out;
+}
+
+.icon-hover:hover {
+  transform: scale(1.1);
+}
+
+.icon-hover:active {
+  transform: scale(0.9);
+}
+
+/* Subtle icon rotate on hover */
+.icon-rotate:hover svg {
+  transform: rotate(15deg);
+  transition: transform 0.2s ease-out;
+}
+
+/* Card lift effect on hover (desktop only) */
+@media (hover: hover) {
+  .card-lift {
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  }
+
+  .card-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.12);
+  }
+}
+
+/* Smooth color transition for status */
+.status-transition {
+  transition: background-color 0.3s ease-out, color 0.3s ease-out;
+}
+
+/* Subtle border glow for active elements */
+.glow-active {
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+/* Progress bar animation */
+.progress-animate {
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Switch toggle smooth */
+.switch-smooth {
+  transition: background-color 0.2s ease-out;
+}
+
+.switch-smooth [data-state="checked"] {
+  animation: switchOn 0.2s ease-out;
+}
+
+@keyframes switchOn {
+  0% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Dropdown menu appear */
+[data-radix-popper-content-wrapper] {
+  animation: dropdownIn 0.15s ease-out;
+}
+
+@keyframes dropdownIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Toast notification slide */
+[data-sonner-toast] {
+  animation: toastSlide 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes toastSlide {
+  from {
+    opacity: 0;
+    transform: translateY(100%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Checkbox/Radio check animation */
+input[type="checkbox"]:checked, input[type="radio"]:checked {
+  animation: checkBounce 0.2s ease-out;
+}
+
+@keyframes checkBounce {
+  0% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Avatar/Image container subtle effect */
+.avatar-ring {
+  position: relative;
+}
+
+.avatar-ring::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  border: 2px solid transparent;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(16, 185, 129, 0)) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+.avatar-ring:hover::after {
+  opacity: 1;
+}
+
+/* Subtle scale on list items */
+.list-item-interactive {
+  transition: transform 0.15s ease-out, background-color 0.15s ease-out;
+}
+
+.list-item-interactive:active {
+  transform: scale(0.98);
+}
+
+/* Count badge bounce */
+.count-badge {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.count-badge.updated {
+  animation: countBounce 0.3s ease-out;
+}
+
+@keyframes countBounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/* Ripple effect for buttons (optional, add via JS) */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.3) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+.ripple:active::after {
+  opacity: 1;
+}
