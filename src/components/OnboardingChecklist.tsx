@@ -127,7 +127,7 @@ export function OnboardingChecklist({ userId, hasProposals, hasCatalogItems }: O
         {/* Progress bar */}
         <div className="h-1.5 bg-neutral-100 rounded-full mb-4 overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-primary to-emerald-400 rounded-full transition-all duration-500"
+            className="h-full bg-gradient-to-r from-primary to-green-400 rounded-full transition-all duration-500"
             style={{ width: `${progress}%` }}
           />
         </div>

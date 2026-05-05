@@ -59,8 +59,8 @@ export default function AdminProjecao() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-emerald-100 rounded-lg">
-              <Calculator className="w-6 h-6 text-emerald-600" />
+            <div className="p-2 bg-green-100 rounded-lg">
+              <Calculator className="w-6 h-6 text-green-600" />
             </div>
             <h1 className="text-xl font-bold text-neutral-900">Projeção Financeira</h1>
           </div>
@@ -76,10 +76,10 @@ export default function AdminProjecao() {
 
         {/* KPIs */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl p-4 text-white">
+          <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-xl p-4 text-white">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-emerald-100 text-sm">MRR</span>
-              <TrendingUp className="w-5 h-5 text-emerald-200" />
+              <span className="text-green-100 text-sm">MRR</span>
+              <TrendingUp className="w-5 h-5 text-green-200" />
             </div>
             <p className="text-2xl font-bold">{fmt(metrics.mrr)}</p>
           </div>
@@ -118,7 +118,7 @@ export default function AdminProjecao() {
                 <div key={item.label}>
                   <div className="flex justify-between mb-2">
                     <span className="text-sm font-medium">{item.label} <span className="text-neutral-400">(R$ {item.price})</span></span>
-                    <span className="text-sm font-bold text-emerald-600">{item.value}</span>
+                    <span className="text-sm font-bold text-green-600">{item.value}</span>
                   </div>
                   <Slider value={[item.value]} onValueChange={(v) => item.set(v[0])} min={0} max={item.max} />
                 </div>
@@ -141,7 +141,7 @@ export default function AdminProjecao() {
             </div>
             <div className="flex items-center justify-between p-4 bg-neutral-900 rounded-lg mt-6">
               <span className="font-medium text-white">Total MRR</span>
-              <span className="text-2xl font-bold text-emerald-400">{fmt(metrics.mrr)}</span>
+              <span className="text-2xl font-bold text-green-400">{fmt(metrics.mrr)}</span>
             </div>
           </div>
         </div>

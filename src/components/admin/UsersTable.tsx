@@ -116,7 +116,7 @@ export function UsersTable({
 
   const getStatusBadge = (status: string) => {
     const styles = {
-      active: "bg-emerald-100 text-emerald-700",
+      active: "bg-green-100 text-green-700",
       cancelled: "bg-red-100 text-red-700",
       expired: "bg-neutral-100 text-neutral-600",
       overdue: "bg-amber-100 text-amber-700",

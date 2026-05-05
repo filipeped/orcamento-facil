@@ -16,11 +16,11 @@ export function Logo({ variant = "default", size = "md", className }: LogoProps)
   const colors = {
     default: {
       text: "text-jd-marine",
-      accent: "text-emerald-500",
+      accent: "text-green-500",
     },
     white: {
       text: "text-white",
-      accent: "text-emerald-400",
+      accent: "text-green-400",
     },
   };
 

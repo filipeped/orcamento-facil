@@ -23,12 +23,12 @@ import {
   FileStack,
   Sparkles,
   ShoppingCart,
-  Leaf,
+  Package,
   CheckCircle2,
   Scissors,
   Palette,
   ClipboardList,
-  Sprout,
+  Package,
   Wrench,
   Pencil,
 } from "lucide-react";
@@ -603,7 +603,7 @@ export default function NovaProposta() {
             <p className="text-xs sm:text-sm text-neutral-600">
               <span className="font-medium">{remainingProposals}</span> {remainingProposals === 1 ? "proposta restante" : "propostas restantes"} este mês
             </p>
-            <Link to="/upgrade" className="text-[10px] sm:text-xs text-emerald-600 hover:underline font-medium">
+            <Link to="/upgrade" className="text-[10px] sm:text-xs text-green-600 hover:underline font-medium">
               Ver planos
             </Link>
           </div>
@@ -725,7 +725,7 @@ export default function NovaProposta() {
                             />
                           ) : (
                             <div className="w-12 h-12 bg-muted rounded-xl flex items-center justify-center flex-shrink-0">
-                              <Leaf size={20} className="text-muted-foreground" />
+                              <Package size={20} className="text-muted-foreground" />
                             </div>
                           )}
 
@@ -1046,7 +1046,7 @@ export default function NovaProposta() {
                       : "bg-muted text-muted-foreground"
                   )}
                 >
-                  <Sprout size={14} />
+                  <Package size={14} />
                   Plantas
                 </button>
                 <button

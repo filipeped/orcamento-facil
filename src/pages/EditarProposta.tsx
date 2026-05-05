@@ -12,10 +12,10 @@ import {
   Save,
   Search,
   X,
-  Leaf,
+  Package,
   Minus,
   Pencil,
-  Sprout,
+  Package,
   Wrench,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -423,7 +423,7 @@ export default function EditarProposta() {
             {proposal.items.length === 0 ? (
               <button
                 onClick={() => setShowCatalog(true)}
-                className="w-full h-20 sm:h-24 border-2 border-dashed border-neutral-300 bg-neutral-50 rounded-lg sm:rounded-xl flex flex-col items-center justify-center text-neutral-500 hover:bg-emerald-50 hover:border-emerald-400 hover:text-emerald-600 transition-all active:scale-[0.98]"
+                className="w-full h-20 sm:h-24 border-2 border-dashed border-neutral-300 bg-neutral-50 rounded-lg sm:rounded-xl flex flex-col items-center justify-center text-neutral-500 hover:bg-accent/10 hover:border-green-400 hover:text-green-600 transition-all active:scale-[0.98]"
               >
                 <Plus size={22} className="mb-1" />
                 <span className="text-xs sm:text-sm font-medium">Adicionar do Catálogo</span>
@@ -443,7 +443,7 @@ export default function EditarProposta() {
                         />
                       ) : (
                         <div className="w-12 h-12 bg-muted rounded-xl flex items-center justify-center flex-shrink-0">
-                          <Leaf size={20} className="text-muted-foreground" />
+                          <Package size={20} className="text-muted-foreground" />
                         </div>
                       )}
 
@@ -602,7 +602,7 @@ export default function EditarProposta() {
                 <span className="text-[10px] sm:text-xs text-neutral-500 font-medium uppercase tracking-wide">Total</span>
                 <p className="text-[10px] sm:text-xs text-neutral-400">{proposal.items.length} {proposal.items.length === 1 ? 'item' : 'itens'}</p>
               </div>
-              <span className="text-xl sm:text-2xl font-bold text-emerald-600">
+              <span className="text-xl sm:text-2xl font-bold text-green-600">
                 {formatCurrency(calculateTotal())}
               </span>
             </div>
@@ -670,7 +670,7 @@ export default function EditarProposta() {
                       : "bg-muted text-muted-foreground"
                   )}
                 >
-                  <Sprout size={14} />
+                  <Package size={14} />
                   Plantas
                 </button>
                 <button

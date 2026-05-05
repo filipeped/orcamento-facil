@@ -150,11 +150,16 @@ const App = () => (
                       <Route path="/propostas/:id" element={<ProtectedRoute><PropostaDetalhe /></ProtectedRoute>} />
                       <Route path="/propostas/:id/editar" element={<ProtectedRoute><EditarProposta /></ProtectedRoute>} />
 
-                      {/* Faturas (stub - aguardando backend doc_type) */}
-                      <Route path="/faturas" element={<ProtectedRoute><FaturasStub /></ProtectedRoute>} />
-                      <Route path="/faturas/nova" element={<ProtectedRoute><FaturasStub /></ProtectedRoute>} />
-                      <Route path="/faturas/:id" element={<ProtectedRoute><FaturasStub /></ProtectedRoute>} />
-                      <Route path="/faturas/:id/editar" element={<ProtectedRoute><FaturasStub /></ProtectedRoute>} />
+                      {/* Faturas — reusa Propostas/NovaProposta filtrando por docType=fatura na rota */}
+                      <Route path="/faturas" element={<ProtectedRoute><Propostas /></ProtectedRoute>} />
+                      <Route path="/faturas/nova" element={<ProtectedRoute><NovaProposta /></ProtectedRoute>} />
+                      <Route path="/faturas/:id" element={<ProtectedRoute><PropostaDetalhe /></ProtectedRoute>} />
+                      <Route path="/faturas/:id/editar" element={<ProtectedRoute><EditarProposta /></ProtectedRoute>} />
+
+                      {/* Recibos — mesmo padrão */}
+                      <Route path="/recibos" element={<ProtectedRoute><Propostas /></ProtectedRoute>} />
+                      <Route path="/recibos/nova" element={<ProtectedRoute><NovaProposta /></ProtectedRoute>} />
+                      <Route path="/recibos/:id" element={<ProtectedRoute><PropostaDetalhe /></ProtectedRoute>} />
                       <Route path="/meus-itens" element={<ProtectedRoute><Catalogo /></ProtectedRoute>} />
                       <Route path="/clientes" element={<ProtectedRoute><Clientes /></ProtectedRoute>} />
                       <Route path="/despesas" element={<ProtectedRoute><Despesas /></ProtectedRoute>} />

@@ -197,8 +197,8 @@ export default function Agenda() {
                     day.isCurrentMonth
                       ? "hover:bg-neutral-100 active:bg-neutral-200"
                       : "text-neutral-300",
-                    isToday(day.date) && "bg-emerald-100 text-emerald-700 font-semibold",
-                    isSelected(day.date) && "ring-2 ring-emerald-500 bg-emerald-50"
+                    isToday(day.date) && "bg-green-100 text-green-700 font-semibold",
+                    isSelected(day.date) && "ring-2 ring-green-500 bg-accent/10"
                   )}
                 >
                   <span className="block">{day.date.getDate()}</span>
@@ -210,8 +210,8 @@ export default function Agenda() {
                           key={i}
                           className={cn(
                             "w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full",
-                            p.status === "approved" ? "bg-emerald-500" :
-                            p.status === "viewed" ? "bg-emerald-400" :
+                            p.status === "approved" ? "bg-green-500" :
+                            p.status === "viewed" ? "bg-green-400" :
                             p.status === "sent" ? "bg-neutral-400" : "bg-neutral-300"
                           )}
                         />
@@ -228,11 +228,11 @@ export default function Agenda() {
             {/* Legend - horizontal scroll on mobile */}
             <div className="flex items-center gap-3 sm:gap-4 mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-neutral-100 overflow-x-auto pb-1">
               <div className="flex items-center gap-1 sm:gap-1.5 flex-shrink-0">
-                <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-500" />
+                <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-green-500" />
                 <span className="text-[10px] sm:text-xs text-neutral-500">Aprovada</span>
               </div>
               <div className="flex items-center gap-1 sm:gap-1.5 flex-shrink-0">
-                <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-300" />
+                <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-green-300" />
                 <span className="text-[10px] sm:text-xs text-neutral-500">Visualizada</span>
               </div>
               <div className="flex items-center gap-1 sm:gap-1.5 flex-shrink-0">
@@ -260,11 +260,11 @@ export default function Agenda() {
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-xs sm:text-sm text-neutral-500">Aprovadas</span>
-                  <span className="font-semibold text-emerald-600 text-sm sm:text-base">{monthStats.approved}</span>
+                  <span className="font-semibold text-green-600 text-sm sm:text-base">{monthStats.approved}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-xs sm:text-sm text-neutral-500">Faturamento</span>
-                  <span className="font-semibold text-emerald-600 text-sm sm:text-base">{formatCurrency(monthStats.revenue)}</span>
+                  <span className="font-semibold text-green-600 text-sm sm:text-base">{formatCurrency(monthStats.revenue)}</span>
                 </div>
               </div>
             </div>
@@ -296,14 +296,14 @@ export default function Agenda() {
                     >
                       <div className={cn(
                         "w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center",
-                        proposal.status === "approved" ? "bg-emerald-100" :
-                        proposal.status === "viewed" ? "bg-emerald-50" :
+                        proposal.status === "approved" ? "bg-green-100" :
+                        proposal.status === "viewed" ? "bg-accent/10" :
                         proposal.status === "sent" ? "bg-neutral-100" : "bg-neutral-200"
                       )}>
                         {proposal.status === "approved" ? (
-                          <CheckCircle size={14} className="sm:w-4 sm:h-4 text-emerald-600" />
+                          <CheckCircle size={14} className="sm:w-4 sm:h-4 text-green-600" />
                         ) : proposal.status === "viewed" ? (
-                          <Eye size={14} className="sm:w-4 sm:h-4 text-emerald-500" />
+                          <Eye size={14} className="sm:w-4 sm:h-4 text-green-500" />
                         ) : proposal.status === "sent" ? (
                           <Clock size={14} className="sm:w-4 sm:h-4 text-neutral-500" />
                         ) : (

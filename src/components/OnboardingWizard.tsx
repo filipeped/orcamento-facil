@@ -233,12 +233,12 @@ export function OnboardingWizard({ userId, userName, onComplete }: OnboardingWiz
                     className={cn(
                       "w-16 h-16 rounded-xl border-2 border-dashed flex flex-col items-center justify-center gap-1 transition-all flex-shrink-0 bg-white",
                       logoUrl
-                        ? "border-emerald-300 p-1"
-                        : "border-neutral-300 hover:border-emerald-400 hover:bg-emerald-50"
+                        ? "border-green-300 p-1"
+                        : "border-neutral-300 hover:border-green-400 hover:bg-accent/10"
                     )}
                   >
                     {isUploading ? (
-                      <Loader2 className="w-5 h-5 text-emerald-600 animate-spin" />
+                      <Loader2 className="w-5 h-5 text-green-600 animate-spin" />
                     ) : logoUrl ? (
                       <img
                         src={logoUrl}
@@ -311,8 +311,8 @@ export function OnboardingWizard({ userId, userName, onComplete }: OnboardingWiz
                       className={cn(
                         "flex items-center gap-2 px-3 py-2.5 rounded-xl border text-left transition-all",
                         selected
-                          ? "border-emerald-500 bg-emerald-50 ring-1 ring-emerald-500"
-                          : "border-neutral-200 hover:border-emerald-300 hover:bg-neutral-50"
+                          ? "border-green-500 bg-accent/10 ring-1 ring-green-500"
+                          : "border-neutral-200 hover:border-green-300 hover:bg-neutral-50"
                       )}
                     >
                       <span className="text-lg flex-shrink-0">{industry.emoji}</span>
@@ -320,7 +320,7 @@ export function OnboardingWizard({ userId, userName, onComplete }: OnboardingWiz
                         {industry.label}
                       </span>
                       {selected && (
-                        <Check className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
+                        <Check className="w-3.5 h-3.5 text-green-600 flex-shrink-0" />
                       )}
                     </button>
                   );

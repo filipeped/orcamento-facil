@@ -8,8 +8,8 @@ export default function FaturasStub() {
     <DashboardLayout>
       <div className="px-4 sm:px-6 py-12 max-w-3xl mx-auto w-full">
         <div className="bg-white rounded-2xl border border-neutral-200 p-8 sm:p-12 text-center">
-          <div className="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center mx-auto mb-5">
-            <Receipt className="w-7 h-7 text-emerald-600" />
+          <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mx-auto mb-5">
+            <Receipt className="w-7 h-7 text-green-600" />
           </div>
           <h1 className="text-2xl sm:text-3xl font-semibold text-neutral-900 tracking-tight mb-3">
             Faturas estão chegando
@@ -65,7 +65,7 @@ function FeatureCard({
 }) {
   return (
     <div className="bg-neutral-50 border border-neutral-200 rounded-xl p-4">
-      <div className="flex items-center gap-2 text-emerald-600 mb-1.5">
+      <div className="flex items-center gap-2 text-green-600 mb-1.5">
         {icon}
         <span className="text-xs font-semibold uppercase tracking-wider">
           {title}

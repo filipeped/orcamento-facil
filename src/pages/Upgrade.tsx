@@ -470,7 +470,7 @@ export default function Upgrade() {
     <section className="min-h-screen bg-neutral-50 py-12 px-4">
       {/* Background decorations */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-0 -right-32 w-[400px] h-[400px] bg-emerald-100/30 rounded-full blur-3xl" />
+        <div className="absolute top-0 -right-32 w-[400px] h-[400px] bg-green-100/30 rounded-full blur-3xl" />
         <div className="absolute bottom-0 -left-32 w-[300px] h-[300px] bg-blue-100/20 rounded-full blur-3xl" />
       </div>
 
@@ -509,7 +509,7 @@ export default function Upgrade() {
 
           <h1 className="text-2xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-neutral-900 mb-3 md:mb-4">
             {currentPlanId === "free"
-              ? <>Quanto voce perde <span className="text-emerald-600">sem proposta profissional</span>?</>
+              ? <>Quanto voce perde <span className="text-green-600">sem proposta profissional</span>?</>
               : currentPlanId === "pro"
               ? "Voce esta no plano completo!"
               : "Desbloqueie todo seu potencial"}
@@ -537,17 +537,17 @@ export default function Upgrade() {
                 // Mobile: Anual primeiro, Mensal segundo, Grátis terceiro
                 plan.id === "pro" ? "order-first md:order-last" : plan.id === "free" ? "order-last md:order-first" : "order-2 md:order-2",
                 plan.current && plan.id !== "free"
-                  ? "border-2 border-emerald-500 shadow-lg md:scale-[1.02] z-10 hover:shadow-emerald-200/50"
+                  ? "border-2 border-green-500 shadow-lg md:scale-[1.02] z-10 hover:shadow-green-200/50"
                   : plan.id === "pro" && plan.highlighted
-                  ? "border-2 border-emerald-500 shadow-xl shadow-emerald-500/10 md:scale-[1.05] z-10 hover:shadow-emerald-200/50 bg-gradient-to-b from-emerald-50/50 to-white"
-                  : "border border-neutral-200/80 hover:border-emerald-300",
+                  ? "border-2 border-green-500 shadow-xl shadow-green-500/10 md:scale-[1.05] z-10 hover:shadow-green-200/50 bg-gradient-to-b from-green-50/50 to-white"
+                  : "border border-neutral-200/80 hover:border-green-300",
                 plan.isDowngrade && "opacity-50 hover:translate-y-0 hover:shadow-none cursor-not-allowed"
               )}
             >
               {/* Selecionado - só no Anual */}
               {plan.id === "pro" && !plan.current && (
                 <div className="absolute top-4 right-4">
-                  <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center shadow-sm">
+                  <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center shadow-sm">
                     <Check size={14} className="text-white" strokeWidth={3} />
                   </div>
                 </div>
@@ -558,7 +558,7 @@ export default function Upgrade() {
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                   <span className={cn(
                     "inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1 rounded-full shadow",
-                    plan.id === "free" ? "bg-neutral-400 text-white" : "bg-emerald-500 text-white"
+                    plan.id === "free" ? "bg-neutral-400 text-white" : "bg-green-500 text-white"
                   )}>
                     <Check size={12} />
                     Seu plano
@@ -566,7 +566,7 @@ export default function Upgrade() {
                 </div>
               ) : plan.id === "pro" && plan.highlighted && plan.badge && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="inline-flex items-center gap-1.5 bg-emerald-500 text-white text-xs font-medium px-3 py-1 rounded-full shadow">
+                  <span className="inline-flex items-center gap-1.5 bg-green-500 text-white text-xs font-medium px-3 py-1 rounded-full shadow">
                     {plan.id === "pro" ? <Rocket size={12} /> : <Crown size={12} />}
                     {plan.badge}
                   </span>
@@ -577,9 +577,9 @@ export default function Upgrade() {
               <div className="text-center mb-4 md:mb-6">
                 <div className={cn(
                   "w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center mx-auto mb-2 md:mb-3",
-                  (plan.current && plan.id !== "free") || (plan.id === "pro" && plan.highlighted) ? "bg-emerald-50" : "bg-neutral-100"
+                  (plan.current && plan.id !== "free") || (plan.id === "pro" && plan.highlighted) ? "bg-accent/10" : "bg-neutral-100"
                 )}>
-                  <plan.icon className={(plan.current && plan.id !== "free") || (plan.id === "pro" && plan.highlighted) ? "text-emerald-600" : "text-neutral-400"} size={20} />
+                  <plan.icon className={(plan.current && plan.id !== "free") || (plan.id === "pro" && plan.highlighted) ? "text-green-600" : "text-neutral-400"} size={20} />
                 </div>
                 <h3 className="text-lg font-semibold text-neutral-900 mb-1">{plan.name}</h3>
                 <p className="text-sm text-neutral-500">{plan.description}</p>
@@ -609,7 +609,7 @@ export default function Upgrade() {
                         )}
                         <span className={cn(
                           "text-3xl md:text-4xl font-semibold tracking-tight",
-                          hasDiscount ? "text-emerald-600" : "text-neutral-900"
+                          hasDiscount ? "text-green-600" : "text-neutral-900"
                         )}>
                           {plan.monthlyPrice === 0 ? "Grátis" : `R$ ${finalPrice}`}
                         </span>
@@ -624,12 +624,12 @@ export default function Upgrade() {
                   );
                 })()}
                 {plan.id === "essential" && (
-                  <p className="text-xs text-emerald-600 mt-2 font-medium">
+                  <p className="text-xs text-green-600 mt-2 font-medium">
                     Menos que 1 hora de trabalho por mês
                   </p>
                 )}
                 {plan.id === "pro" && (
-                  <p className="text-xs text-emerald-600 mt-2 font-medium">
+                  <p className="text-xs text-green-600 mt-2 font-medium">
                     1 proposta aprovada paga o ano
                   </p>
                 )}
@@ -641,9 +641,9 @@ export default function Upgrade() {
                   <li key={index} className="flex items-start gap-3 text-sm">
                     <div className={cn(
                       "w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5",
-                      (plan.current && plan.id !== "free") || (plan.id === "pro" && plan.highlighted) ? "bg-emerald-50" : "bg-neutral-100"
+                      (plan.current && plan.id !== "free") || (plan.id === "pro" && plan.highlighted) ? "bg-accent/10" : "bg-neutral-100"
                     )}>
-                      <Check className={(plan.current && plan.id !== "free") || (plan.id === "pro" && plan.highlighted) ? "text-emerald-600" : "text-neutral-400"} size={12} />
+                      <Check className={(plan.current && plan.id !== "free") || (plan.id === "pro" && plan.highlighted) ? "text-green-600" : "text-neutral-400"} size={12} />
                     </div>
                     <span className="text-neutral-600">{feature}</span>
                   </li>
@@ -661,7 +661,7 @@ export default function Upgrade() {
                     : plan.isDowngrade
                     ? "bg-neutral-100 text-neutral-400 cursor-not-allowed"
                     : plan.isUpgrade
-                    ? "bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/20"
+                    ? "bg-green-500 hover:bg-green-600 text-white shadow-lg shadow-green-500/20"
                     : "bg-neutral-100 hover:bg-neutral-200 text-neutral-900"
                 )}
               >
@@ -688,7 +688,7 @@ export default function Upgrade() {
         {/* Campo de cupom */}
         <div className="text-center mb-6">
           {couponDiscount ? (
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 rounded-full text-sm font-medium">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 text-green-700 rounded-full text-sm font-medium">
               <Check size={16} />
               Desconto de {couponDiscount}% aplicado
             </div>
@@ -699,12 +699,12 @@ export default function Upgrade() {
                 value={couponCode}
                 onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
                 placeholder="Tem cupom?"
-                className="w-28 px-3 py-1.5 text-sm text-center border border-neutral-200 rounded-full focus:outline-none focus:border-emerald-400 uppercase bg-white"
+                className="w-28 px-3 py-1.5 text-sm text-center border border-neutral-200 rounded-full focus:outline-none focus:border-green-400 uppercase bg-white"
               />
               <button
                 onClick={() => validateCouponFromUrl(couponCode)}
                 disabled={!couponCode.trim() || isValidatingCoupon}
-                className="px-3 py-1.5 text-sm font-medium text-neutral-500 hover:text-emerald-600 disabled:text-neutral-300"
+                className="px-3 py-1.5 text-sm font-medium text-neutral-500 hover:text-green-600 disabled:text-neutral-300"
               >
                 {isValidatingCoupon ? "..." : "Aplicar"}
               </button>
@@ -715,7 +715,7 @@ export default function Upgrade() {
         {/* Guarantee */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center gap-3 mb-3">
-            <ShieldCheck className="text-emerald-500" size={24} />
+            <ShieldCheck className="text-green-500" size={24} />
             <span className="text-lg font-semibold text-neutral-900">Garantia de 7 dias</span>
           </div>
           <p className="text-neutral-600 max-w-md mx-auto">
@@ -764,8 +764,8 @@ export default function Upgrade() {
 
             {/* Content */}
             <div className="text-center mb-6">
-              <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <ShieldCheck className="text-emerald-500" size={32} />
+              <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <ShieldCheck className="text-green-500" size={32} />
               </div>
               <h2 className="text-xl font-semibold text-neutral-900 mb-2">
                 Último passo antes do pagamento
@@ -784,14 +784,14 @@ export default function Upgrade() {
                   onChange={handleCpfCnpjChange}
                   placeholder="000.000.000-00"
                   autoFocus
-                  className="h-12 text-center text-lg tracking-wider border-neutral-200 focus:border-emerald-500 focus:ring-emerald-500"
+                  className="h-12 text-center text-lg tracking-wider border-neutral-200 focus:border-green-500 focus:ring-green-500"
                 />
               </div>
 
               {/* Mostrar cupom aplicado (se houver) */}
               {couponDiscount && (
-                <div className="p-3 bg-emerald-50 rounded-lg text-center">
-                  <p className="text-sm text-emerald-700 font-medium">✓ Cupom de {couponDiscount}% aplicado!</p>
+                <div className="p-3 bg-accent/10 rounded-lg text-center">
+                  <p className="text-sm text-green-700 font-medium">✓ Cupom de {couponDiscount}% aplicado!</p>
                 </div>
               )}
 
@@ -800,7 +800,7 @@ export default function Upgrade() {
                 disabled={isLoading || cpfCnpj.replace(/\D/g, "").length < 11}
                 className={cn(
                   "w-full py-3 rounded-full text-sm font-medium transition-all",
-                  "bg-emerald-500 hover:bg-emerald-600 text-white",
+                  "bg-green-500 hover:bg-green-600 text-white",
                   "disabled:bg-neutral-200 disabled:text-neutral-400 disabled:cursor-not-allowed"
                 )}
               >

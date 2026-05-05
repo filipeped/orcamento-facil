@@ -266,7 +266,7 @@ export default function AdminRelatorios() {
     return (
       <AdminLayout>
         <div className="flex items-center justify-center min-h-[400px]">
-          <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+          <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin" />
         </div>
       </AdminLayout>
     );
@@ -311,13 +311,13 @@ export default function AdminRelatorios() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="bg-white rounded-xl border shadow-sm p-5">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 bg-emerald-100 rounded-lg">
-                  <CheckCircle className="w-5 h-5 text-emerald-600" />
+                <div className="p-2.5 bg-green-100 rounded-lg">
+                  <CheckCircle className="w-5 h-5 text-green-600" />
                 </div>
                 <div>
                   <p className="text-sm text-neutral-500">Confirmados</p>
                   <p className="text-xl font-bold text-neutral-900">{paymentSummary.confirmed}</p>
-                  <p className="text-sm text-emerald-600 font-medium">
+                  <p className="text-sm text-green-600 font-medium">
                     {formatCurrency(paymentSummary.confirmed_value)}
                   </p>
                 </div>
@@ -354,15 +354,15 @@ export default function AdminRelatorios() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl shadow-sm p-5 text-white">
+            <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-sm p-5 text-white">
               <div className="flex items-center gap-3">
                 <div className="p-2.5 bg-white/20 rounded-lg">
                   <DollarSign className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-sm text-emerald-100">Receita Total</p>
+                  <p className="text-sm text-green-100">Receita Total</p>
                   <p className="text-xl font-bold">{formatCurrency(paymentSummary.confirmed_value)}</p>
-                  <p className="text-sm text-emerald-200">
+                  <p className="text-sm text-green-200">
                     {paymentSummary.confirmed + paymentSummary.pending + paymentSummary.failed} pagamentos
                   </p>
                 </div>
@@ -445,8 +445,8 @@ export default function AdminRelatorios() {
                   >
                     <div className={cn(
                       "w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold",
-                      index === 0 && "bg-emerald-100 text-emerald-700",
-                      index === 1 && "bg-emerald-50 text-emerald-600",
+                      index === 0 && "bg-green-100 text-green-700",
+                      index === 1 && "bg-accent/10 text-green-600",
                       index === 2 && "bg-neutral-100 text-neutral-700",
                       index > 2 && "bg-neutral-50 text-neutral-600"
                     )}>
@@ -517,8 +517,8 @@ export default function AdminRelatorios() {
                             <span
                               className={cn(
                                 "inline-block px-2 py-0.5 rounded text-xs font-medium",
-                                value >= 80 && "bg-emerald-100 text-emerald-700",
-                                value >= 50 && value < 80 && "bg-emerald-50 text-emerald-600",
+                                value >= 80 && "bg-green-100 text-green-700",
+                                value >= 50 && value < 80 && "bg-accent/10 text-green-600",
                                 value > 0 && value < 50 && "bg-neutral-100 text-neutral-600"
                               )}
                             >
@@ -538,16 +538,16 @@ export default function AdminRelatorios() {
         </div>
 
         {/* Insights */}
-        <div className="bg-gradient-to-br from-emerald-50 to-emerald-100/50 rounded-xl border border-emerald-200 p-6">
+        <div className="bg-gradient-to-br from-green-50 to-green-100/50 rounded-xl border border-green-200 p-6">
           <div className="flex items-start gap-4">
-            <div className="p-3 bg-emerald-100 rounded-xl">
-              <TrendingUp className="w-6 h-6 text-emerald-600" />
+            <div className="p-3 bg-green-100 rounded-xl">
+              <TrendingUp className="w-6 h-6 text-green-600" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-emerald-900 mb-2">
+              <h3 className="text-lg font-semibold text-green-900 mb-2">
                 Insights do Período
               </h3>
-              <ul className="space-y-2 text-sm text-emerald-800">
+              <ul className="space-y-2 text-sm text-green-800">
                 {paymentSummary && paymentSummary.failed > 0 && (
                   <li className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 bg-neutral-500 rounded-full" />
@@ -556,7 +556,7 @@ export default function AdminRelatorios() {
                 )}
                 {topUsers.length > 0 && (
                   <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />
                     <strong>{topUsers[0]?.full_name}</strong> é o usuário mais ativo com {topUsers[0]?.proposals_count} propostas
                   </li>
                 )}
@@ -567,7 +567,7 @@ export default function AdminRelatorios() {
                   </li>
                 )}
                 <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full" />
+                  <span className="w-1.5 h-1.5 bg-green-600 rounded-full" />
                   Análise baseada nos últimos <strong>{period} dias</strong>
                 </li>
               </ul>

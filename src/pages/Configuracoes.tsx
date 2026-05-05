@@ -24,7 +24,7 @@ import {
   MapPin,
   Instagram,
   AlignLeft,
-  Leaf,
+  Package,
   Check,
   Plus,
   Eye,
@@ -70,7 +70,7 @@ const defaultProposalSettings: ProposalSettings = {
   showAddress: true,
   showInstagram: true,
   showBio: true,
-  primaryColor: "#10b981",
+  primaryColor: "#22C55E",
   footerText: "",
   paymentTerms: "• 50% no fechamento do contrato\n• 50% na conclusão do serviço\n• Formas: transferência ou dinheiro",
   generalTerms: "• Garantia de 30 dias após a conclusão do serviço\n• Materiais inclusos conforme especificado acima\n• Prazo de execução a combinar após aprovação",
@@ -337,7 +337,7 @@ export default function Configuracoes() {
           showAddress: data.show_address ?? true,
           showInstagram: data.show_instagram ?? true,
           showBio: data.show_bio ?? true,
-          primaryColor: data.primary_color || "#10b981",
+          primaryColor: data.primary_color || "#22C55E",
           footerText: data.footer_text || "",
           paymentTerms: data.payment_terms || defaultProposalSettings.paymentTerms,
           generalTerms: data.general_terms || defaultProposalSettings.generalTerms,
@@ -866,7 +866,7 @@ export default function Configuracoes() {
                   <img
                     src={avatarUrl}
                     alt="Foto de perfil"
-                    className="w-16 h-16 rounded-full object-cover border-2 border-emerald-200"
+                    className="w-16 h-16 rounded-full object-cover border-2 border-green-200"
                   />
                 ) : (
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary text-lg font-semibold">
@@ -1020,14 +1020,14 @@ export default function Configuracoes() {
                         className={cn(
                           "px-3 py-3 rounded-xl border-2 text-left transition-all",
                           active
-                            ? "border-emerald-500 bg-emerald-50"
+                            ? "border-green-500 bg-accent/10"
                             : "border-neutral-200 hover:border-neutral-300"
                         )}
                       >
-                        <p className={cn("text-sm font-medium", active ? "text-emerald-900" : "text-neutral-900")}>
+                        <p className={cn("text-sm font-medium", active ? "text-green-900" : "text-neutral-900")}>
                           {tpl.label}
                         </p>
-                        <p className={cn("text-[10px] mt-0.5", active ? "text-emerald-700" : "text-neutral-500")}>
+                        <p className={cn("text-[10px] mt-0.5", active ? "text-green-700" : "text-neutral-500")}>
                           {tpl.desc}
                         </p>
                       </button>
@@ -1199,7 +1199,7 @@ export default function Configuracoes() {
                               <img src={logoUrl} alt="Logo" className="w-12 h-12 object-contain" />
                             ) : (
                               <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${proposalSettings.primaryColor}15` }}>
-                                <Leaf className="w-6 h-6" style={{ color: proposalSettings.primaryColor }} />
+                                <Package className="w-6 h-6" style={{ color: proposalSettings.primaryColor }} />
                               </div>
                             )
                           )}
@@ -1271,7 +1271,7 @@ export default function Configuracoes() {
                             <td className="py-2">
                               <div className="flex items-center gap-2">
                                 <div className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: `${proposalSettings.primaryColor}15` }}>
-                                  <Leaf className="w-3 h-3" style={{ color: proposalSettings.primaryColor }} />
+                                  <Package className="w-3 h-3" style={{ color: proposalSettings.primaryColor }} />
                                 </div>
                                 <span className="font-medium text-stone-900">Poda de árvores</span>
                               </div>
@@ -1284,7 +1284,7 @@ export default function Configuracoes() {
                             <td className="py-2">
                               <div className="flex items-center gap-2">
                                 <div className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: `${proposalSettings.primaryColor}15` }}>
-                                  <Leaf className="w-3 h-3" style={{ color: proposalSettings.primaryColor }} />
+                                  <Package className="w-3 h-3" style={{ color: proposalSettings.primaryColor }} />
                                 </div>
                                 <span className="font-medium text-stone-900">Limpeza geral</span>
                               </div>
@@ -1333,7 +1333,7 @@ export default function Configuracoes() {
                 onClick={handleSaveProposalSettings}
                 className={cn(
                   "w-full mt-6 transition-all touch-manipulation",
-                  showSaveSuccess && "bg-emerald-500 hover:bg-emerald-500"
+                  showSaveSuccess && "bg-green-500 hover:bg-green-500"
                 )}
                 disabled={isSavingStyle}
               >

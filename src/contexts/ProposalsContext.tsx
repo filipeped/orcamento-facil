@@ -120,6 +120,9 @@ export interface CompanyInfo {
   ownerPhoto?: string;
 }
 
+export type DocType = "orcamento" | "fatura" | "recibo";
+export type PaymentStatus = "pendente" | "parcial" | "pago" | "cancelado";
+
 export interface Proposal {
   id: string;
   shortId?: string;
@@ -138,6 +141,26 @@ export interface Proposal {
   approvedAt?: string;
   signature?: string;
   company?: CompanyInfo;
+  // FechaAqui v2 — doc types
+  docType?: DocType;
+  sequenceNumber?: number;
+  poNumber?: string;
+  paymentStatus?: PaymentStatus;
+  amountPaid?: number;
+  dueDate?: string;
+  parentProposalId?: string;
+}
+
+// Label visual de cada tipo de doc
+export const DOC_TYPE_LABELS: Record<DocType, { singular: string; pluralAccusative: string; pdfTitle: string }> = {
+  orcamento: { singular: "Orçamento", pluralAccusative: "orçamentos", pdfTitle: "ORÇAMENTO" },
+  fatura: { singular: "Fatura", pluralAccusative: "faturas", pdfTitle: "FATURA" },
+  recibo: { singular: "Recibo", pluralAccusative: "recibos", pdfTitle: "RECIBO" },
+};
+
+export function formatSequenceNumber(seq: number | undefined | null): string {
+  if (!seq) return "";
+  return `#${String(seq).padStart(4, "0")}`;
 }
 
 interface ProposalsContextType {
@@ -149,6 +172,8 @@ interface ProposalsContextType {
   updateProposal: (id: string, data: Partial<Proposal>) => Promise<void>;
   deleteProposal: (id: string) => Promise<void>;
   duplicateProposal: (id: string) => Promise<Proposal | null>;
+  // FechaAqui v2 — converte orçamento aprovado em fatura ou fatura paga em recibo.
+  convertProposalDoc: (id: string, targetType: DocType) => Promise<Proposal | null>;
   getProposal: (id: string) => Proposal | undefined;
   getProposalById: (id: string) => Promise<Proposal | null>;
   markAsSent: (id: string) => Promise<void>;
@@ -419,6 +444,14 @@ export function ProposalsProvider({ children }: { children: ReactNode }) {
           viewedAt: p.viewed_at,
           approvedAt: p.approved_at,
           signature: p.signature,
+          // FechaAqui v2 — doc types
+          docType: (p.doc_type as DocType) || "orcamento",
+          sequenceNumber: p.sequence_number ?? undefined,
+          poNumber: p.po_number ?? undefined,
+          paymentStatus: (p.payment_status as PaymentStatus) ?? undefined,
+          amountPaid: p.amount_paid != null ? Number(p.amount_paid) : undefined,
+          dueDate: p.due_date ?? undefined,
+          parentProposalId: p.parent_proposal_id ?? undefined,
           company: p.company_name ? {
             name: p.company_name,
             logoUrl: p.company_logo || undefined,
@@ -512,6 +545,16 @@ export function ProposalsProvider({ children }: { children: ReactNode }) {
         .eq("user_id", user.id)
         .single();
 
+      // Calcula próximo sequence_number do user (FechaAqui v2)
+      const { data: lastSeq } = await getSupabase()
+        .from("proposals")
+        .select("sequence_number")
+        .eq("user_id", user.id)
+        .order("sequence_number", { ascending: false, nullsFirst: false })
+        .limit(1)
+        .maybeSingle();
+      const nextSequence = ((lastSeq as { sequence_number?: number } | null)?.sequence_number || 0) + 1;
+
       // Insert proposal with company info
       const { data: newProposal, error: proposalError } = await getSupabase()
         .from("proposals")
@@ -532,6 +575,10 @@ export function ProposalsProvider({ children }: { children: ReactNode }) {
           company_logo: profile?.logo_url || null,
           company_phone: profile?.phone || null,
           company_email: user.email || null,
+          // FechaAqui v2 — defaults pra orçamento. Se a coluna não existir (Jardinei
+          // antes da migration), Supabase ignora o campo. Tem que estar lá pra funcionar.
+          doc_type: data.docType || "orcamento",
+          sequence_number: nextSequence,
         })
         .select()
         .single();
@@ -833,6 +880,82 @@ export function ProposalsProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  // FechaAqui v2 — converte orçamento aprovado em fatura ou fatura paga em recibo.
+  // Cria nova entry no banco, copia items, gera novo sequence_number, mantém ref
+  // ao parent_proposal_id pra rastreabilidade.
+  const convertProposalDoc = async (id: string, targetType: DocType): Promise<Proposal | null> => {
+    if (!user) return null;
+    const original = proposals.find((p) => p.id === id);
+    if (!original) return null;
+
+    try {
+      // Próximo sequence_number do user
+      const { data: lastSeq } = await getSupabase()
+        .from("proposals")
+        .select("sequence_number")
+        .eq("user_id", user.id)
+        .order("sequence_number", { ascending: false, nullsFirst: false })
+        .limit(1)
+        .maybeSingle();
+      const nextSequence = ((lastSeq as { sequence_number?: number } | null)?.sequence_number || 0) + 1;
+
+      const { data: newProposal, error } = await getSupabase()
+        .from("proposals")
+        .insert({
+          user_id: user.id,
+          short_id: `${targetType.charAt(0).toUpperCase()}${nextSequence}-${Math.random().toString(36).substring(2, 6)}`,
+          client_id: original.client.id || null,
+          client_name: original.client.name,
+          client_email: original.client.email,
+          client_phone: original.client.phone,
+          service_type: mapServiceTypeForDB(original.serviceType),
+          title: original.title,
+          description: original.description,
+          notes: original.notes,
+          valid_until: original.validUntil,
+          status: "draft",
+          total: original.total,
+          company_name: original.company?.name || null,
+          company_logo: original.company?.logoUrl || null,
+          company_phone: original.company?.phone || null,
+          company_email: original.company?.email || null,
+          doc_type: targetType,
+          sequence_number: nextSequence,
+          parent_proposal_id: original.id,
+          payment_status: targetType === "fatura" ? "pendente" : (targetType === "recibo" ? "pago" : null),
+          amount_paid: targetType === "recibo" ? original.total : 0,
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      // Copia items
+      if (original.items.length > 0) {
+        const itemsToInsert = original.items.map((item) => ({
+          proposal_id: newProposal.id,
+          name: item.name,
+          description: item.description,
+          quantity: item.quantity,
+          unit_price: item.unitPrice,
+          image_url: item.imageUrl,
+          photos: item.photos || [],
+          unit: item.unit || "un",
+          nome_cientifico: item.nomeCientifico || null,
+          discount_amount: item.discount?.amount || 0,
+          discount_type: item.discount?.type || null,
+        }));
+        await getSupabase().from("proposal_items").insert(itemsToInsert);
+      }
+
+      await fetchProposals();
+      return proposals.find((p) => p.id === newProposal.id) || null;
+    } catch (err) {
+      console.error("Erro convertProposalDoc:", err);
+      return null;
+    }
+  };
+
   return (
     <ProposalsContext.Provider
       value={{
@@ -844,6 +967,7 @@ export function ProposalsProvider({ children }: { children: ReactNode }) {
         updateProposal,
         deleteProposal,
         duplicateProposal,
+        convertProposalDoc,
         getProposal,
         getProposalById,
         markAsSent,

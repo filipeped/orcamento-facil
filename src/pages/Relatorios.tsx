@@ -167,11 +167,11 @@ export default function Relatorios() {
       const nomeArquivo = `Relatorio_${empresa.replace(/\s+/g, '_')}_${monthName.replace(' de ', '_').replace(/\s+/g, '_')}.pdf`;
 
       // Criar HTML do relatório profissional
-      // Cores emerald do site: emerald-500=#10b981, emerald-600=#059669, emerald-700=#047857
+      // Cores emerald do site: green-500=#22C55E, green-600=#059669, green-700=#047857
       const reportHTML = `
         <div style="font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; background: #fff; min-height: 100%;">
           <!-- Header com gradiente -->
-          <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 32px 40px; color: white;">
+          <div style="background: linear-gradient(135deg, #22C55E 0%, #059669 100%); padding: 32px 40px; color: white;">
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
               <div>
                 ${companyData.logo ? `<img src="${companyData.logo}" alt="Logo" style="height: 48px; margin-bottom: 12px; border-radius: 8px;">` : ''}
@@ -190,7 +190,7 @@ export default function Relatorios() {
 
             <!-- Cards principais -->
             <div style="display: flex; gap: 16px; margin-bottom: 28px;">
-              <div style="flex: 1; background: linear-gradient(135deg, #059669 0%, #10b981 100%); border-radius: 16px; padding: 24px; color: white; box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);">
+              <div style="flex: 1; background: linear-gradient(135deg, #059669 0%, #22C55E 100%); border-radius: 16px; padding: 24px; color: white; box-shadow: 0 4px 20px rgba(34, 197, 94, 0.3);">
                 <p style="margin: 0 0 4px 0; font-size: 12px; opacity: 0.9; text-transform: uppercase; letter-spacing: 0.5px;">Faturamento</p>
                 <p style="margin: 0; font-size: 28px; font-weight: 700;">${formatCurrency(stats.revenue)}</p>
                 <p style="margin: 8px 0 0 0; font-size: 11px; opacity: 0.8;">${stats.approved} proposta${stats.approved !== 1 ? 's' : ''} aprovada${stats.approved !== 1 ? 's' : ''}</p>
@@ -210,11 +210,11 @@ export default function Relatorios() {
               </div>
               <div style="flex: 1; background: #f8fafc; border-radius: 12px; padding: 16px 20px; text-align: center; border: 1px solid #e2e8f0;">
                 <p style="margin: 0; font-size: 11px; color: #64748b; text-transform: uppercase;">Aprovadas</p>
-                <p style="margin: 4px 0 0 0; font-size: 22px; font-weight: 700; color: #10b981;">${stats.approved}</p>
+                <p style="margin: 4px 0 0 0; font-size: 22px; font-weight: 700; color: #22C55E;">${stats.approved}</p>
               </div>
               <div style="flex: 1; background: #f8fafc; border-radius: 12px; padding: 16px 20px; text-align: center; border: 1px solid #e2e8f0;">
                 <p style="margin: 0; font-size: 11px; color: #64748b; text-transform: uppercase;">Conversão</p>
-                <p style="margin: 4px 0 0 0; font-size: 22px; font-weight: 700; color: #10b981;">${stats.conversionRate.toFixed(0)}%</p>
+                <p style="margin: 4px 0 0 0; font-size: 22px; font-weight: 700; color: #22C55E;">${stats.conversionRate.toFixed(0)}%</p>
               </div>
               <div style="flex: 1; background: #f8fafc; border-radius: 12px; padding: 16px 20px; text-align: center; border: 1px solid #e2e8f0;">
                 <p style="margin: 0; font-size: 11px; color: #64748b; text-transform: uppercase;">Ticket Médio</p>
@@ -269,7 +269,7 @@ export default function Relatorios() {
                 <tfoot>
                   <tr style="background: #f8fafc;">
                     <td colspan="3" style="padding: 14px 16px; font-weight: 600; color: #1e293b; font-size: 12px;">Total do Período</td>
-                    <td style="padding: 14px 16px; font-weight: 700; color: #10b981; text-align: right; font-size: 14px;">${formatCurrency(stats.revenue + stats.potential)}</td>
+                    <td style="padding: 14px 16px; font-weight: 700; color: #22C55E; text-align: right; font-size: 14px;">${formatCurrency(stats.revenue + stats.potential)}</td>
                     <td style="padding: 14px 16px; text-align: center; font-size: 11px; color: #64748b;">${stats.total} proposta${stats.total !== 1 ? 's' : ''}</td>
                   </tr>
                 </tfoot>
@@ -345,7 +345,7 @@ export default function Relatorios() {
         </header>
 
         {/* Month Selector - Design elegante e responsivo */}
-        <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-2xl p-4 sm:p-5 mb-5 shadow-lg shadow-emerald-500/20">
+        <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-2xl p-4 sm:p-5 mb-5 shadow-lg shadow-green-500/20">
           <div className="flex items-center justify-between gap-2">
             {/* Botão Anterior */}
             <button
@@ -401,7 +401,7 @@ export default function Relatorios() {
                   className={cn(
                     "px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-medium transition-all whitespace-nowrap flex-shrink-0",
                     isSelected
-                      ? "bg-white text-emerald-600 shadow-md"
+                      ? "bg-white text-green-600 shadow-md"
                       : "bg-white/20 text-white/80 hover:bg-white/30 active:bg-white/40"
                   )}
                 >
@@ -427,34 +427,34 @@ export default function Relatorios() {
           </div>
           <div className="bg-white rounded-xl sm:rounded-2xl border border-neutral-100 p-3 sm:p-4 shadow-sm animate-card-in stagger-1">
             <div className="flex items-center gap-2 sm:block">
-              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-emerald-100 flex items-center justify-center sm:mb-2">
-                <CheckCircle size={16} className="text-emerald-600" />
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-green-100 flex items-center justify-center sm:mb-2">
+                <CheckCircle size={16} className="text-green-600" />
               </div>
               <div>
                 <p className="text-[10px] sm:text-xs text-neutral-500 font-medium">Aprovadas</p>
-                <p className="text-xl sm:text-2xl font-bold text-emerald-600">{stats.approved}</p>
+                <p className="text-xl sm:text-2xl font-bold text-green-600">{stats.approved}</p>
               </div>
             </div>
           </div>
           <div className="bg-white rounded-xl sm:rounded-2xl border border-neutral-100 p-3 sm:p-4 shadow-sm animate-card-in stagger-2">
             <div className="flex items-center gap-2 sm:block">
-              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-emerald-100 flex items-center justify-center sm:mb-2">
-                <TrendingUp size={16} className="text-emerald-600" />
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-green-100 flex items-center justify-center sm:mb-2">
+                <TrendingUp size={16} className="text-green-600" />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-[10px] sm:text-xs text-neutral-500 font-medium">Faturamento</p>
-                <p className="text-lg sm:text-xl font-bold text-emerald-600 truncate">{formatCurrency(stats.revenue)}</p>
+                <p className="text-lg sm:text-xl font-bold text-green-600 truncate">{formatCurrency(stats.revenue)}</p>
               </div>
             </div>
           </div>
           <div className="bg-white rounded-xl sm:rounded-2xl border border-neutral-100 p-3 sm:p-4 shadow-sm animate-card-in stagger-3">
             <div className="flex items-center gap-2 sm:block">
-              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-emerald-100 flex items-center justify-center sm:mb-2">
-                <TrendingUp size={16} className="text-emerald-600" />
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-green-100 flex items-center justify-center sm:mb-2">
+                <TrendingUp size={16} className="text-green-600" />
               </div>
               <div>
                 <p className="text-[10px] sm:text-xs text-neutral-500 font-medium">Conversão</p>
-                <p className="text-xl sm:text-2xl font-bold text-emerald-600">{stats.conversionRate.toFixed(0)}%</p>
+                <p className="text-xl sm:text-2xl font-bold text-green-600">{stats.conversionRate.toFixed(0)}%</p>
               </div>
             </div>
           </div>
@@ -469,18 +469,18 @@ export default function Relatorios() {
           {/* CSV */}
           <button
             onClick={exportToCSV}
-            className="group relative overflow-hidden bg-white rounded-2xl border border-neutral-100 p-4 sm:p-5 hover:shadow-lg hover:border-emerald-200 transition-all text-left shadow-sm touch-feedback btn-press animate-card-in stagger-4"
+            className="group relative overflow-hidden bg-white rounded-2xl border border-neutral-100 p-4 sm:p-5 hover:shadow-lg hover:border-green-200 transition-all text-left shadow-sm touch-feedback btn-press animate-card-in stagger-4"
           >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500" />
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-500/10 to-green-500/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500" />
             <div className="relative">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mb-3 sm:mb-4 shadow-lg shadow-emerald-500/25 group-hover:scale-110 transition-transform">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center mb-3 sm:mb-4 shadow-lg shadow-green-500/25 group-hover:scale-110 transition-transform">
                 <Download size={20} className="text-white" />
               </div>
               <h3 className="font-bold text-neutral-900 mb-1 text-sm sm:text-base">Planilha CSV</h3>
               <p className="text-xs sm:text-sm text-neutral-500">
                 Para Excel
               </p>
-              <div className="mt-2 sm:mt-3 flex items-center gap-1 text-emerald-600 text-xs font-medium">
+              <div className="mt-2 sm:mt-3 flex items-center gap-1 text-green-600 text-xs font-medium">
                 <span>Baixar agora</span>
                 <ChevronRight size={14} />
               </div>
@@ -528,8 +528,8 @@ export default function Relatorios() {
                 >
                   <div className={cn(
                     "w-2 h-2 rounded-full flex-shrink-0",
-                    proposal.status === "approved" ? "bg-emerald-500" :
-                    proposal.status === "viewed" ? "bg-emerald-400" :
+                    proposal.status === "approved" ? "bg-green-500" :
+                    proposal.status === "viewed" ? "bg-green-400" :
                     proposal.status === "sent" ? "bg-neutral-400" : "bg-neutral-300"
                   )} />
                   <div className="flex-1 min-w-0">

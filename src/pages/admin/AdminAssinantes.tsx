@@ -337,7 +337,7 @@ export default function AdminAssinantes() {
     return (
       <AdminLayout>
         <div className="flex items-center justify-center min-h-[400px]">
-          <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+          <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin" />
         </div>
       </AdminLayout>
     );
@@ -468,7 +468,7 @@ export default function AdminAssinantes() {
                     <Button
                       variant={currentPage === page ? "default" : "outline"}
                       size="sm"
-                      className={`w-9 ${currentPage === page ? "bg-emerald-600 hover:bg-emerald-700" : ""}`}
+                      className={`w-9 ${currentPage === page ? "bg-green-600 hover:bg-green-700" : ""}`}
                       onClick={() => setCurrentPage(page)}
                     >
                       {page}
@@ -514,11 +514,11 @@ export default function AdminAssinantes() {
                     onClick={() => setNewPeriod("monthly")}
                     className={`p-4 rounded-xl border-2 text-center transition-all ${
                       newPeriod === "monthly"
-                        ? "bg-emerald-50 border-emerald-500 shadow-sm"
+                        ? "bg-accent/10 border-green-500 shadow-sm"
                         : "bg-white border-neutral-200 hover:border-neutral-300"
                     }`}
                   >
-                    <p className={`font-semibold ${newPeriod === "monthly" ? "text-emerald-700" : "text-neutral-800"}`}>
+                    <p className={`font-semibold ${newPeriod === "monthly" ? "text-green-700" : "text-neutral-800"}`}>
                       Mensal
                     </p>
                     <p className="text-xs text-neutral-500 mt-1">Renovação a cada 30 dias</p>
@@ -528,14 +528,14 @@ export default function AdminAssinantes() {
                     onClick={() => setNewPeriod("annual")}
                     className={`p-4 rounded-xl border-2 text-center transition-all relative ${
                       newPeriod === "annual"
-                        ? "bg-emerald-50 border-emerald-500 shadow-sm"
+                        ? "bg-accent/10 border-green-500 shadow-sm"
                         : "bg-white border-neutral-200 hover:border-neutral-300"
                     }`}
                   >
-                    <span className="absolute -top-2 -right-2 bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+                    <span className="absolute -top-2 -right-2 bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
                       -15%
                     </span>
-                    <p className={`font-semibold ${newPeriod === "annual" ? "text-emerald-700" : "text-neutral-800"}`}>
+                    <p className={`font-semibold ${newPeriod === "annual" ? "text-green-700" : "text-neutral-800"}`}>
                       Anual
                     </p>
                     <p className="text-xs text-neutral-500 mt-1">Renovação a cada 365 dias</p>
@@ -553,17 +553,17 @@ export default function AdminAssinantes() {
                     onClick={() => setNewPlan("free")}
                     className={`w-full p-4 rounded-xl border-2 flex items-center justify-between transition-all ${
                       newPlan === "free"
-                        ? "bg-emerald-50 border-emerald-500 shadow-sm"
+                        ? "bg-accent/10 border-green-500 shadow-sm"
                         : "bg-white border-neutral-200 hover:border-neutral-300"
                     }`}
                   >
                     <div className="flex items-center gap-3">
                       <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                        newPlan === "free" ? "border-emerald-500 bg-emerald-500" : "border-neutral-300"
+                        newPlan === "free" ? "border-green-500 bg-green-500" : "border-neutral-300"
                       }`}>
                         {newPlan === "free" && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
                       </div>
-                      <span className={`font-medium ${newPlan === "free" ? "text-emerald-700" : "text-neutral-800"}`}>
+                      <span className={`font-medium ${newPlan === "free" ? "text-green-700" : "text-neutral-800"}`}>
                         Grátis
                       </span>
                     </div>
@@ -576,17 +576,17 @@ export default function AdminAssinantes() {
                     onClick={() => setNewPlan("essential")}
                     className={`w-full p-4 rounded-xl border-2 flex items-center justify-between transition-all ${
                       newPlan === "essential"
-                        ? "bg-emerald-50 border-emerald-500 shadow-sm"
+                        ? "bg-accent/10 border-green-500 shadow-sm"
                         : "bg-white border-neutral-200 hover:border-neutral-300"
                     }`}
                   >
                     <div className="flex items-center gap-3">
                       <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                        newPlan === "essential" ? "border-emerald-500 bg-emerald-500" : "border-neutral-300"
+                        newPlan === "essential" ? "border-green-500 bg-green-500" : "border-neutral-300"
                       }`}>
                         {newPlan === "essential" && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
                       </div>
-                      <span className={`font-medium ${newPlan === "essential" ? "text-emerald-700" : "text-neutral-800"}`}>
+                      <span className={`font-medium ${newPlan === "essential" ? "text-green-700" : "text-neutral-800"}`}>
                         Mensal
                       </span>
                     </div>
@@ -604,17 +604,17 @@ export default function AdminAssinantes() {
                     onClick={() => setNewPlan("pro")}
                     className={`w-full p-4 rounded-xl border-2 flex items-center justify-between transition-all ${
                       newPlan === "pro"
-                        ? "bg-emerald-50 border-emerald-500 shadow-sm"
+                        ? "bg-accent/10 border-green-500 shadow-sm"
                         : "bg-white border-neutral-200 hover:border-neutral-300"
                     }`}
                   >
                     <div className="flex items-center gap-3">
                       <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                        newPlan === "pro" ? "border-emerald-500 bg-emerald-500" : "border-neutral-300"
+                        newPlan === "pro" ? "border-green-500 bg-green-500" : "border-neutral-300"
                       }`}>
                         {newPlan === "pro" && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
                       </div>
-                      <span className={`font-medium ${newPlan === "pro" ? "text-emerald-700" : "text-neutral-800"}`}>
+                      <span className={`font-medium ${newPlan === "pro" ? "text-green-700" : "text-neutral-800"}`}>
                         Anual
                       </span>
                     </div>
@@ -633,7 +633,7 @@ export default function AdminAssinantes() {
               <Button variant="outline" onClick={() => setShowChangePlanModal(false)}>
                 Cancelar
               </Button>
-              <Button onClick={handleChangePlan} className="bg-emerald-600 hover:bg-emerald-700">
+              <Button onClick={handleChangePlan} className="bg-green-600 hover:bg-green-700">
                 Confirmar
               </Button>
             </DialogFooter>
@@ -666,9 +666,9 @@ export default function AdminAssinantes() {
                     }
                   </p>
                 </div>
-                <div className="bg-emerald-50 rounded-xl p-3 text-sm border border-emerald-200">
-                  <p className="text-emerald-600">Nova data:</p>
-                  <p className="font-semibold text-emerald-700">
+                <div className="bg-accent/10 rounded-xl p-3 text-sm border border-green-200">
+                  <p className="text-green-600">Nova data:</p>
+                  <p className="font-semibold text-green-700">
                     {(() => {
                       const currentExpiry = selectedUser?.plan_expires_at
                         ? new Date(selectedUser.plan_expires_at)
@@ -703,11 +703,11 @@ export default function AdminAssinantes() {
                       onClick={() => setExtendDays(option.days)}
                       className={`p-3 rounded-xl border-2 text-left transition-all ${
                         extendDays === option.days
-                          ? "bg-emerald-50 border-emerald-500 shadow-sm"
+                          ? "bg-accent/10 border-green-500 shadow-sm"
                           : "bg-white border-neutral-200 hover:border-neutral-300"
                       }`}
                     >
-                      <p className={`font-semibold ${extendDays === option.days ? "text-emerald-700" : "text-neutral-800"}`}>
+                      <p className={`font-semibold ${extendDays === option.days ? "text-green-700" : "text-neutral-800"}`}>
                         {option.label}
                       </p>
                       <p className="text-xs text-neutral-500">{option.desc}</p>
@@ -721,7 +721,7 @@ export default function AdminAssinantes() {
               <Button variant="outline" onClick={() => setShowExtendModal(false)}>
                 Cancelar
               </Button>
-              <Button onClick={handleExtendPlan} className="bg-emerald-600 hover:bg-emerald-700">
+              <Button onClick={handleExtendPlan} className="bg-green-600 hover:bg-green-700">
                 Confirmar
               </Button>
             </DialogFooter>

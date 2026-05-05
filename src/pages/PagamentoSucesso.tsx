@@ -284,7 +284,7 @@ export default function PagamentoSucesso() {
   }, [value, plan, paymentId, user?.email, user?.name, userPhone]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-emerald-50 to-white flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white flex flex-col items-center justify-center p-4">
       {/* Confetti animation */}
       {showConfetti && (
         <div className="fixed inset-0 pointer-events-none overflow-hidden">
@@ -312,8 +312,8 @@ export default function PagamentoSucesso() {
         </div>
 
         {/* Success Icon */}
-        <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 animate-in zoom-in duration-500">
-          <CheckCircle className="w-12 h-12 text-emerald-500" />
+        <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 animate-in zoom-in duration-500">
+          <CheckCircle className="w-12 h-12 text-green-500" />
         </div>
 
         {/* Title */}
@@ -323,7 +323,7 @@ export default function PagamentoSucesso() {
 
         {/* Subtitle */}
         <p className="text-lg text-neutral-600 mb-2">
-          Bem-vindo ao <span className="font-semibold text-emerald-600">{planNames[plan] || 'FechaAqui'}</span>
+          Bem-vindo ao <span className="font-semibold text-green-600">{planNames[plan] || 'FechaAqui'}</span>
         </p>
 
         {value > 0 && (
@@ -340,9 +340,9 @@ export default function PagamentoSucesso() {
           </div>
         )}
         {planActivated === true && (
-          <div className="flex items-center justify-center gap-2 bg-emerald-50 border border-emerald-200 rounded-xl py-2.5 px-4 mb-6 max-w-sm mx-auto">
-            <CheckCircle size={16} className="text-emerald-600 flex-shrink-0" />
-            <p className="text-xs text-emerald-800 font-semibold">Plano ativo! Você já pode usar tudo.</p>
+          <div className="flex items-center justify-center gap-2 bg-accent/10 border border-green-200 rounded-xl py-2.5 px-4 mb-6 max-w-sm mx-auto">
+            <CheckCircle size={16} className="text-green-600 flex-shrink-0" />
+            <p className="text-xs text-green-800 font-semibold">Plano ativo! Você já pode usar tudo.</p>
           </div>
         )}
         {planActivated === false && (
@@ -368,30 +368,30 @@ export default function PagamentoSucesso() {
             {plan === 'pro' ? (
               <>
                 <li className="flex items-center gap-3 text-neutral-600">
-                  <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
                   Propostas ilimitadas com sua marca
                 </li>
                 <li className="flex items-center gap-3 text-neutral-600">
-                  <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
                   Catalogo completo de plantas
                 </li>
                 <li className="flex items-center gap-3 text-neutral-600">
-                  <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
                   Suporte prioritario no WhatsApp
                 </li>
               </>
             ) : (
               <>
                 <li className="flex items-center gap-3 text-neutral-600">
-                  <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
                   Propostas profissionais com sua marca
                 </li>
                 <li className="flex items-center gap-3 text-neutral-600">
-                  <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
                   Saber quando o cliente abrir a proposta
                 </li>
                 <li className="flex items-center gap-3 text-neutral-600">
-                  <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
                   Parecer uma empresa grande pro cliente
                 </li>
               </>
@@ -403,25 +403,25 @@ export default function PagamentoSucesso() {
         {user ? (
           <Link
             to="/propostas"
-            className="inline-flex items-center justify-center gap-2 w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-medium rounded-full transition-colors"
+            className="inline-flex items-center justify-center gap-2 w-full py-4 bg-green-500 hover:bg-green-600 text-white font-medium rounded-full transition-colors"
           >
             Criar minha primeira proposta
             <ArrowRight size={20} />
           </Link>
         ) : (
           <>
-            <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 mb-4 text-left">
-              <p className="text-sm font-semibold text-emerald-900 mb-1">
+            <div className="bg-accent/10 border border-green-200 rounded-xl p-4 mb-4 text-left">
+              <p className="text-sm font-semibold text-green-900 mb-1">
                 📧 Enviamos um email pra você
               </p>
-              <p className="text-xs text-emerald-800 leading-snug">
+              <p className="text-xs text-green-800 leading-snug">
                 Confere sua caixa (e spam). Pra acessar a plataforma, faça login
                 com o email e senha que você cadastrou.
               </p>
             </div>
             <Link
               to="/login"
-              className="inline-flex items-center justify-center gap-2 w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-medium rounded-full transition-colors"
+              className="inline-flex items-center justify-center gap-2 w-full py-4 bg-green-500 hover:bg-green-600 text-white font-medium rounded-full transition-colors"
             >
               Fazer login
               <ArrowRight size={20} />

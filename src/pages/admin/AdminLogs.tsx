@@ -210,7 +210,7 @@ export default function AdminLogs() {
 
   const getStatusBadge = (status: string) => {
     const styles: Record<string, string> = {
-      processed: "bg-emerald-100 text-emerald-700",
+      processed: "bg-green-100 text-green-700",
       processing: "bg-neutral-100 text-neutral-700",
       error: "bg-red-100 text-red-700",
       received: "bg-neutral-100 text-neutral-600",
@@ -224,13 +224,13 @@ export default function AdminLogs() {
 
   const getEventBadgeColor = (eventType: string) => {
     if (eventType.includes("CONFIRMED") || eventType.includes("RECEIVED")) {
-      return "bg-emerald-100 text-emerald-700 border-emerald-200";
+      return "bg-green-100 text-green-700 border-green-200";
     }
     if (eventType.includes("OVERDUE") || eventType.includes("DELETED")) {
       return "bg-neutral-100 text-neutral-700 border-neutral-200";
     }
     if (eventType.includes("CREATED")) {
-      return "bg-emerald-50 text-emerald-600 border-emerald-100";
+      return "bg-accent/10 text-green-600 border-green-100";
     }
     return "bg-neutral-50 text-neutral-600 border-neutral-200";
   };
@@ -312,7 +312,7 @@ export default function AdminLogs() {
     return (
       <AdminLayout>
         <div className="flex items-center justify-center min-h-[400px]">
-          <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+          <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin" />
         </div>
       </AdminLayout>
     );
@@ -372,7 +372,7 @@ export default function AdminLogs() {
           </div>
           <div className="bg-white rounded-lg border p-4">
             <p className="text-sm text-neutral-500">Confirmados</p>
-            <p className="text-2xl font-bold text-emerald-600">
+            <p className="text-2xl font-bold text-green-600">
               {logs.filter(l => l.event_type.includes("CONFIRMED") || l.event_type.includes("RECEIVED")).length}
             </p>
           </div>
@@ -414,13 +414,13 @@ export default function AdminLogs() {
                         <div className={cn(
                           "p-2 rounded-lg",
                           log.event_type.includes("CONFIRMED") || log.event_type.includes("RECEIVED")
-                            ? "bg-emerald-100"
+                            ? "bg-green-100"
                             : "bg-neutral-100"
                         )}>
                           <EventIcon className={cn(
                             "w-5 h-5",
                             log.event_type.includes("CONFIRMED") || log.event_type.includes("RECEIVED")
-                              ? "text-emerald-600"
+                              ? "text-green-600"
                               : "text-neutral-600"
                           )} />
                         </div>
@@ -528,7 +528,7 @@ export default function AdminLogs() {
                                 href={paymentInfo.linkPagamento}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 mt-3 text-sm text-emerald-600 hover:text-emerald-700"
+                                className="inline-flex items-center gap-1 mt-3 text-sm text-green-600 hover:text-green-700"
                               >
                                 Ver fatura completa →
                               </a>

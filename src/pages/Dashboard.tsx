@@ -142,8 +142,8 @@ export default function Dashboard() {
           <div className="bg-white rounded-2xl border border-neutral-200 p-4 sm:p-5 animate-card-in card-lift">
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm text-neutral-500">Faturamento</span>
-              <div className="w-9 h-9 rounded-xl bg-emerald-100 flex items-center justify-center">
-                <DollarSign size={18} className="text-emerald-600" />
+              <div className="w-9 h-9 rounded-xl bg-green-100 flex items-center justify-center">
+                <DollarSign size={18} className="text-green-600" />
               </div>
             </div>
             <p className="text-2xl font-bold text-neutral-900">
@@ -151,13 +151,13 @@ export default function Dashboard() {
             </p>
             <div className="flex items-center gap-1 mt-1">
               {stats.revenueChange >= 0 ? (
-                <TrendingUp size={14} className="text-emerald-500" />
+                <TrendingUp size={14} className="text-green-500" />
               ) : (
                 <TrendingDown size={14} className="text-red-500" />
               )}
               <span className={cn(
                 "text-xs font-medium",
-                stats.revenueChange >= 0 ? "text-emerald-600" : "text-red-600"
+                stats.revenueChange >= 0 ? "text-green-600" : "text-red-600"
               )}>
                 {stats.revenueChange >= 0 ? "+" : ""}{stats.revenueChange.toFixed(0)}% vs mês anterior
               </span>
@@ -168,8 +168,8 @@ export default function Dashboard() {
           <div className="bg-white rounded-2xl border border-neutral-200 p-4 sm:p-5 animate-card-in stagger-1 card-lift">
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm text-neutral-500">Propostas</span>
-              <div className="w-9 h-9 rounded-xl bg-emerald-100 flex items-center justify-center">
-                <FileText size={18} className="text-emerald-600" />
+              <div className="w-9 h-9 rounded-xl bg-green-100 flex items-center justify-center">
+                <FileText size={18} className="text-green-600" />
               </div>
             </div>
             <p className="text-2xl font-bold text-neutral-900">
@@ -184,8 +184,8 @@ export default function Dashboard() {
           <div className="bg-white rounded-2xl border border-neutral-200 p-4 sm:p-5 animate-card-in stagger-2 card-lift">
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm text-neutral-500">Conversão</span>
-              <div className="w-9 h-9 rounded-xl bg-emerald-100 flex items-center justify-center">
-                <CheckCircle size={18} className="text-emerald-600" />
+              <div className="w-9 h-9 rounded-xl bg-green-100 flex items-center justify-center">
+                <CheckCircle size={18} className="text-green-600" />
               </div>
             </div>
             <p className="text-2xl font-bold text-neutral-900">
@@ -200,8 +200,8 @@ export default function Dashboard() {
           <div className="bg-white rounded-2xl border border-neutral-200 p-4 sm:p-5 animate-card-in stagger-3 card-lift">
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm text-neutral-500">Clientes</span>
-              <div className="w-9 h-9 rounded-xl bg-emerald-100 flex items-center justify-center">
-                <Users size={18} className="text-emerald-600" />
+              <div className="w-9 h-9 rounded-xl bg-green-100 flex items-center justify-center">
+                <Users size={18} className="text-green-600" />
               </div>
             </div>
             <p className="text-2xl font-bold text-neutral-900">
@@ -270,8 +270,8 @@ export default function Dashboard() {
                   >
                     <div className={cn(
                       "w-2 h-2 rounded-full",
-                      proposal.status === "approved" ? "bg-emerald-500" :
-                      proposal.status === "viewed" ? "bg-emerald-400" :
+                      proposal.status === "approved" ? "bg-green-500" :
+                      proposal.status === "viewed" ? "bg-green-400" :
                       proposal.status === "sent" ? "bg-neutral-400" : "bg-neutral-300"
                     )} />
                     <div className="flex-1 min-w-0">

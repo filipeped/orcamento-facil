@@ -416,7 +416,7 @@ export default function AdminDashboard() {
     return (
       <AdminLayout>
         <div className="flex items-center justify-center min-h-[400px]">
-          <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+          <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin" />
         </div>
       </AdminLayout>
     );
@@ -434,7 +434,7 @@ export default function AdminDashboard() {
             <p className="text-neutral-500 capitalize">{formatDate()}</p>
           </div>
           <div className="flex items-center gap-2 text-sm">
-            <div className="flex items-center gap-1 px-3 py-1.5 bg-emerald-100 text-emerald-700 rounded-full">
+            <div className="flex items-center gap-1 px-3 py-1.5 bg-green-100 text-green-700 rounded-full">
               <Activity className="w-4 h-4" />
               <span>{stats?.active_users_7d || 0} ativos</span>
             </div>
@@ -648,11 +648,11 @@ export default function AdminDashboard() {
                 <h3 className="text-lg font-semibold text-neutral-900">
                   Faturamento do Mês
                 </h3>
-                <p className="text-3xl font-bold text-emerald-600 mt-2">
+                <p className="text-3xl font-bold text-green-600 mt-2">
                   {formatCurrency(stats?.month_revenue || 0)}
                 </p>
               </div>
-              <DollarSign className="w-8 h-8 text-emerald-500" />
+              <DollarSign className="w-8 h-8 text-green-500" />
             </div>
 
             {/* Barra de progresso */}
@@ -665,7 +665,7 @@ export default function AdminDashboard() {
               </div>
               <div className="h-3 bg-neutral-100 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-full transition-all duration-500"
+                  className="h-full bg-gradient-to-r from-green-500 to-green-400 rounded-full transition-all duration-500"
                   style={{ width: `${Math.min(100, (stats?.month_revenue || 0) / (stats?.mrr || 1) * 100)}%` }}
                 />
               </div>
@@ -686,7 +686,7 @@ export default function AdminDashboard() {
               {stats?.month_revenue_prev && (
                 <div className={cn(
                   "text-xs mt-1",
-                  (stats?.month_revenue || 0) >= (stats?.month_revenue_prev || 0) ? "text-emerald-600" : "text-neutral-600"
+                  (stats?.month_revenue || 0) >= (stats?.month_revenue_prev || 0) ? "text-green-600" : "text-neutral-600"
                 )}>
                   {(stats?.month_revenue || 0) >= (stats?.month_revenue_prev || 0) ? "+" : ""}
                   {(((stats?.month_revenue || 0) - (stats?.month_revenue_prev || 0)) / (stats?.month_revenue_prev || 1) * 100).toFixed(1)}% vs mês anterior

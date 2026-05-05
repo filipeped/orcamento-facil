@@ -7,7 +7,7 @@ import {
   X,
   Search,
   Bell,
-  Leaf,
+  Package,
   FileText,
   Star,
   ShieldCheck,
@@ -162,11 +162,11 @@ function Hero() {
 // =============================================================================
 function TrustBar() {
   const avatars = [
-    { initials: "CO", bg: "bg-emerald-600" },
+    { initials: "CO", bg: "bg-green-600" },
     { initials: "AF", bg: "bg-neutral-800" },
-    { initials: "JM", bg: "bg-emerald-600" },
+    { initials: "JM", bg: "bg-green-600" },
     { initials: "RS", bg: "bg-neutral-800" },
-    { initials: "PL", bg: "bg-emerald-600" },
+    { initials: "PL", bg: "bg-green-600" },
   ];
 
   return (
@@ -204,7 +204,7 @@ function TrustBar() {
 function TrustStatAnimated({ counter, suffix = "", label, highlight = false }: { counter: number; suffix?: string; label: string; highlight?: boolean }) {
   return (
     <div className="text-center">
-      <p className={`text-2xl md:text-3xl font-bold tabular-nums tracking-tight ${highlight ? "text-emerald-600" : "text-neutral-950"}`}>
+      <p className={`text-2xl md:text-3xl font-bold tabular-nums tracking-tight ${highlight ? "text-green-600" : "text-neutral-950"}`}>
         <Counter value={counter} suffix={suffix} duration={1} />
       </p>
       <p className="text-[11px] md:text-xs text-neutral-500 mt-0.5 leading-tight">{label}</p>
@@ -215,7 +215,7 @@ function TrustStatAnimated({ counter, suffix = "", label, highlight = false }: {
 function TrustStat({ value, label, highlight = false }: { value: string; label: string; highlight?: boolean }) {
   return (
     <div className="text-center">
-      <p className={`text-2xl md:text-3xl font-bold tabular-nums tracking-tight ${highlight ? "text-emerald-600" : "text-neutral-950"}`}>
+      <p className={`text-2xl md:text-3xl font-bold tabular-nums tracking-tight ${highlight ? "text-green-600" : "text-neutral-950"}`}>
         {value}
       </p>
       <p className="text-[11px] md:text-xs text-neutral-500 mt-0.5 leading-tight">{label}</p>
@@ -492,7 +492,7 @@ function ForWho() {
       <div className="max-w-4xl mx-auto px-5 sm:px-6">
         {/* Header — editorial, assimétrico */}
         <Reveal direction="up" className="max-w-3xl mb-12 md:mb-16">
-          <p className="text-[11px] font-semibold text-emerald-600 uppercase tracking-[0.25em] mb-4">
+          <p className="text-[11px] font-semibold text-green-600 uppercase tracking-[0.25em] mb-4">
             Leia antes de assinar
           </p>
           <h2 className="font-semibold tracking-[-0.035em] leading-[0.95] text-4xl md:text-5xl text-neutral-950">
@@ -505,21 +505,21 @@ function ForWho() {
         <div className="grid md:grid-cols-[1.3fr,1fr] gap-4 md:gap-5">
           {/* Fits — card dominante */}
           <motion.div
-            className="relative bg-white rounded-2xl overflow-hidden border border-emerald-400/30 shadow-[0_12px_40px_-16px_rgba(16,185,129,0.12)]"
+            className="relative bg-white rounded-2xl overflow-hidden border border-green-400/30 shadow-[0_12px_40px_-16px_rgba(34,197,94,0.12)]"
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
             {/* Accent top bar */}
-            <div className="h-1 bg-emerald-500" />
+            <div className="h-1 bg-green-500" />
             <div className="p-5 md:p-6">
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center">
                   <Check size={18} strokeWidth={3} className="text-white" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-bold text-emerald-700 uppercase tracking-[0.2em]">Faz sentido se</p>
+                  <p className="text-[10px] font-bold text-green-700 uppercase tracking-[0.2em]">Faz sentido se</p>
                   <p className="text-sm text-neutral-500">Você se reconhece em pelo menos 2 abaixo</p>
                 </div>
               </div>
@@ -529,8 +529,8 @@ function ForWho() {
                     key={i}
                     className="flex items-start gap-3 pb-4 border-b border-neutral-100 last:border-0 last:pb-0"
                   >
-                    <span className="flex-shrink-0 w-6 h-6 rounded-md bg-emerald-50 flex items-center justify-center mt-0.5">
-                      <Check size={12} strokeWidth={3} className="text-emerald-700" />
+                    <span className="flex-shrink-0 w-6 h-6 rounded-md bg-accent/10 flex items-center justify-center mt-0.5">
+                      <Check size={12} strokeWidth={3} className="text-green-700" />
                     </span>
                     <p className="text-[15px] text-neutral-800 leading-relaxed">
                       <strong className="text-neutral-950 font-semibold">{f.bold}</strong>
@@ -781,11 +781,11 @@ function ProductPreview() {
     <section className="py-14 md:py-24 bg-gradient-to-b from-white via-neutral-50/50 to-white relative overflow-hidden">
       <div className="relative max-w-4xl mx-auto px-5 sm:px-6">
         <Reveal direction="up" className="max-w-2xl mx-auto text-center mb-10 md:mb-12">
-          <p className="text-[11px] font-semibold text-emerald-600 uppercase tracking-[0.2em] mb-3">
+          <p className="text-[11px] font-semibold text-green-600 uppercase tracking-[0.2em] mb-3">
             Como é por dentro
           </p>
           <h2 className="font-semibold tracking-[-0.035em] leading-[1.1] text-3xl md:text-5xl text-neutral-950">
-            Bonito. Simples. <span className="text-emerald-600">Seu cliente vê.</span>
+            Bonito. Simples. <span className="text-green-600">Seu cliente vê.</span>
           </h2>
           <p className="mt-4 text-sm md:text-base text-neutral-600">
             3 telas. Sem curso, sem tutorial. Clica e usa.
@@ -828,7 +828,7 @@ function ProductPreview() {
               <div className="flex gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
                 <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
               </div>
               <div className="flex-1 flex justify-center">
                 <div className="bg-white border border-neutral-200 rounded-md px-3 py-1 text-[10px] text-neutral-500 font-mono">
@@ -861,8 +861,8 @@ function MockDashboard() {
       {/* Sidebar */}
       <aside className="hidden md:block border-r border-neutral-200 bg-neutral-50 p-4">
         <div className="flex items-center gap-2 mb-6">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center">
-            <Leaf size={16} className="text-white" />
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center">
+            <Package size={16} className="text-white" />
           </div>
           <span className="font-bold text-sm text-neutral-900">FechaAqui</span>
         </div>
@@ -879,7 +879,7 @@ function MockDashboard() {
               key={item.label}
               className={`px-3 py-2 rounded-lg ${
                 item.active
-                  ? "bg-emerald-500 text-white font-semibold"
+                  ? "bg-green-500 text-white font-semibold"
                   : "text-neutral-600"
               }`}
             >
@@ -898,7 +898,7 @@ function MockDashboard() {
           </div>
           <div className="flex items-center gap-2">
             <Bell size={16} className="text-neutral-400" />
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center text-white text-xs font-bold">CO</div>
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center text-white text-xs font-bold">CO</div>
           </div>
         </div>
 
@@ -909,14 +909,14 @@ function MockDashboard() {
             { label: "Faturamento", value: "R$ 11.4k", trend: "+R$3k" },
             { label: "A aprovar", value: "3", trend: "hoje" },
           ].map((s) => (
-            <div key={s.label} className={`rounded-xl p-3.5 ${s.highlight ? "bg-emerald-500 text-white" : "bg-neutral-50 border border-neutral-100"}`}>
-              <p className={`text-[10px] uppercase tracking-wider font-semibold ${s.highlight ? "text-emerald-100" : "text-neutral-500"}`}>
+            <div key={s.label} className={`rounded-xl p-3.5 ${s.highlight ? "bg-green-500 text-white" : "bg-neutral-50 border border-neutral-100"}`}>
+              <p className={`text-[10px] uppercase tracking-wider font-semibold ${s.highlight ? "text-green-100" : "text-neutral-500"}`}>
                 {s.label}
               </p>
               <p className={`text-xl md:text-2xl font-bold mt-1 tabular-nums ${s.highlight ? "text-white" : "text-neutral-950"}`}>
                 {s.value}
               </p>
-              <p className={`text-[10px] mt-0.5 ${s.highlight ? "text-emerald-100" : "text-emerald-600 font-semibold"}`}>
+              <p className={`text-[10px] mt-0.5 ${s.highlight ? "text-green-100" : "text-green-600 font-semibold"}`}>
                 {s.trend}
               </p>
             </div>
@@ -930,9 +930,9 @@ function MockDashboard() {
           </div>
           <div className="divide-y divide-neutral-100">
             {[
-              { cliente: "Rafaela Santos", valor: "R$ 2.870", status: "Aprovada", statusColor: "bg-emerald-50 text-emerald-700" },
+              { cliente: "Rafaela Santos", valor: "R$ 2.870", status: "Aprovada", statusColor: "bg-accent/10 text-green-700" },
               { cliente: "Marcos Silva", valor: "R$ 4.200", status: "Enviada", statusColor: "bg-neutral-100 text-neutral-600" },
-              { cliente: "Cond. Jardim Sul", valor: "R$ 12.5k", status: "Aprovada", statusColor: "bg-emerald-50 text-emerald-700" },
+              { cliente: "Cond. Jardim Sul", valor: "R$ 12.5k", status: "Aprovada", statusColor: "bg-accent/10 text-green-700" },
             ].map((p, i) => (
               <div key={i} className="px-4 py-3 flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -977,7 +977,7 @@ function MockEditor() {
             key={i}
             className="flex items-center gap-2.5 px-2 py-2 rounded-lg hover:bg-white cursor-grab transition-colors group"
           >
-            <div className="w-8 h-8 rounded-md bg-gradient-to-br from-emerald-100 to-emerald-50 flex items-center justify-center text-base">
+            <div className="w-8 h-8 rounded-md bg-gradient-to-br from-green-100 to-green-50 flex items-center justify-center text-base">
               {p.emoji}
             </div>
             <div className="flex-1 min-w-0">
@@ -1015,9 +1015,9 @@ function MockEditor() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="flex items-center gap-3 bg-neutral-50 rounded-lg px-3 py-2.5 hover:bg-emerald-50 transition-colors group"
+                className="flex items-center gap-3 bg-neutral-50 rounded-lg px-3 py-2.5 hover:bg-accent/10 transition-colors group"
               >
-                <div className="w-8 h-8 rounded-md bg-gradient-to-br from-emerald-100 to-emerald-50 flex-shrink-0" />
+                <div className="w-8 h-8 rounded-md bg-gradient-to-br from-green-100 to-green-50 flex-shrink-0" />
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold text-neutral-900 truncate">{item.name}</p>
                   <p className="text-[10px] text-neutral-500">{item.qty}</p>
@@ -1036,7 +1036,7 @@ function MockEditor() {
             <span className="text-2xl md:text-3xl font-bold text-neutral-950 tabular-nums">R$ 2.870</span>
           </div>
 
-          <button className="mt-5 w-full py-3 rounded-full bg-emerald-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-sm">
+          <button className="mt-5 w-full py-3 rounded-full bg-green-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-sm">
             Enviar proposta por link
             <ArrowRight size={14} />
           </button>
@@ -1052,7 +1052,7 @@ function MockProposta() {
       {/* Documento com aparência de papel */}
       <div className="max-w-md mx-auto bg-white rounded-lg shadow-[0_4px_16px_-6px_rgba(0,0,0,0.08)] overflow-hidden border border-neutral-200">
         {/* Top accent bar */}
-        <div className="h-1 bg-emerald-600" />
+        <div className="h-1 bg-green-600" />
 
         {/* Cabeçalho do documento */}
         <div className="px-5 pt-5 pb-4">
@@ -1124,7 +1124,7 @@ function MockProposta() {
         {/* Rodapé — ação real (WhatsApp) */}
         <div className="px-5 py-3 border-t border-neutral-200">
           <div className="flex items-center justify-center gap-1.5">
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
             <p className="text-[10px] text-neutral-600">
               Dúvidas? Chame Carlos no WhatsApp <span className="font-semibold text-neutral-900">(11) 98765-4321</span>
             </p>

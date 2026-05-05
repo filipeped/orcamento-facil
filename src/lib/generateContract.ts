@@ -74,7 +74,7 @@ export async function generateContractPDF(data: ContractData): Promise<void> {
         Pelo presente instrumento particular, as partes abaixo qualificadas:
       </p>
 
-      <div style="margin-bottom: 30px; padding: 15px; background: #f8f9fa; border-left: 4px solid #10b981;">
+      <div style="margin-bottom: 30px; padding: 15px; background: #f8f9fa; border-left: 4px solid #22C55E;">
         <p style="margin: 0 0 10px 0;"><strong>CONTRATADA:</strong></p>
         <p style="margin: 0;">${companyName}</p>
         <p style="margin: 0; font-size: 10pt; color: #666;">Doravante denominada simplesmente "CONTRATADA"</p>
@@ -98,7 +98,7 @@ export async function generateContractPDF(data: ContractData): Promise<void> {
       <p style="text-align: justify;">
         O presente contrato tem como objeto a prestacao dos seguintes servicos:
       </p>
-      <p style="text-align: justify; font-weight: bold; color: #10b981;">
+      <p style="text-align: justify; font-weight: bold; color: #22C55E;">
         ${proposal.title}
       </p>
 
@@ -132,8 +132,8 @@ export async function generateContractPDF(data: ContractData): Promise<void> {
       <p style="text-align: justify;">
         Pela execucao dos servicos descritos na Clausula Primeira, o CONTRATANTE pagara a CONTRATADA o valor total de:
       </p>
-      <div style="text-align: center; margin: 20px 0; padding: 20px; background: #f0fdf4; border: 2px solid #10b981; border-radius: 8px;">
-        <p style="margin: 0; font-size: 24pt; font-weight: bold; color: #10b981;">${formatCurrency(proposal.total)}</p>
+      <div style="text-align: center; margin: 20px 0; padding: 20px; background: #f0fdf4; border: 2px solid #22C55E; border-radius: 8px;">
+        <p style="margin: 0; font-size: 24pt; font-weight: bold; color: #22C55E;">${formatCurrency(proposal.total)}</p>
         <p style="margin: 10px 0 0 0; font-size: 10pt; color: #666;">(${currencyToWords(proposal.total)})</p>
       </div>
 

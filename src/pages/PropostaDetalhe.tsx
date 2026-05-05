@@ -46,7 +46,7 @@ export default function PropostaDetalhe() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { getProposal, markAsSent, markAsApproved, updateProposal, duplicateProposal, deleteProposal, isLoading } = useProposals();
+  const { getProposal, markAsSent, markAsApproved, updateProposal, duplicateProposal, deleteProposal, isLoading, convertProposalDoc } = useProposals();
   const [showShareDialog, setShowShareDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
@@ -220,10 +220,47 @@ export default function PropostaDetalhe() {
                   <Copy size={16} className="mr-2" />
                   Duplicar
                 </DropdownMenuItem>
+
+                {/* FechaAqui v2 — Conversão entre tipos de documento */}
+                {proposal.status === "approved" && (proposal.docType || "orcamento") === "orcamento" && (
+                  <DropdownMenuItem
+                    onClick={async () => {
+                      const r = await convertProposalDoc(proposal.id, "fatura");
+                      if (r) {
+                        toast.success("Fatura criada!");
+                        navigate(`/faturas/${r.id}`);
+                      } else {
+                        toast.error("Erro ao gerar fatura");
+                      }
+                    }}
+                    className="text-jd-marine"
+                  >
+                    <FileText size={16} className="mr-2" />
+                    Converter em Fatura
+                  </DropdownMenuItem>
+                )}
+                {(proposal.docType === "fatura") && (
+                  <DropdownMenuItem
+                    onClick={async () => {
+                      const r = await convertProposalDoc(proposal.id, "recibo");
+                      if (r) {
+                        toast.success("Recibo gerado!");
+                        navigate(`/recibos/${r.id}`);
+                      } else {
+                        toast.error("Erro ao gerar recibo");
+                      }
+                    }}
+                    className="text-green-600"
+                  >
+                    <CheckCircle size={16} className="mr-2" />
+                    Gerar Recibo (pago)
+                  </DropdownMenuItem>
+                )}
+
                 {proposal.status !== "approved" && proposal.status !== "draft" && (
                   <>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={handleApprove} className="text-emerald-600">
+                    <DropdownMenuItem onClick={handleApprove} className="text-green-600">
                       <CheckCircle size={16} className="mr-2" />
                       Marcar Aprovada
                     </DropdownMenuItem>
@@ -257,7 +294,7 @@ export default function PropostaDetalhe() {
           {/* Client Info Card */}
           <div className="bg-card rounded-xl border border-border p-4 animate-card-in card-lift overflow-hidden">
             <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap">
-              <div className="w-11 h-11 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+              <div className="w-11 h-11 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
                 <User size={24} className="text-primary" />
               </div>
               <div className="flex-1 min-w-0">

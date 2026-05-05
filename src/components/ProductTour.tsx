@@ -338,7 +338,7 @@ export function ProductTour({ steps, userId, onComplete, onSkip }: ProductTourPr
           left: targetRect.left - 6,
           width: highlightWidth,
           height: highlightHeight,
-          boxShadow: "0 0 0 4px rgba(16, 185, 129, 0.3), 0 0 20px rgba(16, 185, 129, 0.4)",
+          boxShadow: "0 0 0 4px rgba(34, 197, 94, 0.3), 0 0 20px rgba(34, 197, 94, 0.4)",
         }}
       />
 

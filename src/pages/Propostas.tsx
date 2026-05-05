@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { DashboardLayout } from "@/components/DashboardLayout";
-import { useProposals } from "@/contexts/ProposalsContext";
+import { useProposals, DocType, DOC_TYPE_LABELS, formatSequenceNumber } from "@/contexts/ProposalsContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { getSupabase } from "@/lib/supabase";
 import { PrimeirosPassos } from "@/components/PrimeirosPassos";
@@ -58,8 +58,17 @@ const formatCurrencyShort = (value: number) => {
 
 export default function Propostas() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user } = useAuth();
   const { proposals, visibleProposals: contextVisibleProposals, hiddenProposalsCount, historyDays, markAsSent, markAsApproved, updateProposal, duplicateProposal, deleteProposal, isLoading } = useProposals();
+
+  // Detecta tipo de documento pela rota: /faturas → fatura, /recibos → recibo, resto → orcamento
+  const docTypeFromRoute: DocType = location.pathname.startsWith("/faturas")
+    ? "fatura"
+    : location.pathname.startsWith("/recibos")
+    ? "recibo"
+    : "orcamento";
+  const docLabel = DOC_TYPE_LABELS[docTypeFromRoute];
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("all");
@@ -135,12 +144,16 @@ export default function Propostas() {
     { value: "total", label: "Total" },
   ];
 
-  // Filtrar propostas por período (memoized)
+  // Filtrar propostas por período E por tipo de documento (memoized)
   const periodProposals = useMemo(() => {
     const now = new Date();
     const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
     return proposals.filter((p) => {
+      // Filtra por docType da rota (default 'orcamento' pra propostas legadas sem doc_type)
+      const pDocType = p.docType || "orcamento";
+      if (pDocType !== docTypeFromRoute) return false;
+
       const createdAt = new Date(p.createdAt);
 
       switch (period) {
@@ -705,7 +718,7 @@ export default function Propostas() {
                               <LinkIcon className="w-4 h-4 mr-2" />
                               Copiar Link
                             </DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => handleSendWhatsApp(proposal.id)} className="rounded-lg text-emerald-600">
+                            <DropdownMenuItem onClick={() => handleSendWhatsApp(proposal.id)} className="rounded-lg text-green-600">
                               <MessageCircle className="w-4 h-4 mr-2" />
                               Enviar WhatsApp
                             </DropdownMenuItem>
@@ -716,7 +729,7 @@ export default function Propostas() {
                           Duplicar
                         </DropdownMenuItem>
                         {proposal.status !== "approved" && proposal.status !== "draft" && (
-                          <DropdownMenuItem onClick={() => handleApprove(proposal.id)} className="rounded-lg text-emerald-600">
+                          <DropdownMenuItem onClick={() => handleApprove(proposal.id)} className="rounded-lg text-green-600">
                             <CheckCircle className="w-4 h-4 mr-2" />
                             Marcar Aprovada
                           </DropdownMenuItem>

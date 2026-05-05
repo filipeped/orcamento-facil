@@ -123,7 +123,7 @@ export default function NovaDespesa() {
               <button
                 type="button"
                 onClick={() => fileRef.current?.click()}
-                className="w-32 h-32 rounded-xl border-2 border-dashed border-neutral-300 hover:border-emerald-400 hover:bg-emerald-50 transition-colors flex flex-col items-center justify-center gap-1 text-neutral-500"
+                className="w-32 h-32 rounded-xl border-2 border-dashed border-neutral-300 hover:border-green-400 hover:bg-accent/10 transition-colors flex flex-col items-center justify-center gap-1 text-neutral-500"
               >
                 <Camera className="w-6 h-6" />
                 <span className="text-xs">Adicionar foto</span>

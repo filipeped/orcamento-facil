@@ -12,9 +12,9 @@ import {
   AlertTriangle,
   Upload,
   Loader2,
-  Sprout,
+  Package,
   Wrench,
-  Leaf,
+  Package,
   ChevronLeft,
   ChevronRight,
   ChevronDown,
@@ -47,9 +47,17 @@ import type { ImportedItem } from "@/lib/csvImport";
 export default function Catalogo() {
   const { items, isLoading, updatePrice, getPrice, addItem, updateItem, deleteItem, duplicateItem } = useCatalog();
 
+  // Detecta nicho do usuário pra condicionar UI de plantas
+  const userIndustry = (() => {
+    try { return localStorage.getItem("fechaaqui_user_industry") || ""; } catch { return ""; }
+  })();
+  const isGardenIndustry = userIndustry === "jardinagem" || userIndustry === "paisagismo" || userIndustry === "";
+
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [catalogFilter, setCatalogFilter] = useState<"Plantas" | "Serviços e Materiais">("Plantas");
+  const [catalogFilter, setCatalogFilter] = useState<"Plantas" | "Serviços e Materiais">(
+    isGardenIndustry ? "Plantas" : "Serviços e Materiais"
+  );
   const [selectedPlantCategory, setSelectedPlantCategory] = useState<string>("Todas");
   const [currentPage, setCurrentPage] = useState(1);
   const [showImportDialog, setShowImportDialog] = useState(false);
@@ -322,25 +330,27 @@ export default function Catalogo() {
 
         {/* Search & Filters */}
         <div data-tour="filtros-itens" className="sticky top-14 z-10 bg-neutral-50 -mx-4 px-4 pt-1 pb-3 space-y-2">
-          {/* Filter Pills - Plantas / Serviços e Materiais */}
-          <div className="flex gap-2">
-            {(["Plantas", "Serviços e Materiais"] as const).map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setCatalogFilter(cat)}
-                className={cn(
-                  "flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all",
-                  catalogFilter === cat
-                    ? "bg-primary text-white shadow-md"
-                    : "bg-white text-neutral-600 border border-neutral-200 hover:border-primary/50"
-                )}
-              >
-                {cat === "Plantas" && <Sprout size={16} />}
-                {cat === "Serviços e Materiais" && <Wrench size={16} />}
-                {cat}
-              </button>
-            ))}
-          </div>
+          {/* Filter Pills — só pra nicho jardinagem/paisagismo */}
+          {isGardenIndustry && (
+            <div className="flex gap-2">
+              {(["Plantas", "Serviços e Materiais"] as const).map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setCatalogFilter(cat)}
+                  className={cn(
+                    "flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all",
+                    catalogFilter === cat
+                      ? "bg-primary text-white shadow-md"
+                      : "bg-white text-neutral-600 border border-neutral-200 hover:border-primary/50"
+                  )}
+                >
+                  {cat === "Plantas" && <Package size={16} />}
+                  {cat === "Serviços e Materiais" && <Wrench size={16} />}
+                  {cat}
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* Search */}
           <div className="relative">
@@ -361,8 +371,8 @@ export default function Catalogo() {
             )}
           </div>
 
-          {/* Filtro por categoria de planta (só em Plantas) */}
-          {catalogFilter === "Plantas" && plantCategories.length > 1 && (
+          {/* Filtro por categoria de planta (só em Plantas e nicho jardim) */}
+          {isGardenIndustry && catalogFilter === "Plantas" && plantCategories.length > 1 && (
             <div className="relative">
               {/* Botão do dropdown */}
               <button
@@ -375,7 +385,7 @@ export default function Catalogo() {
                 )}
               >
                 <div className="flex items-center gap-2">
-                  <Leaf size={18} />
+                  <Package size={18} />
                   <span className="font-medium">
                     {selectedPlantCategory === "Todas" ? "Filtrar por categoria" : selectedPlantCategory}
                   </span>
@@ -455,7 +465,7 @@ export default function Catalogo() {
             <div className="text-center py-12 bg-white rounded-xl border border-neutral-200/80">
               <div className="w-14 h-14 rounded-full bg-primary/5 flex items-center justify-center mx-auto mb-3">
                 {catalogFilter === "Plantas" ? (
-                  <Leaf className="w-7 h-7 text-primary" />
+                  <Package className="w-7 h-7 text-primary" />
                 ) : (
                   <Wrench className="w-7 h-7 text-primary" />
                 )}
@@ -536,9 +546,9 @@ export default function Catalogo() {
                             e.stopPropagation();
                             handleDuplicate(item);
                           }}
-                          className="w-7 h-7 sm:w-6 sm:h-6 rounded-full bg-white/90 shadow-sm flex items-center justify-center hover:bg-emerald-50 active:scale-95 transition-all sm:opacity-0 sm:group-hover:opacity-100"
+                          className="w-7 h-7 sm:w-6 sm:h-6 rounded-full bg-white/90 shadow-sm flex items-center justify-center hover:bg-accent/10 active:scale-95 transition-all sm:opacity-0 sm:group-hover:opacity-100"
                         >
-                          <Copy size={14} className="text-emerald-600 sm:w-3 sm:h-3" />
+                          <Copy size={14} className="text-green-600 sm:w-3 sm:h-3" />
                         </button>
                         <button
                           onClick={(e) => {
@@ -681,7 +691,7 @@ export default function Catalogo() {
                       : "border-neutral-200 hover:border-neutral-300"
                   )}
                 >
-                  <Sprout size={28} className={cn("mx-auto mb-2", newItem.category === "Plantas" ? "text-primary" : "text-neutral-400")} />
+                  <Package size={28} className={cn("mx-auto mb-2", newItem.category === "Plantas" ? "text-primary" : "text-neutral-400")} />
                   <span className="font-medium">Planta</span>
                 </button>
                 <button
@@ -689,11 +699,11 @@ export default function Catalogo() {
                   className={cn(
                     "p-4 rounded-xl border-2 transition-all text-center",
                     newItem.category === "Serviços"
-                      ? "border-emerald-500 bg-emerald-50"
+                      ? "border-green-500 bg-accent/10"
                       : "border-neutral-200 hover:border-neutral-300"
                   )}
                 >
-                  <Wrench size={28} className={cn("mx-auto mb-2", newItem.category === "Serviços" ? "text-emerald-600" : "text-neutral-400")} />
+                  <Wrench size={28} className={cn("mx-auto mb-2", newItem.category === "Serviços" ? "text-green-600" : "text-neutral-400")} />
                   <span className="font-medium text-sm">Serviço ou Material</span>
                 </button>
               </div>
@@ -826,7 +836,7 @@ export default function Catalogo() {
                       : "border-neutral-200 hover:border-neutral-300"
                   )}
                 >
-                  <Sprout size={24} className={cn("mx-auto mb-1", editItem.category === "Plantas" ? "text-primary" : "text-neutral-400")} />
+                  <Package size={24} className={cn("mx-auto mb-1", editItem.category === "Plantas" ? "text-primary" : "text-neutral-400")} />
                   <span className="font-medium text-sm">Planta</span>
                 </button>
                 <button
@@ -834,11 +844,11 @@ export default function Catalogo() {
                   className={cn(
                     "p-3 rounded-xl border-2 transition-all text-center",
                     editItem.category === "Serviços"
-                      ? "border-emerald-500 bg-emerald-50"
+                      ? "border-green-500 bg-accent/10"
                       : "border-neutral-200 hover:border-neutral-300"
                   )}
                 >
-                  <Wrench size={24} className={cn("mx-auto mb-1", editItem.category === "Serviços" ? "text-emerald-600" : "text-neutral-400")} />
+                  <Wrench size={24} className={cn("mx-auto mb-1", editItem.category === "Serviços" ? "text-green-600" : "text-neutral-400")} />
                   <span className="font-medium text-sm">Serviço ou Material</span>
                 </button>
               </div>

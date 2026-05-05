@@ -83,7 +83,7 @@ export function AdminSidebar() {
         <div className="flex items-center justify-between h-16 px-4 border-b border-neutral-800">
           <div className="flex items-center gap-2">
             <Logo size="sm" variant="white" />
-            <span className="text-xs font-medium text-emerald-400 bg-emerald-900/50 px-2 py-0.5 rounded-full">
+            <span className="text-xs font-medium text-green-400 bg-green-900/50 px-2 py-0.5 rounded-full">
               Admin
             </span>
           </div>
@@ -119,7 +119,7 @@ export function AdminSidebar() {
                 className={cn(
                   "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200",
                   isActive
-                    ? "bg-gradient-to-r from-emerald-600 to-emerald-500 text-white shadow-lg shadow-emerald-600/20"
+                    ? "bg-gradient-to-r from-green-600 to-green-500 text-white shadow-lg shadow-green-600/20"
                     : "text-neutral-400 hover:bg-neutral-800/50 hover:text-white"
                 )}
               >

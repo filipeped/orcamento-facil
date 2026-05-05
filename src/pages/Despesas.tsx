@@ -45,7 +45,7 @@ export default function Despesas() {
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
             <h1 className="text-2xl font-semibold text-neutral-900 tracking-tight flex items-center gap-2">
-              <Wallet className="w-6 h-6 text-emerald-600" />
+              <Wallet className="w-6 h-6 text-green-600" />
               Despesas
             </h1>
             <p className="text-sm text-neutral-500 mt-1">
@@ -196,7 +196,7 @@ function StatCard({
     <div
       className={
         tone === "emerald"
-          ? "bg-emerald-50 border border-emerald-200 rounded-xl p-4"
+          ? "bg-accent/10 border border-green-200 rounded-xl p-4"
           : "bg-white border border-neutral-200 rounded-xl p-4"
       }
     >

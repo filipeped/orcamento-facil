@@ -31,13 +31,13 @@ export function StatsCard({
 }: StatsCardProps) {
   const variantStyles = {
     default: "bg-white border-neutral-200 hover:border-neutral-300",
-    primary: "bg-gradient-to-br from-emerald-50 to-emerald-100/50 border-emerald-200 hover:border-emerald-300",
+    primary: "bg-gradient-to-br from-green-50 to-green-100/50 border-green-200 hover:border-green-300",
     muted: "bg-neutral-50 border-neutral-200 hover:border-neutral-300",
   };
 
   const iconStyles = {
     default: "bg-neutral-100 text-neutral-600",
-    primary: "bg-emerald-100 text-emerald-600",
+    primary: "bg-green-100 text-green-600",
     muted: "bg-neutral-200 text-neutral-500",
   };
 
@@ -56,7 +56,7 @@ export function StatsCard({
         trend.value === 0
           ? "bg-neutral-100 text-neutral-600"
           : trend.isPositive
-          ? "bg-emerald-100 text-emerald-700"
+          ? "bg-green-100 text-green-700"
           : "bg-neutral-200 text-neutral-600"
       )}
     >

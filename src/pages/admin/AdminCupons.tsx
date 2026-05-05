@@ -201,7 +201,7 @@ export default function AdminCupons() {
     return (
       <AdminLayout>
         <div className="flex items-center justify-center min-h-[400px]">
-          <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+          <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin" />
         </div>
       </AdminLayout>
     );
@@ -268,7 +268,7 @@ export default function AdminCupons() {
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="text-sm font-semibold text-emerald-600">
+                      <span className="text-sm font-semibold text-green-600">
                         {coupon.discount_percent}%
                       </span>
                     </td>
@@ -296,7 +296,7 @@ export default function AdminCupons() {
                       <Badge
                         className={
                           coupon.active
-                            ? "bg-emerald-100 text-emerald-700"
+                            ? "bg-green-100 text-green-700"
                             : "bg-neutral-100 text-neutral-600"
                         }
                       >

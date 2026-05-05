@@ -195,7 +195,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       case "proposal_viewed":
         return <Eye className="w-4 h-4 text-blue-500" />;
       case "proposal_approved":
-        return <CheckCircle className="w-4 h-4 text-emerald-500" />;
+        return <CheckCircle className="w-4 h-4 text-green-500" />;
       case "payment_confirmed":
       case "plan_upgraded":
         return <Sparkles className="w-4 h-4 text-amber-500" />;
@@ -264,11 +264,11 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                 className={cn(
                   "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all touch-feedback",
                   isActive
-                    ? "bg-emerald-50 text-emerald-600"
+                    ? "bg-accent/10 text-green-600"
                     : "text-neutral-600 hover:bg-neutral-100 active:bg-neutral-200"
                 )}
               >
-                <item.icon className={cn("w-5 h-5", isActive ? "text-emerald-600" : "text-neutral-400")} />
+                <item.icon className={cn("w-5 h-5", isActive ? "text-green-600" : "text-neutral-400")} />
                 {item.name}
               </Link>
             );
@@ -280,11 +280,11 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             className={cn(
               "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all touch-feedback mt-2",
               location.pathname === "/upgrade"
-                ? "bg-emerald-100 text-emerald-700"
-                : "bg-emerald-50/70 text-emerald-600 hover:bg-emerald-100/80"
+                ? "bg-green-100 text-green-700"
+                : "bg-accent/10/70 text-green-600 hover:bg-green-100/80"
             )}
           >
-            <Sparkles className="w-5 h-5 text-emerald-500" />
+            <Sparkles className="w-5 h-5 text-green-500" />
             Planos
           </Link>
 
@@ -382,11 +382,11 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                 className={cn(
                   "flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all touch-feedback btn-press",
                   isActive
-                    ? "bg-emerald-50 text-emerald-600"
+                    ? "bg-accent/10 text-green-600"
                     : "text-neutral-600 active:bg-neutral-100"
                 )}
               >
-                <item.icon className={cn("w-5 h-5", isActive ? "text-emerald-600" : "text-neutral-400")} />
+                <item.icon className={cn("w-5 h-5", isActive ? "text-green-600" : "text-neutral-400")} />
                 {item.name}
               </Link>
             );
@@ -399,11 +399,11 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             className={cn(
               "flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all touch-feedback btn-press mt-2",
               location.pathname === "/upgrade"
-                ? "bg-emerald-100 text-emerald-700"
-                : "bg-emerald-50/70 text-emerald-600 active:bg-emerald-100/80"
+                ? "bg-green-100 text-green-700"
+                : "bg-accent/10/70 text-green-600 active:bg-green-100/80"
             )}
           >
-            <Sparkles className="w-5 h-5 text-emerald-500" />
+            <Sparkles className="w-5 h-5 text-green-500" />
             Planos
           </Link>
 
@@ -607,32 +607,32 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           const showCoupon = trialDaysLeft <= 1;
 
           return (
-            <div className="bg-emerald-50 border-b border-emerald-200 px-4 py-2.5">
+            <div className="bg-accent/10 border-b border-green-200 px-4 py-2.5">
               <div className="max-w-5xl mx-auto flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2 min-w-0">
                   {showCoupon ? (
                     <>
                       <span className="text-lg">🎁</span>
-                      <p className="text-sm text-emerald-800">
+                      <p className="text-sm text-green-800">
                         <span className="font-bold">Último dia!</span>{" "}
-                        <span className="hidden sm:inline">Use <span className="font-bold text-emerald-700">FICA10</span> e ganhe 10% OFF</span>
-                        <span className="sm:hidden font-bold text-emerald-700">FICA10 = 10% OFF</span>
+                        <span className="hidden sm:inline">Use <span className="font-bold text-green-700">FICA10</span> e ganhe 10% OFF</span>
+                        <span className="sm:hidden font-bold text-green-700">FICA10 = 10% OFF</span>
                       </p>
                     </>
                   ) : (
                     <>
-                      <Clock className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                      <p className="text-sm text-emerald-800">
+                      <Clock className="w-4 h-4 text-green-600 flex-shrink-0" />
+                      <p className="text-sm text-green-800">
                         <span className="font-medium">Trial:</span>{" "}
                         {trialDaysLeft} {trialDaysLeft === 1 ? 'dia restante' : 'dias restantes'}
-                        <span className="hidden sm:inline text-emerald-600"> — 5 propostas para testar</span>
+                        <span className="hidden sm:inline text-green-600"> — 5 propostas para testar</span>
                       </p>
                     </>
                   )}
                 </div>
                 <Link
                   to={showCoupon ? "/upgrade?cupom=FICA10" : "/upgrade"}
-                  className="flex-shrink-0 px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium rounded-full transition-colors"
+                  className="flex-shrink-0 px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-xs font-medium rounded-full transition-colors"
                 >
                   {showCoupon ? "Usar Cupom" : "Ver Planos"}
                 </Link>
@@ -643,14 +643,14 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
         {/* Banner Trial Expirado com Cupom */}
         {!user?.isInTrial && user?.plan === "Grátis" && !user?.isAdmin && (
-          <div className="bg-emerald-50 border-b border-emerald-200 px-4 py-2.5">
+          <div className="bg-accent/10 border-b border-green-200 px-4 py-2.5">
             <div className="max-w-5xl mx-auto flex items-center justify-between gap-3">
               <div className="flex items-center gap-2 min-w-0">
                 <span className="text-lg">🎁</span>
-                <p className="text-sm text-emerald-800">
+                <p className="text-sm text-green-800">
                   <span className="font-medium">Trial expirado</span>
-                  <span className="hidden sm:inline"> — Use <span className="font-bold text-emerald-700">VOLTA15</span> e ganhe 15% OFF!</span>
-                  <span className="sm:hidden font-bold text-emerald-700"> VOLTA15 = 15% OFF</span>
+                  <span className="hidden sm:inline"> — Use <span className="font-bold text-green-700">VOLTA15</span> e ganhe 15% OFF!</span>
+                  <span className="sm:hidden font-bold text-green-700"> VOLTA15 = 15% OFF</span>
                 </p>
               </div>
               <Link

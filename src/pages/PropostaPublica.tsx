@@ -7,7 +7,7 @@ import {
   AlertCircle,
   CheckCircle2,
   Download,
-  Leaf,
+  Package,
   Loader2,
   MessageCircle,
   CreditCard,
@@ -43,7 +43,7 @@ const defaultStyle: ProposalStyle = {
   showAddress: true,
   showInstagram: true,
   showBio: true,
-  primaryColor: "#16a34a",
+  primaryColor: "#22C55E",
   footerText: "",
   paymentTerms: "• 50% no fechamento do contrato\n• 50% na conclusão do serviço\n• Formas: transferência ou dinheiro",
   generalTerms: "• Garantia de 30 dias após a conclusão do serviço\n• Materiais inclusos conforme especificado acima\n• Prazo de execução a combinar após aprovação",
@@ -123,7 +123,7 @@ export default function PropostaPublica() {
           showAddress: styleResult.data.show_address ?? true,
           showInstagram: styleResult.data.show_instagram ?? true,
           showBio: styleResult.data.show_bio ?? true,
-          primaryColor: styleResult.data.primary_color || "#16a34a",
+          primaryColor: styleResult.data.primary_color || "#22C55E",
           footerText: styleResult.data.footer_text || "",
           paymentTerms: styleResult.data.payment_terms || defaultStyle.paymentTerms,
           generalTerms: styleResult.data.general_terms || defaultStyle.generalTerms,
@@ -369,7 +369,7 @@ export default function PropostaPublica() {
                     className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl flex items-center justify-center flex-shrink-0"
                     style={{ backgroundColor: `${style.primaryColor}10` }}
                   >
-                    <Leaf className="w-8 h-8 sm:w-10 sm:h-10" style={{ color: style.primaryColor }} />
+                    <Package className="w-8 h-8 sm:w-10 sm:h-10" style={{ color: style.primaryColor }} />
                   </div>
                 )
               )}
@@ -390,7 +390,7 @@ export default function PropostaPublica() {
                 </div>
               </div>
               {showApproved && (
-                <div className="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500 text-white rounded-lg text-xs font-bold uppercase tracking-wide">
+                <div className="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-500 text-white rounded-lg text-xs font-bold uppercase tracking-wide">
                   <CheckCircle2 className="w-4 h-4" />
                   Aprovado
                 </div>
@@ -467,8 +467,8 @@ export default function PropostaPublica() {
                             className="w-14 h-14 sm:w-16 sm:h-16 object-cover rounded-lg border border-stone-200"
                           />
                         ) : (
-                          <div className="w-14 h-14 sm:w-16 sm:h-16 bg-emerald-50 rounded-lg border border-emerald-100 flex items-center justify-center">
-                            <Leaf className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400" />
+                          <div className="w-14 h-14 sm:w-16 sm:h-16 bg-accent/10 rounded-lg border border-green-100 flex items-center justify-center">
+                            <Package className="w-5 h-5 sm:w-6 sm:h-6 text-green-400" />
                           </div>
                         )}
                         <div>
@@ -478,7 +478,7 @@ export default function PropostaPublica() {
                           )}
                           <div className="flex flex-wrap gap-x-2 gap-y-0.5 mt-0.5">
                             {item.unit && item.unit !== "un" && (
-                              <span className="text-[10px] sm:text-xs text-emerald-600 font-medium">/{item.unit}</span>
+                              <span className="text-[10px] sm:text-xs text-green-600 font-medium">/{item.unit}</span>
                             )}
                             {item.description && (
                               <span className="text-[10px] sm:text-xs text-stone-500">{item.description}</span>
@@ -538,7 +538,7 @@ export default function PropostaPublica() {
             {showApproved ? (
               <div className="flex flex-col items-center">
                 <div className="flex items-center gap-3 mb-2">
-                  <CheckCircle2 className="w-6 h-6 text-emerald-500" />
+                  <CheckCircle2 className="w-6 h-6 text-green-500" />
                   <span className="text-lg sm:text-xl font-semibold text-stone-800">Orçamento Aprovado</span>
                 </div>
                 <p className="text-sm text-stone-500">
@@ -613,7 +613,7 @@ export default function PropostaPublica() {
               value={signedName}
               onChange={(e) => setSignedName(e.target.value)}
               placeholder="Nome do responsável"
-              className="w-full px-3 py-2.5 rounded-lg border border-neutral-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none mb-4 text-sm"
+              className="w-full px-3 py-2.5 rounded-lg border border-neutral-200 focus:border-green-500 focus:ring-2 focus:ring-green-100 outline-none mb-4 text-sm"
               disabled={isAccepting}
             />
 
@@ -635,7 +635,7 @@ export default function PropostaPublica() {
               <button
                 onClick={() => submitApproval(signatureDataUrl, signedName.trim())}
                 disabled={isAccepting || !signedName.trim() || !signatureDataUrl}
-                className="flex-1 px-4 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+                className="flex-1 px-4 py-3 rounded-lg bg-green-600 hover:bg-green-700 text-white text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
               >
                 {isAccepting ? (
                   <>

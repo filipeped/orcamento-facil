@@ -97,9 +97,9 @@ export function UserDetailsModal({ user, open, onClose }: UserDetailsModalProps)
 
   const getStatusColor = (status: string) => {
     const colors: Record<string, string> = {
-      active: "bg-emerald-100 text-emerald-700",
-      confirmed: "bg-emerald-100 text-emerald-700",
-      approved: "bg-emerald-100 text-emerald-700",
+      active: "bg-green-100 text-green-700",
+      confirmed: "bg-green-100 text-green-700",
+      approved: "bg-green-100 text-green-700",
       pending: "bg-amber-100 text-amber-700",
       draft: "bg-neutral-100 text-neutral-600",
       sent: "bg-blue-100 text-blue-700",

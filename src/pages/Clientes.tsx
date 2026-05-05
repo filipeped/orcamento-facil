@@ -184,17 +184,17 @@ export default function Clientes() {
           </div>
           <div className="bg-white rounded-lg sm:rounded-xl border border-neutral-200 p-2.5 sm:p-3 animate-card-in stagger-1 card-lift">
             <div className="flex items-center gap-1.5 sm:gap-2 mb-1">
-              <CheckCircle size={12} className="sm:w-3.5 sm:h-3.5 text-emerald-500" />
+              <CheckCircle size={12} className="sm:w-3.5 sm:h-3.5 text-green-500" />
               <span className="text-[10px] sm:text-xs text-neutral-500">Aprovadas</span>
             </div>
-            <p className="text-base sm:text-lg font-bold text-emerald-600">{stats.totalApproved}</p>
+            <p className="text-base sm:text-lg font-bold text-green-600">{stats.totalApproved}</p>
           </div>
           <div className="bg-white rounded-lg sm:rounded-xl border border-neutral-200 p-2.5 sm:p-3 animate-card-in stagger-2 card-lift">
             <div className="flex items-center gap-1.5 sm:gap-2 mb-1">
-              <TrendingUp size={12} className="sm:w-3.5 sm:h-3.5 text-emerald-500" />
+              <TrendingUp size={12} className="sm:w-3.5 sm:h-3.5 text-green-500" />
               <span className="text-[10px] sm:text-xs text-neutral-500">Total</span>
             </div>
-            <p className="text-sm sm:text-lg font-bold text-emerald-600 truncate">{formatCurrency(stats.totalValue)}</p>
+            <p className="text-sm sm:text-lg font-bold text-green-600 truncate">{formatCurrency(stats.totalValue)}</p>
           </div>
         </div>
 
@@ -269,8 +269,8 @@ export default function Clientes() {
               >
                 <div className="flex items-center gap-2.5 sm:gap-3">
                   {/* Avatar */}
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
-                    <span className="text-base sm:text-lg font-semibold text-emerald-600">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                    <span className="text-base sm:text-lg font-semibold text-green-600">
                       {client.name.charAt(0).toUpperCase()}
                     </span>
                   </div>
@@ -282,7 +282,7 @@ export default function Clientes() {
                         {client.name}
                       </h3>
                       {client.approvedCount > 0 && (
-                        <span className="px-1.5 py-0.5 bg-emerald-100 text-emerald-700 text-[9px] sm:text-[10px] font-medium rounded flex-shrink-0">
+                        <span className="px-1.5 py-0.5 bg-green-100 text-green-700 text-[9px] sm:text-[10px] font-medium rounded flex-shrink-0">
                           {client.approvedCount} aprovada{client.approvedCount !== 1 ? 's' : ''}
                         </span>
                       )}
@@ -302,7 +302,7 @@ export default function Clientes() {
 
                   {/* Value & Actions */}
                   <div className="text-right flex-shrink-0">
-                    <p className="font-bold text-emerald-600 text-sm sm:text-base">{formatCurrency(client.totalValue)}</p>
+                    <p className="font-bold text-green-600 text-sm sm:text-base">{formatCurrency(client.totalValue)}</p>
                     <p className="text-[10px] sm:text-xs text-neutral-400">{formatDate(client.lastProposalDate)}</p>
                   </div>
                 </div>

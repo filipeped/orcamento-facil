@@ -87,21 +87,21 @@ export function CsvImportDialog({ open, onClose, mode, onImport }: CsvImportDial
 
         {/* Resultado da importação */}
         {result && (
-          <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 mb-4">
+          <div className="rounded-xl border border-green-200 bg-accent/10 p-4 mb-4">
             <div className="flex items-start gap-3">
-              <Check className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+              <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
               <div>
-                <p className="text-sm font-medium text-emerald-900">
+                <p className="text-sm font-medium text-green-900">
                   {result.inserted} {mode === "clients" ? "cliente(s)" : "item(s)"} importado(s)
                 </p>
                 {result.failed > 0 && (
-                  <p className="text-xs text-emerald-700 mt-0.5">{result.failed} linha(s) ignorada(s)</p>
+                  <p className="text-xs text-green-700 mt-0.5">{result.failed} linha(s) ignorada(s)</p>
                 )}
               </div>
             </div>
             <button
               onClick={() => { reset(); onClose(); }}
-              className="mt-3 w-full px-4 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium"
+              className="mt-3 w-full px-4 py-2.5 rounded-lg bg-green-600 hover:bg-green-700 text-white text-sm font-medium"
             >
               Concluir
             </button>
@@ -121,7 +121,7 @@ export function CsvImportDialog({ open, onClose, mode, onImport }: CsvImportDial
           <>
             <button
               onClick={() => inputRef.current?.click()}
-              className="w-full border-2 border-dashed border-neutral-300 rounded-xl p-8 hover:border-emerald-500 hover:bg-emerald-50/50 transition-colors flex flex-col items-center gap-2"
+              className="w-full border-2 border-dashed border-neutral-300 rounded-xl p-8 hover:border-green-500 hover:bg-accent/10/50 transition-colors flex flex-col items-center gap-2"
             >
               <Upload className="w-8 h-8 text-neutral-400" />
               <span className="text-sm font-medium text-neutral-700">Clique para escolher o arquivo</span>
@@ -141,7 +141,7 @@ export function CsvImportDialog({ open, onClose, mode, onImport }: CsvImportDial
             <a
               href={sampleUrl}
               download
-              className="mt-4 inline-flex items-center gap-1.5 text-sm text-emerald-600 hover:text-emerald-700"
+              className="mt-4 inline-flex items-center gap-1.5 text-sm text-green-600 hover:text-green-700"
             >
               <Download className="w-4 h-4" />
               Baixar modelo CSV
@@ -192,7 +192,7 @@ export function CsvImportDialog({ open, onClose, mode, onImport }: CsvImportDial
               <button
                 onClick={handleConfirm}
                 disabled={isImporting || parsed.valid.length === 0}
-                className="flex-1 px-4 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium disabled:opacity-50 flex items-center justify-center gap-2"
+                className="flex-1 px-4 py-3 rounded-lg bg-green-600 hover:bg-green-700 text-white text-sm font-medium disabled:opacity-50 flex items-center justify-center gap-2"
               >
                 {isImporting ? (
                   <>

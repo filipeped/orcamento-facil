@@ -138,19 +138,27 @@ function formatDateLong(dateString: string): string {
   });
 }
 
+// Mapa de título PDF por docType (FechaAqui v2)
+const DOC_TITLES: Record<string, string> = {
+  orcamento: "ORÇAMENTO",
+  fatura: "FATURA",
+  recibo: "RECIBO",
+};
+
 // Gera o HTML do orçamento para PDF
 function generateProposalHTML(proposal: Proposal, isFreePlan: boolean = false, template: PdfTemplate = "classic"): string {
   const primary = "#22C55E"; // verde brand FechaAqui
   const tpl = getTemplateStyle(template, primary);
+  const docTitle = DOC_TITLES[proposal.docType || "orcamento"] || "ORÇAMENTO";
   // Marca d'água para plano grátis
   const watermarkHTML = isFreePlan ? `
     <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); z-index: 1000; pointer-events: none;">
-      <p style="font-size: 60px; color: rgba(16, 185, 129, 0.15); font-weight: bold; white-space: nowrap; margin: 0;">
+      <p style="font-size: 60px; color: rgba(34, 197, 94, 0.15); font-weight: bold; white-space: nowrap; margin: 0;">
         ${BRAND.watermarkText}
       </p>
     </div>
     <div style="position: fixed; bottom: 20px; left: 0; right: 0; text-align: center; z-index: 1000;">
-      <p style="font-size: 10px; color: #10b981; margin: 0;">
+      <p style="font-size: 10px; color: #22C55E; margin: 0;">
         ${BRAND.watermarkFooter}
       </p>
     </div>
@@ -159,7 +167,7 @@ function generateProposalHTML(proposal: Proposal, isFreePlan: boolean = false, t
     const imageHTML = item.imageUrl
       ? `<img src="${item.imageUrl}" alt="${item.name}" style="width: 40px; height: 40px; object-fit: cover; border: 1px solid #e5e5e5;" />`
       : `<div style="width: 40px; height: 40px; background: #ecfdf5; border: 1px solid #d1fae5; display: flex; align-items: center; justify-content: center;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2">
             <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
             <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
           </svg>
@@ -170,7 +178,7 @@ function generateProposalHTML(proposal: Proposal, isFreePlan: boolean = false, t
       : '';
 
     const unitHTML = item.unit && item.unit !== 'un'
-      ? `<span style="font-size: 10px; color: #10b981; font-weight: 500;">/${item.unit}</span>`
+      ? `<span style="font-size: 10px; color: #22C55E; font-weight: 500;">/${item.unit}</span>`
       : '';
 
     const descriptionHTML = item.description
@@ -224,7 +232,7 @@ function generateProposalHTML(proposal: Proposal, isFreePlan: boolean = false, t
       <div style="${headerInnerStyle}">
         <!-- Título -->
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
-          <h2 style="font-size: ${tpl.titleSize}; font-weight: bold; color: ${tpl.titleColor}; margin: 0; letter-spacing: -0.025em;">ORÇAMENTO</h2>
+          <h2 style="font-size: ${tpl.titleSize}; font-weight: bold; color: ${tpl.titleColor}; margin: 0; letter-spacing: -0.025em;">${docTitle}</h2>
           <div style="text-align: right;">
             <p style="font-size: 10px; color: ${titleSubColor}; text-transform: uppercase; letter-spacing: 0.05em; margin: 0;">Número</p>
             <p style="font-size: 18px; font-weight: bold; color: ${titleNumColor}; margin: 4px 0 0 0;">${proposal.shortId?.split('/')[0] || proposal.id.slice(-6).toUpperCase()}</p>
