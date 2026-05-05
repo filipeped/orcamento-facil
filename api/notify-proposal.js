@@ -18,8 +18,8 @@ const EVOLUTION_API_KEY = process.env.EVOLUTION_API_KEY;
 
 // Domínios permitidos
 const ALLOWED_ORIGINS = [
-  'https://www.fechaqui.com',
-  'https://fechaqui.com',
+  'https://www.fechaaqui.com',
+  'https://fechaaqui.com',
   'https://www.jardinei.com',
   'https://jardinei.com',
   'https://www.orcafacil.com',
@@ -99,12 +99,12 @@ export default async function handler(req, res) {
     const nomeDono = profile.full_name?.split(' ')[0] || '';
     // Detectar brand pelo origin/referer do request; default JARDINEI (legado).
     const reqOrigin = (req.headers.origin || req.headers.referer || '').toLowerCase();
-    const brand = reqOrigin.includes('fechaqui') ? 'fechaqui' : 'jardinei';
-    const brandLabel = brand === 'fechaqui' ? 'FechaAqui' : 'JARDINEI';
-    const brandHost = brand === 'fechaqui'
-      ? (process.env.FECHAQUI_PUBLIC_DOMAIN || 'https://www.fechaqui.com').replace(/^https?:\/\//, '')
+    const brand = reqOrigin.includes('fechaaqui') ? 'fechaaqui' : 'jardinei';
+    const brandLabel = brand === 'fechaaqui' ? 'FechaAqui' : 'JARDINEI';
+    const brandHost = brand === 'fechaaqui'
+      ? (process.env.FECHAQUI_PUBLIC_DOMAIN || 'https://www.fechaaqui.com').replace(/^https?:\/\//, '')
       : (process.env.JARDINEI_PUBLIC_DOMAIN || 'https://www.jardinei.com').replace(/^https?:\/\//, '');
-    const propostasPath = brand === 'fechaqui' ? '/orcamentos' : '/propostas';
+    const propostasPath = brand === 'fechaaqui' ? '/orcamentos' : '/propostas';
     const proposalLink = proposal.short_id ? `${brandHost}/p/${proposal.short_id}` : `${brandHost}${propostasPath}`;
 
     // Apenas tipo "approved" é suportado (viewed removido - não precisa de WhatsApp)

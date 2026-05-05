@@ -832,7 +832,7 @@ function ProductPreview() {
               </div>
               <div className="flex-1 flex justify-center">
                 <div className="bg-white border border-neutral-200 rounded-md px-3 py-1 text-[10px] text-neutral-500 font-mono">
-                  app.fechaqui.com/{tab}
+                  app.fechaaqui.com/{tab}
                 </div>
               </div>
             </div>

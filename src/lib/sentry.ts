@@ -64,7 +64,7 @@ export function initSentry() {
     // Tags globais
     initialScope: {
       tags: {
-        app: "fechaqui",
+        app: "fechaaqui",
         platform: "web",
       },
     },

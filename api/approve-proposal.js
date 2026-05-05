@@ -19,8 +19,8 @@ const EVOLUTION_API_KEY = process.env.EVOLUTION_API_KEY;
 
 // Domínios permitidos (inclui onde propostas públicas são visualizadas)
 const ALLOWED_ORIGINS = [
-  'https://www.fechaqui.com',
-  'https://fechaqui.com',
+  'https://www.fechaaqui.com',
+  'https://fechaaqui.com',
   'https://www.jardinei.com',
   'https://jardinei.com',
   'https://www.orcafacil.com',
@@ -176,12 +176,12 @@ export default async function handler(req, res) {
         const totalFormatado = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(proposal.total || 0);
         // Detectar brand: client manda na header origin/referer; default JARDINEI (legado).
         const reqOrigin = (req.headers.origin || req.headers.referer || '').toLowerCase();
-        const brand = reqOrigin.includes('fechaqui') ? 'fechaqui' : 'jardinei';
-        const brandLabel = brand === 'fechaqui' ? 'FechaAqui' : 'JARDINEI';
-        const brandHost = brand === 'fechaqui'
-          ? (process.env.FECHAQUI_PUBLIC_DOMAIN || 'https://www.fechaqui.com').replace(/^https?:\/\//, '')
+        const brand = reqOrigin.includes('fechaaqui') ? 'fechaaqui' : 'jardinei';
+        const brandLabel = brand === 'fechaaqui' ? 'FechaAqui' : 'JARDINEI';
+        const brandHost = brand === 'fechaaqui'
+          ? (process.env.FECHAQUI_PUBLIC_DOMAIN || 'https://www.fechaaqui.com').replace(/^https?:\/\//, '')
           : (process.env.JARDINEI_PUBLIC_DOMAIN || 'https://www.jardinei.com').replace(/^https?:\/\//, '');
-        const propostasPath = brand === 'fechaqui' ? '/orcamentos' : '/propostas';
+        const propostasPath = brand === 'fechaaqui' ? '/orcamentos' : '/propostas';
         const proposalLink = proposal.short_id ? `${brandHost}/p/${proposal.short_id}` : `${brandHost}${propostasPath}`;
 
         const message = `🎉 *Proposta Aprovada!*

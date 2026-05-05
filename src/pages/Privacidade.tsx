@@ -130,8 +130,8 @@ export default function Privacidade() {
               entre em contato:
             </p>
             <ul className="list-disc list-inside text-muted-foreground mb-4 space-y-2">
-              <li>E-mail: privacidade@fechaqui.com</li>
-              <li>Encarregado de Dados (DPO): dpo@fechaqui.com</li>
+              <li>E-mail: privacidade@fechaaqui.com</li>
+              <li>Encarregado de Dados (DPO): dpo@fechaaqui.com</li>
             </ul>
           </div>
         </div>

@@ -456,7 +456,7 @@ export function ProposalsProvider({ children }: { children: ReactNode }) {
     // Verificar limite de propostas do plano
     if (monthlyProposalsCount >= monthlyLimit) {
       // Enviar notificação de limite atingido (apenas uma vez por mês)
-      const limitKey = `fechaqui_limit_notified_${new Date().getMonth()}_${new Date().getFullYear()}`;
+      const limitKey = `fechaaqui_limit_notified_${new Date().getMonth()}_${new Date().getFullYear()}`;
       if (!localStorage.getItem(limitKey)) {
         localStorage.setItem(limitKey, "true");
         // Buscar telefone e enviar WhatsApp

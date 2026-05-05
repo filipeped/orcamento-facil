@@ -18,14 +18,14 @@ const PLANS = {
   pro_annual: { value: 804, name: 'JARDINEI Anual', cycle: 'YEARLY' },
 
   // FECHAQUI
-  fechaqui_essential_monthly: { value: 29, name: 'FechaAqui Mensal', cycle: 'MONTHLY' },
-  fechaqui_pro_annual: { value: 228, name: 'FechaAqui Anual', cycle: 'YEARLY' },
+  fechaaqui_essential_monthly: { value: 29, name: 'FechaAqui Mensal', cycle: 'MONTHLY' },
+  fechaaqui_pro_annual: { value: 228, name: 'FechaAqui Anual', cycle: 'YEARLY' },
 };
 
 // Domínios permitidos
 const ALLOWED_ORIGINS = [
-  'https://www.fechaqui.com',
-  'https://fechaqui.com',
+  'https://www.fechaaqui.com',
+  'https://fechaaqui.com',
   'https://www.jardinei.com',
   'https://jardinei.com',
   'https://www.orcafacil.com',

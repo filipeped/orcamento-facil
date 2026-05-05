@@ -78,8 +78,8 @@ async function trackPhoneVerified(userData: { phone: string; name?: string; user
 
     // ✅ PADRONIZADO: Lead com telefone verificado (mesmos valores base)
     const customData = {
-      content_name: 'lead_fechaqui',
-      content_category: 'fechaqui_lead',
+      content_name: 'lead_fechaaqui',
+      content_category: 'fechaaqui_lead',
       source: 'phone_verified',
       value: 50,
       currency: 'BRL'

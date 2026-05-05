@@ -238,7 +238,7 @@ export function CatalogProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     let nicho: string | null = null;
     try {
-      nicho = localStorage.getItem("fechaqui_user_industry");
+      nicho = localStorage.getItem("fechaaqui_user_industry");
     } catch { /* ignore */ }
 
     const carregaPlantas = !nicho || nicho === "jardinagem" || nicho === "paisagismo";

@@ -16,7 +16,7 @@ import { toast } from "sonner";
 import { INDUSTRIES } from "@/lib/industryTemplates";
 import { BRAND } from "@/lib/brand";
 
-const INDUSTRY_STORAGE_KEY = "fechaqui_user_industry";
+const INDUSTRY_STORAGE_KEY = "fechaaqui_user_industry";
 
 async function ensureValidToken(): Promise<boolean> {
   const session = getStoredSession();

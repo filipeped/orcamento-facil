@@ -177,7 +177,7 @@ function humanizeError(raw: string | undefined): string {
   return raw;
 }
 
-const DRAFT_KEY = "fechaqui_checkout_draft";
+const DRAFT_KEY = "fechaaqui_checkout_draft";
 
 export default function Checkout() {
   const navigate = useNavigate();
@@ -309,7 +309,7 @@ export default function Checkout() {
               customerEmail: user.email,
               customerName: nameFromProfile,
               cpfCnpj: cpfFromProfile,
-              brand: "fechaqui",
+              brand: "fechaaqui",
             }),
             timeoutMs: 30000,
           }, 3);
@@ -458,7 +458,7 @@ export default function Checkout() {
             password: formData.password,
             phone: phoneDigits,
             trackingData,
-            brand: "fechaqui",
+            brand: "fechaaqui",
           }),
           timeoutMs: 30000,
         }, 3);

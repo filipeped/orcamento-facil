@@ -1,4 +1,4 @@
-﻿import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from "react";
 import { supabase, getSupabase, getStoredSession, clearStoredSession, SESSION_STORAGE_KEY, isTokenExpired, refreshSession } from "@/lib/supabase";
 import { DeduplicationEngine } from "@/tracking/core/DeduplicationEngine";
 import { BrowserPixelProvider } from "@/tracking/providers/BrowserPixelProvider";
@@ -68,8 +68,8 @@ async function trackUserRegistered(userData: { email: string; name?: string; use
 
     // ✅ PADRONIZADO: Mesmos valores que Cadastro.tsx e metaPixel.ts para evitar duplicação
     const customData = {
-      content_name: "lead_fechaqui",
-      content_category: "fechaqui_lead",
+      content_name: "lead_fechaaqui",
+      content_category: "fechaaqui_lead",
       source: "form_submit",
       value: 50, // Valor fixo intermediário para registro via AuthContext
       currency: "BRL"
@@ -218,7 +218,7 @@ async function getUserData(sessionUser: SessionUser): Promise<User> {
     if (profile?.phone) trackingData.phone = profile.phone;
     if (profile?.full_name) trackingData.full_name = profile.full_name;
     else if (name && name !== "Usuario") trackingData.full_name = name;
-    localStorage.setItem('fechaqui_profile_tracking', JSON.stringify(trackingData));
+    localStorage.setItem('fechaaqui_profile_tracking', JSON.stringify(trackingData));
   } catch { /* ignore */ }
 
   return {
@@ -241,7 +241,7 @@ const BYPASS_AUTH = import.meta.env.VITE_BYPASS_AUTH === "true";
 const FAKE_USER: User = {
   id: "demo-user-id",
   name: "Usuário Demo",
-  email: "demo@fechaqui.local",
+  email: "demo@fechaaqui.local",
   initials: "UD",
   plan: "Anual",
   planStatus: "active",

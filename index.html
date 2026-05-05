@@ -37,7 +37,7 @@
     <meta property="og:title" content="FechaAqui — Propostas e faturas pra prestadores de serviço" />
     <meta property="og:description" content="App brasileiro pra prestadores de serviço criarem propostas e faturas profissionais e receberem via Pix." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://fechaqui.com" />
+    <meta property="og:url" content="https://fechaaqui.com" />
     <meta property="og:image" content="/icons/icon-512x512.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -47,7 +47,7 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@fechaqui" />
+    <meta name="twitter:site" content="@fechaaqui" />
     <meta name="twitter:image" content="/icons/icon-512x512.png" />
     <meta name="twitter:image:alt" content="FechaAqui — Propostas e faturas profissionais" />
 
@@ -60,12 +60,12 @@
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Web",
       "description": "App brasileiro pra prestadores de serviço criarem propostas e faturas profissionais e receberem via Pix.",
-      "url": "https://fechaqui.com",
+      "url": "https://fechaaqui.com",
       "image": "/icons/icon-512x512.png",
       "author": {
         "@type": "Organization",
         "name": "FechaAqui",
-        "url": "https://fechaqui.com"
+        "url": "https://fechaaqui.com"
       },
       "offers": {
         "@type": "Offer",
@@ -394,7 +394,7 @@
         var cachedUserDataPlain = {};  // Texto puro para fbq('init') - Pixel hasheia sozinho
         var cachedUserDataHashed = {}; // SHA256 para CAPI
         try {
-          var profileJson = localStorage.getItem('fechaqui_profile_tracking');
+          var profileJson = localStorage.getItem('fechaaqui_profile_tracking');
           if (profileJson) {
             cachedProfile = JSON.parse(profileJson);
             if (cachedProfile.email) {
@@ -469,14 +469,22 @@
 
         // Disparar PageView no Pixel com eventID
         fbq('track', 'PageView', {
-          content_name: 'pagina_fechaqui',
-          content_category: 'fechaqui_app'
+          content_name: 'pagina_fechaaqui',
+          content_category: 'fechaaqui_app'
         }, {
           eventID: pageviewEventId
         });
         console.log('📄 PageView disparado via Pixel (eventID:', pageviewEventId + ')');
 
         // ✅ AGUARDAR FBP CARREGAR (timeout 3s) antes de enviar CAPI
+        // Proxy CAPI atual só autoriza jardinei.com — se o site é fechaaqui, skipa
+        // até VITE_CAPI_URL ser configurado e o proxy autorizar este domínio.
+        const __capiUrl = 'https://cap.jardinei.com/api/events';
+        const __skipInlineCapi = window.location.hostname.includes('fechaaqui') && __capiUrl.includes('cap.jardinei.com');
+        if (__skipInlineCapi) {
+          console.log('⏭️ CAPI inline ignorado — proxy cap.jardinei.com não autoriza fechaaqui.com');
+          return;
+        }
         setTimeout(async function() {
           try {
             // ✅ DETECÇÃO DE IP: Buscar IP real do usuário (IPv6 preferido) para melhor EMQ
@@ -602,8 +610,8 @@
                 ...(cachedUserDataHashed.ph && { ph: cachedUserDataHashed.ph })
               },
               custom_data: {
-                content_name: 'pagina_fechaqui',
-                content_category: 'fechaqui_app'
+                content_name: 'pagina_fechaaqui',
+                content_category: 'fechaaqui_app'
               }
             }]
           };
@@ -638,8 +646,8 @@
 
               // Disparar ViewContent no Pixel com eventID
               fbq('track', 'ViewContent', {
-                content_name: 'conteudo_fechaqui',
-                content_category: 'fechaqui_content',
+                content_name: 'conteudo_fechaaqui',
+                content_category: 'fechaaqui_content',
                 content_type: 'service',
                 source: 'content_view',
                 value: 5,
@@ -673,8 +681,8 @@
                     ...(cachedUserDataHashed.ph && { ph: cachedUserDataHashed.ph })
                   },
                   custom_data: {
-                    content_name: 'conteudo_fechaqui',
-                    content_category: 'fechaqui_content',
+                    content_name: 'conteudo_fechaaqui',
+                    content_category: 'fechaaqui_content',
                     content_type: 'service',
                     source: 'content_view',
                     value: 5,

@@ -78,7 +78,7 @@ interface DashboardLayoutProps {
 }
 
 // Cache keys para sessionStorage
-const PLAN_CACHE_KEY = 'fechaqui_plan_cache';
+const PLAN_CACHE_KEY = 'fechaaqui_plan_cache';
 
 // Carregar cache do plano
 function getPlanCache() {

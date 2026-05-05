@@ -3,7 +3,7 @@
 **Data:** 2026-05-05
 **Status:** rascunho aguardando aprovação. Nada implementado ainda.
 **Decisões fechadas com o usuário:**
-1. Nome final: **FechaAqui** (domínio `fechaqui.com`). Substitui "Jardinei" E "OrçaFácil".
+1. Nome final: **FechaAqui** (domínio `fechaaqui.com`). Substitui "Jardinei" E "OrçaFácil".
 2. Onboarding com seletor de indústria continua. Tabela `plantas` só é carregada quando nicho ∈ {jardinagem, paisagismo}.
 3. Reaproveitar Supabase atual (`nnqctrjvtacswjvdgred`). Só `ALTER TABLE` pra campos novos.
 
@@ -11,7 +11,7 @@
 4. CAPI proxy: mantém `cap.jardinei.com` durante migração (zero downtime de tracking). Migra subdomain depois.
 5. Pricing: **Opção A** — R$29/mês, R$228/ano. Trial 7 dias com plano `essential` ativo (relaxa o gate de pagamento).
 6. Pixel Facebook: mantém `888149620416465` (preserva attribution).
-7. Domínio: assume `fechaqui.com`. CSP/CORS adiciona já. Comprar/apontar DNS é responsabilidade do usuário.
+7. Domínio: assume `fechaaqui.com`. CSP/CORS adiciona já. Comprar/apontar DNS é responsabilidade do usuário.
 8. Logo: ícone "A com check verde", paleta azul-marinho + verde + branco (ver seção "Identidade visual" abaixo).
 9. v2 adiados: XLSX, recibos, tags em clientes, histórico financeiro por cliente.
 
@@ -80,25 +80,25 @@ Antes de planejar trabalho novo, alinhar o que **já está pronto** ou **parcial
 
 1. **Webhook detection pós-mudança de preço.** `webhook-asaas.js` usa heurística por valor (`>500=pro`). Com R$228 anual, isso quebra. Solução: detectar SEMPRE pela descrição (`"FECHAQUI Mensal"` / `"FECHAQUI Anual"`) e remover fallback por valor, OU passar `plan` no `externalReference` (mais robusto).
 
-2. **Histórico Asaas com descrição "JARDINEI ..."** Subscriptions já criadas no Asaas têm `description: "JARDINEI Mensal"`. Renomear customer/subscription no Asaas é externo e não tem ROI. Estratégia: webhook continua aceitando "jardinei" + "fechaqui" + "essencial" + "anual" / "mensal" como sinônimos. Novas assinaturas usam o nome novo.
+2. **Histórico Asaas com descrição "JARDINEI ..."** Subscriptions já criadas no Asaas têm `description: "JARDINEI Mensal"`. Renomear customer/subscription no Asaas é externo e não tem ROI. Estratégia: webhook continua aceitando "jardinei" + "fechaaqui" + "essencial" + "anual" / "mensal" como sinônimos. Novas assinaturas usam o nome novo.
 
-3. **Asaas painel — webhook URL.** Precisa atualizar manualmente em https://www.asaas.com/conta/webhooks pra apontar pra `https://fechaqui.com/api/webhook-asaas` quando o domínio virar. ⚠️ **Esse passo NÃO é código** — é manual no painel do Asaas.
+3. **Asaas painel — webhook URL.** Precisa atualizar manualmente em https://www.asaas.com/conta/webhooks pra apontar pra `https://fechaaqui.com/api/webhook-asaas` quando o domínio virar. ⚠️ **Esse passo NÃO é código** — é manual no painel do Asaas.
 
 4. **Pixel + CAPI proxy.** `cap.jardinei.com` é um servidor proxy hospedado fora deste repo. Decisões:
-   - (a) Criar `cap.fechaqui.com` (novo proxy) — mais limpo mas trabalho extra
+   - (a) Criar `cap.fechaaqui.com` (novo proxy) — mais limpo mas trabalho extra
    - (b) Apontar diretamente pra `https://graph.facebook.com/v18.0/{pixel_id}/events` (sem proxy) — perde a vantagem do proxy (ofuscação contra adblocker)
    - (c) Reusar `cap.jardinei.com` (preserva tracking continuity) e migrar o subdomain do servidor proxy depois
    Recomendo **(c)**: zero downtime de tracking, troca do nome do subdomain depois sem urgência.
 
 5. **PWA cache invalidation.** Trocar `CACHE_NAME` no `sw.js` força clientes a baixarem o bundle novo. Sem isso, users com app instalado ficam vendo "OrçaFácil" por dias até cache expirar. **Obrigatório** trocar.
 
-6. **localStorage keys.** Várias chaves `jardinei_*` e `orcafacil_*` (ex: `orcafacil_expenses_v1`, `jardinei_profile_tracking`, `jardinei_checkout_draft`). Trocar pra `fechaqui_*`:
+6. **localStorage keys.** Várias chaves `jardinei_*` e `orcafacil_*` (ex: `orcafacil_expenses_v1`, `jardinei_profile_tracking`, `jardinei_checkout_draft`). Trocar pra `fechaaqui_*`:
    - **Despesas**: `ExpensesContext` é localStorage-only — trocar a key faz users perderem o histórico de despesas. Decisão: aceitar perda OU fazer migration (ler key antiga, escrever nova, deletar antiga). Sugiro migration silenciosa (10 linhas em `ExpensesContext`).
    - **Outras keys** (cache de plan, draft de checkout, profile tracking): aceitar perda — não tem dado crítico.
 
-7. **CSP em `vercel.json`.** Hardcoded `https://cap.jardinei.com` e `https://*.jardinei.com` em `connect-src`. Adicionar `https://*.fechaqui.com` e `https://cap.fechaqui.com` (mesmo se ainda não existirem). Manter os antigos durante transição.
+7. **CSP em `vercel.json`.** Hardcoded `https://cap.jardinei.com` e `https://*.jardinei.com` em `connect-src`. Adicionar `https://*.fechaaqui.com` e `https://cap.fechaaqui.com` (mesmo se ainda não existirem). Manter os antigos durante transição.
 
-8. **CORS allowlists em `api/*.js`.** Adicionar `https://fechaqui.com`, `https://www.fechaqui.com`. Manter `jardinei.com` e `orcafacil.com` durante transição (URLs antigas em emails/WhatsApp já enviados continuam clicáveis).
+8. **CORS allowlists em `api/*.js`.** Adicionar `https://fechaaqui.com`, `https://www.fechaaqui.com`. Manter `jardinei.com` e `orcafacil.com` durante transição (URLs antigas em emails/WhatsApp já enviados continuam clicáveis).
 
 9. **MRR RPCs com preço errado.** Já corrigir junto com a troca de pricing.
 
@@ -123,7 +123,7 @@ Substituições mecânicas. Não muda comportamento, só copy/labels/keys.
 
 **1.1 Brand source-of-truth**
 - [ ] Atualizar `src/lib/brand.ts` (`name`, `nameUpper`, `domain`, `email`, `whatsapp`, `watermarkText`, `watermarkFooter`)
-- [ ] Atualizar `package.json` `name: "fechaqui"`
+- [ ] Atualizar `package.json` `name: "fechaaqui"`
 
 **1.2 Logo + identidade visual**
 - [ ] `src/components/Logo.tsx`: trocar wordmark, escolher ícone novo (Handshake, FileCheck, ou manter atual)
@@ -139,14 +139,14 @@ Substituições mecânicas. Não muda comportamento, só copy/labels/keys.
 - [ ] `src/services/metaPixel.ts` — EVENT_SOURCE_URL + PROXY_URL (decisão risco #4)
 - [ ] `src/tracking/providers/RealCAPIProvider.ts` — CAPI_URL + domain checks
 - [ ] `src/tracking/events/LeadTracker.ts`
-- [ ] `src/lib/sentry.ts` — `app: "fechaqui"`
+- [ ] `src/lib/sentry.ts` — `app: "fechaaqui"`
 - [ ] `src/lib/generatePDF.ts` — watermark (depende de `brand.ts`, deveria virar automático)
 - [ ] `src/index.css` — comentários (manter prefixo `--jd-*` por enquanto, refator opcional na Fase 6)
 
 **1.4 Backend (`api/`)**
-- [ ] CORS allowlist em todos os 12 arquivos (adicionar `fechaqui.com`, manter `jardinei.com`/`orcafacil.com`)
+- [ ] CORS allowlist em todos os 12 arquivos (adicionar `fechaaqui.com`, manter `jardinei.com`/`orcafacil.com`)
 - [ ] Nomes de plano em `create-payment.js` linhas 16-17 e `subscription.js` 15-16 → `"FECHAQUI Mensal"` / `"FECHAQUI Anual"`
-- [ ] Detecção de plano em `webhook-asaas.js` — aceitar "jardinei" OU "fechaqui" OU "orcafacil" + "mensal/anual/essencial" como sinônimos. **Ignorar** detecção por valor (será inconfiável após Fase 4).
+- [ ] Detecção de plano em `webhook-asaas.js` — aceitar "jardinei" OU "fechaaqui" OU "orcafacil" + "mensal/anual/essencial" como sinônimos. **Ignorar** detecção por valor (será inconfiável após Fase 4).
 - [ ] Mensagens de WhatsApp e email em `webhook-asaas.js`, `notifications.js`, `cron.js`, `verify-phone.js`, `notify-proposal.js`, `approve-proposal.js`
 - [ ] `successUrl` hardcoded em `create-payment.js` linha 359 (`https://www.jardinei.com/pagamento-sucesso`) — usar variável de env `PUBLIC_DOMAIN` ou `BRAND.domain`
 - [ ] CAPI URL em `webhook-asaas.js` linha 19 (decisão #4)
@@ -155,9 +155,9 @@ Substituições mecânicas. Não muda comportamento, só copy/labels/keys.
 **1.5 Infraestrutura**
 - [ ] `index.html` — `<title>`, meta description, OG, Twitter, Schema.org JSON-LD, scripts inline com URLs
 - [ ] `public/manifest.json` — name, short_name, ícones
-- [ ] `public/sw.js` — `CACHE_NAME: 'fechaqui-v1'`, hostname check
+- [ ] `public/sw.js` — `CACHE_NAME: 'fechaaqui-v1'`, hostname check
 - [ ] `public/offline.html` — title
-- [ ] `vercel.json` — CSP `connect-src` (adicionar fechaqui.com, manter jardinei.com)
+- [ ] `vercel.json` — CSP `connect-src` (adicionar fechaaqui.com, manter jardinei.com)
 
 **Critério de aceitação Fase 1:** `npm run build` passa, `npm run dev` abre, login/cadastro funcionam, copy mostra "FechaAqui", tracking continua disparando (verificar Network tab no Pixel/CAPI).
 
@@ -218,14 +218,14 @@ Já parcialmente feito. Foco em arrumar o que sobrou.
 
 ### Fase 5 — Infraestrutura externa (1 dia, requer ação manual)
 
-- [ ] Registrar domínio `fechaqui.com` (e .com.br)
+- [ ] Registrar domínio `fechaaqui.com` (e .com.br)
 - [ ] Adicionar custom domain no Vercel (SSL automático)
 - [ ] DNS: apontar A/CNAME pro Vercel
-- [ ] Decidir #4 (CAPI proxy) e configurar `cap.fechaqui.com` se aplicável
-- [ ] Asaas: atualizar webhook URL no painel pra `https://fechaqui.com/api/webhook-asaas`
+- [ ] Decidir #4 (CAPI proxy) e configurar `cap.fechaaqui.com` se aplicável
+- [ ] Asaas: atualizar webhook URL no painel pra `https://fechaaqui.com/api/webhook-asaas`
 - [ ] Asaas: cadastrar `successUrl` novo se houver redirect customizado configurado
-- [ ] Evolution API: criar instance "fechaqui" (manter "jardinei" ativo durante transição)
-- [ ] Sentry: criar projeto "fechaqui" + atualizar DSN
+- [ ] Evolution API: criar instance "fechaaqui" (manter "jardinei" ativo durante transição)
+- [ ] Sentry: criar projeto "fechaaqui" + atualizar DSN
 - [ ] Pixel Facebook: decidir se cria pixel novo (zera histórico de attribution) ou mantém `888149620416465`. **Recomendo manter** — attribution continua, troca só do nome no painel.
 - [ ] Vercel env vars: atualizar `PUBLIC_DOMAIN`, novos DSNs, etc.
 
@@ -234,7 +234,7 @@ Já parcialmente feito. Foco em arrumar o que sobrou.
 - [ ] Refator opcional: prefixo CSS `--jd-*` → `--fq-*` (afeta MUITAS classes — ROI baixo, deixar pra depois)
 - [ ] Smoke test manual do fluxo completo: cadastro → onboarding → criar proposta → enviar → cliente abre link público → assina → aprovado → email/WhatsApp dispara
 - [ ] Smoke test do checkout: criar conta nova, pagar PIX, conferir webhook, conferir Purchase no Pixel/CAPI
-- [ ] Verificar `e2e/` Playwright (BASE_URL precisa virar `https://fechaqui.com` em `playwright.config.ts`)
+- [ ] Verificar `e2e/` Playwright (BASE_URL precisa virar `https://fechaaqui.com` em `playwright.config.ts`)
 - [ ] Conferir landing.spec, auth.spec, proposta-publica.spec, upgrade.spec
 - [ ] Atualizar Instagram / redes sociais
 - [ ] Anúncios novos com landing nova
@@ -260,6 +260,6 @@ Já parcialmente feito. Foco em arrumar o que sobrou.
 3. **Trial 7 dias ilimitado** — implementar agora (Fase 4) ou deixar 3 dias / 5 propostas?
 4. **Express XLSX, recibos, tags, histórico financeiro** — confirmar que vão pra v2 (não bloqueiam o lançamento).
 5. **Pixel Facebook** — manter `888149620416465` ou criar novo?
-6. **Domínio** — `fechaqui.com` está disponível? Já comprou?
+6. **Domínio** — `fechaaqui.com` está disponível? Já comprou?
 
 Quando você responder, eu refino o plano e a gente começa pela Fase 0.

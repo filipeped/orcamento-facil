@@ -8,14 +8,14 @@ Este repo (FechaAqui) foi **clonado** de Jardinei. Os dois compartilham o mesmo 
 
 **Toda mudança em `api/*.js` ou no schema Supabase tem que ser ADITIVA.**
 
-✅ PODE: adicionar tabelas/colunas/policies novas, adicionar keys novas em estruturas (`PLANS.fechaqui_*`), adicionar serverless functions, parametrizar templates por brand com default = jardinei, modificar frontend (`src/`) livremente.
+✅ PODE: adicionar tabelas/colunas/policies novas, adicionar keys novas em estruturas (`PLANS.fechaaqui_*`), adicionar serverless functions, parametrizar templates por brand com default = jardinei, modificar frontend (`src/`) livremente.
 
 ❌ NÃO PODE: alterar/remover colunas, renomear tabelas, mudar RLS de modo que afete Jardinei, trocar valores hardcoded de Jardinei (R$97/R$804, copy "JARDINEI"), apagar dados, fazer migration restritiva.
 
 Padrão de detecção de brand no backend:
 ```js
 const reqOrigin = (req.headers.origin || req.headers.referer || '').toLowerCase();
-const brand = reqOrigin.includes('fechaqui') ? 'fechaqui' : 'jardinei';
+const brand = reqOrigin.includes('fechaaqui') ? 'fechaaqui' : 'jardinei';
 ```
 Webhook Asaas detecta pela `payment.description`.
 

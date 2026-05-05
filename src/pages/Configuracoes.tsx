@@ -48,9 +48,9 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
-const NOTIFICATIONS_STORAGE_KEY = "fechaqui_notifications";
-const ACTIVE_TAB_STORAGE_KEY = "fechaqui_settings_tab";
-const PROPOSAL_SETTINGS_STORAGE_KEY = "fechaqui_proposal_settings";
+const NOTIFICATIONS_STORAGE_KEY = "fechaaqui_notifications";
+const ACTIVE_TAB_STORAGE_KEY = "fechaaqui_settings_tab";
+const PROPOSAL_SETTINGS_STORAGE_KEY = "fechaaqui_proposal_settings";
 
 interface ProposalSettings {
   showLogo: boolean;
@@ -306,7 +306,7 @@ export default function Configuracoes() {
   // Template de PDF (localStorage — não vai pro banco compartilhado com Jardinei)
   const [pdfTemplate, setPdfTemplate] = useState<"classic" | "modern" | "minimal">(() => {
     try {
-      const v = localStorage.getItem("fechaqui_pdf_template");
+      const v = localStorage.getItem("fechaaqui_pdf_template");
       if (v === "classic" || v === "modern" || v === "minimal") return v;
     } catch { /* ignore */ }
     return "classic";
@@ -695,7 +695,7 @@ export default function Configuracoes() {
         if (user.email) trackingData.email = user.email;
         if (profile.phone) trackingData.phone = profile.phone;
         if (profile.name) trackingData.full_name = profile.name;
-        localStorage.setItem('fechaqui_profile_tracking', JSON.stringify(trackingData));
+        localStorage.setItem('fechaaqui_profile_tracking', JSON.stringify(trackingData));
       } catch { /* ignore */ }
 
       toast.success("Configurações salvas!");
@@ -1015,7 +1015,7 @@ export default function Configuracoes() {
                         key={tpl.id}
                         onClick={() => {
                           setPdfTemplate(tpl.id as "classic" | "modern" | "minimal");
-                          try { localStorage.setItem("fechaqui_pdf_template", tpl.id); } catch { /* ignore */ }
+                          try { localStorage.setItem("fechaaqui_pdf_template", tpl.id); } catch { /* ignore */ }
                         }}
                         className={cn(
                           "px-3 py-3 rounded-xl border-2 text-left transition-all",

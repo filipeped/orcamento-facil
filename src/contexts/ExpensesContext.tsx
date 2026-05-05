@@ -42,7 +42,7 @@ interface ExpensesContextValue {
 
 const ExpensesContext = createContext<ExpensesContextValue | undefined>(undefined);
 
-const STORAGE_KEY = "fechaqui_expenses_v1";
+const STORAGE_KEY = "fechaaqui_expenses_v1";
 const LEGACY_STORAGE_KEY = "orcafacil_expenses_v1";
 
 function readStorage(): Expense[] {

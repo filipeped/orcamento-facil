@@ -95,7 +95,7 @@ export default function Termos() {
             <h2 className="text-xl font-semibold mt-8 mb-4">10. Contato</h2>
             <p className="text-muted-foreground mb-4">
               Para dúvidas sobre estes Termos de Uso, entre em contato conosco através do
-              e-mail: suporte@fechaqui.com
+              e-mail: suporte@fechaaqui.com
             </p>
           </div>
         </div>

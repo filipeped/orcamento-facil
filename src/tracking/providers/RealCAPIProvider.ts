@@ -6,7 +6,9 @@ import type {
 
 // RealCAPIProvider - Gerenciamento do envio de eventos via CAPI
 export class RealCAPIProvider {
-  private static readonly CAPI_URL = "https://cap.jardinei.com/api/events";
+  // Proxy CAPI. Setar VITE_CAPI_URL no Vercel pra cada deployment.
+  // Default cap.jardinei.com (legado) — só funciona com origin jardinei.com.
+  private static readonly CAPI_URL = import.meta.env.VITE_CAPI_URL || "https://cap.jardinei.com/api/events";
   // ✅ SEGURANÇA: Token removido - o CAPI proxy já tem o token configurado via env vars
 
   // Configuração de retry
@@ -36,8 +38,8 @@ export class RealCAPIProvider {
     // Verificar domínios permitidos (produção, preview e dev)
     const currentDomain = window.location.hostname;
     const allowedDomains = [
-      'fechaqui.com',      // Produção FechaAqui
-      'www.fechaqui.com',
+      'fechaaqui.com',      // Produção FechaAqui
+      'www.fechaaqui.com',
       'jardinei.com',      // Produção Jardinei (legado, mesmo backend)
       'www.jardinei.com',
       'localhost',         // Dev local
@@ -48,6 +50,14 @@ export class RealCAPIProvider {
     const isAllowedDomain = allowedDomains.some(d => currentDomain.includes(d));
     if (!isAllowedDomain) {
       console.log('⏭️ CAPI ignorado - domínio não permitido:', currentDomain);
+      return true;
+    }
+
+    // Se o domínio atual é fechaaqui mas o CAPI URL aponta pra cap.jardinei.com,
+    // skipa pra evitar erro CORS (proxy ainda não autorizou fechaaqui.com).
+    // Setar VITE_CAPI_URL no Vercel quando o proxy for atualizado.
+    if (currentDomain.includes('fechaaqui') && this.CAPI_URL.includes('cap.jardinei.com')) {
+      console.log('⏭️ CAPI ignorado - proxy cap.jardinei.com não autoriza fechaaqui.com (configurar VITE_CAPI_URL)');
       return true;
     }
 
@@ -178,10 +188,10 @@ export class RealCAPIProvider {
   ): MetaCAPIPayload {
     // URL dinâmico — usa a URL atual quando é domínio FechaAqui ou Jardinei, senão fallback FechaAqui
     const currentUrl = window.location.href;
-    const isOwnDomain = currentUrl.includes('fechaqui.com') || currentUrl.includes('jardinei.com');
+    const isOwnDomain = currentUrl.includes('fechaaqui.com') || currentUrl.includes('jardinei.com');
     const eventSourceUrl = isOwnDomain
       ? currentUrl
-      : 'https://www.fechaqui.com';
+      : 'https://www.fechaaqui.com';
 
     return {
       data: [{

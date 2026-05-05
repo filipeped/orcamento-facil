@@ -5,7 +5,7 @@ Tudo que **precisa ser feito por você** (Claude não consegue) antes de subir o
 ## 🔴 Bloqueadores (sem isso, não dá pra abrir o app no domínio próprio)
 
 ### 1. Domínio
-- [ ] Comprar `fechaqui.com` (e `fechaqui.com.br` se quiser)
+- [ ] Comprar `fechaaqui.com` (e `fechaaqui.com.br` se quiser)
 - [ ] No Vercel: **Add Domain** → apontar pro projeto deste repo
 - [ ] DNS: criar registro A/CNAME conforme o Vercel pedir
 - [ ] Aguardar SSL (~15 min)
@@ -14,8 +14,8 @@ Tudo que **precisa ser feito por você** (Claude não consegue) antes de subir o
 Adicionar em **Project → Settings → Environment Variables** (Production + Preview + Development):
 
 ```
-FECHAQUI_PUBLIC_DOMAIN=https://www.fechaqui.com
-FROM_EMAIL_FECHAQUI=FechaAqui <noreply@fechaqui.com>
+FECHAQUI_PUBLIC_DOMAIN=https://www.fechaaqui.com
+FROM_EMAIL_FECHAQUI=FechaAqui <noreply@fechaaqui.com>
 ```
 
 (`JARDINEI_PUBLIC_DOMAIN`, `FROM_EMAIL` etc. continuam no que está hoje — não mexer)
@@ -25,7 +25,7 @@ Aplicar **uma vez**:
 
 ```bash
 # Configurar DATABASE_URL no .env.local primeiro
-npx dotenv -e .env.local -- node scripts/run-migration.cjs supabase/migrations/20260505_fechaqui_discount_and_signature.sql
+npx dotenv -e .env.local -- node scripts/run-migration.cjs supabase/migrations/20260505_fechaaqui_discount_and_signature.sql
 ```
 
 Adiciona:
@@ -36,7 +36,7 @@ Adiciona:
 100% seguro pra Jardinei: tudo NULL/default zero, Jardinei nunca lê/escreve esses campos.
 
 ### 4. Email transacional (Resend)
-- [ ] Adicionar/verificar domínio `fechaqui.com` no painel Resend
+- [ ] Adicionar/verificar domínio `fechaaqui.com` no painel Resend
 - [ ] Configurar SPF + DKIM conforme Resend instrui
 - [ ] Sem isso, emails do FechaAqui caem em spam
 
@@ -64,26 +64,26 @@ Sem isso o site funciona — só o ícone na tela inicial e a preview do WhatsAp
 
 ### 7. Verificar Pixel Facebook
 Decisão: continua usando o pixel compartilhado `888149620416465`.
-- [ ] (Opcional) Em **Eventos do Meta**, criar audiências segmentadas filtrando por `content_category = "fechaqui_lead"` / `"fechaqui_app"` / etc — pra atribuição separada do Jardinei
+- [ ] (Opcional) Em **Eventos do Meta**, criar audiências segmentadas filtrando por `content_category = "fechaaqui_lead"` / `"fechaaqui_app"` / etc — pra atribuição separada do Jardinei
 
 ### 8. Evolution WhatsApp
 Decisão: usa instância `jardinei` por padrão (env var `EVOLUTION_INSTANCE`). Se quiser número/instância separada:
-- [ ] Criar instância `fechaqui` no painel Evolution
-- [ ] No Vercel, setar `EVOLUTION_INSTANCE=fechaqui` (vai afetar **ambos** os apps porque é uma var só — se quer separar de fato, tem que parametrizar por brand no código também)
+- [ ] Criar instância `fechaaqui` no painel Evolution
+- [ ] No Vercel, setar `EVOLUTION_INSTANCE=fechaaqui` (vai afetar **ambos** os apps porque é uma var só — se quer separar de fato, tem que parametrizar por brand no código também)
 
 ## 🟢 Nice to have
 
 ### 9. Sentry
-- [ ] Criar projeto separado "fechaqui" no Sentry (já está identificado por `app: "fechaqui"` nas tags)
+- [ ] Criar projeto separado "fechaaqui" no Sentry (já está identificado por `app: "fechaaqui"` nas tags)
 - [ ] Se criar projeto novo, atualizar `VITE_SENTRY_DSN` no Vercel pra DSN nova
 
 ### 10. CAPI proxy
 Hoje aponta pra `cap.jardinei.com` (compartilhado). Funciona normal.
-- [ ] Quando quiser separar: subir `cap.fechaqui.com` (mesmo código do proxy atual, em outro subdomínio)
+- [ ] Quando quiser separar: subir `cap.fechaaqui.com` (mesmo código do proxy atual, em outro subdomínio)
 - [ ] Alterar `CAPI_URL` em `src/services/metaPixel.ts` e `src/tracking/providers/RealCAPIProvider.ts`
 
 ### 11. SEO / Search Console
-- [ ] Adicionar `fechaqui.com` no Google Search Console
+- [ ] Adicionar `fechaaqui.com` no Google Search Console
 - [ ] Submeter `sitemap.xml` (não existe ainda — criar se for fazer SEO sério)
 
 ## ✅ Já feito no código
@@ -94,12 +94,12 @@ Hoje aponta pra `cap.jardinei.com` (compartilhado). Funciona normal.
 - ✅ Meta tags / OG / Schema.org / manifest.json / sw.js / vercel.json CSP
 - ✅ Pricing R$29/228 em PLANS, Upgrade.tsx, Checkout.tsx
 - ✅ Trial 7 dias ilimitado
-- ✅ Backend `api/*` multi-tenant (default jardinei, fechaqui ativado por origin/body)
+- ✅ Backend `api/*` multi-tenant (default jardinei, fechaaqui ativado por origin/body)
 - ✅ Catálogo de plantas só carrega pra nicho jardinagem/paisagismo
 - ✅ Desconto por item (interface + cálculo + persiste se migration aplicada)
 - ✅ E-signature integrado em PropostaPublica (modal + canvas + upload + audit fields)
 - ✅ Mensagens WhatsApp/email parametrizadas por brand
-- ✅ localStorage migration silenciosa (orcafacil → fechaqui)
+- ✅ localStorage migration silenciosa (orcafacil → fechaaqui)
 - ✅ Build compila sem erros
 - ✅ Jardinei intacto: PLANS legados preservados, default jardinei em todo lugar, schema sem alterações
 

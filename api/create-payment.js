@@ -18,14 +18,14 @@ const PLANS = {
   pro_annual: { value: 804, name: 'JARDINEI Anual', cycle: 'YEARLY' }, // R$67/mês x 12
 
   // FECHAQUI (novo produto — preços menores)
-  fechaqui_essential_monthly: { value: 29, name: 'FechaAqui Mensal', cycle: 'MONTHLY' },
-  fechaqui_pro_annual: { value: 228, name: 'FechaAqui Anual', cycle: 'YEARLY' }, // R$19/mês x 12
+  fechaaqui_essential_monthly: { value: 29, name: 'FechaAqui Mensal', cycle: 'MONTHLY' },
+  fechaaqui_pro_annual: { value: 228, name: 'FechaAqui Anual', cycle: 'YEARLY' }, // R$19/mês x 12
 };
 
 // Domínios permitidos
 const ALLOWED_ORIGINS = [
-  'https://www.fechaqui.com',
-  'https://fechaqui.com',
+  'https://www.fechaaqui.com',
+  'https://fechaaqui.com',
   'https://www.jardinei.com',
   'https://jardinei.com',
   'https://www.orcafacil.com',
@@ -58,14 +58,14 @@ export default async function handler(req, res) {
       plan, period, userId: userIdFromBody, customerEmail, customerName,
       cpfCnpj: cpfCnpjFromBody, couponCode, discountPercent, trackingData,
       password, phone, // usados quando criando conta + pagamento (registerAndPay)
-      brand: brandFromBody, // 'jardinei' (default) ou 'fechaqui'
+      brand: brandFromBody, // 'jardinei' (default) ou 'fechaaqui'
     } = req.body;
 
     // Detectar brand: body explicito > origin do request > default jardinei
     const brand = (() => {
-      if (brandFromBody === 'fechaqui' || brandFromBody === 'jardinei') return brandFromBody;
+      if (brandFromBody === 'fechaaqui' || brandFromBody === 'jardinei') return brandFromBody;
       const origin = (req.headers.origin || req.headers.referer || '').toLowerCase();
-      if (origin.includes('fechaqui')) return 'fechaqui';
+      if (origin.includes('fechaaqui')) return 'fechaaqui';
       return 'jardinei'; // default preserva comportamento legado
     })();
 
@@ -144,8 +144,8 @@ export default async function handler(req, res) {
     }
 
     // Lookup com prefixo de brand. Jardinei usa keys legados sem prefixo (compat).
-    const planKey = brand === 'fechaqui'
-      ? `fechaqui_${plan}_${period}`
+    const planKey = brand === 'fechaaqui'
+      ? `fechaaqui_${plan}_${period}`
       : `${plan}_${period}`;
     const planConfig = PLANS[planKey];
 
@@ -203,7 +203,7 @@ export default async function handler(req, res) {
     const cpfCnpj = cpfCnpjRaw?.replace(/\D/g, '') || null; // Remove formatação
     // phone do body (register-and-pay) tem prioridade, senao pega do profile
     const phoneClean = (phone || profile?.phone || '').replace(/\D/g, '') || null;
-    const fallbackBrandName = brand === 'fechaqui' ? 'FechaAqui' : 'JARDINEI';
+    const fallbackBrandName = brand === 'fechaaqui' ? 'FechaAqui' : 'JARDINEI';
     const name = profile?.full_name || customerName || `Cliente ${fallbackBrandName}`;
 
     console.log('Dados do perfil:', { name, cpfCnpj, phone: phoneClean, cpfCnpjFromBody });
@@ -378,9 +378,9 @@ export default async function handler(req, res) {
     }
 
     // 4. Atualizar assinatura com callback URL incluindo payment_id para deduplicação de tracking
-    // Success URL respeita a brand do checkout — Jardinei volta pra jardinei.com, FechaAqui volta pra fechaqui.com
-    const successDomain = brand === 'fechaqui'
-      ? (process.env.FECHAQUI_PUBLIC_DOMAIN || 'https://www.fechaqui.com')
+    // Success URL respeita a brand do checkout — Jardinei volta pra jardinei.com, FechaAqui volta pra fechaaqui.com
+    const successDomain = brand === 'fechaaqui'
+      ? (process.env.FECHAQUI_PUBLIC_DOMAIN || 'https://www.fechaaqui.com')
       : (process.env.JARDINEI_PUBLIC_DOMAIN || 'https://www.jardinei.com');
     const successUrl = `${successDomain}/pagamento-sucesso?plan=${plan}&value=${finalValue}&payment_id=${paymentId}`;
     await fetch(`${ASAAS_URL}/subscriptions/${subscriptionData.id}`, {

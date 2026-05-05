@@ -15,7 +15,7 @@ const EVOLUTION_API_KEY = process.env.EVOLUTION_API_KEY;
 // ==================== EMAIL (Resend) ====================
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const FROM_EMAIL_JARDINEI = process.env.FROM_EMAIL || 'JARDINEI <noreply@jardinei.com>';
-const FROM_EMAIL_FECHAQUI = process.env.FROM_EMAIL_FECHAQUI || 'FechaAqui <noreply@fechaqui.com>';
+const FROM_EMAIL_FECHAQUI = process.env.FROM_EMAIL_FECHAQUI || 'FechaAqui <noreply@fechaaqui.com>';
 
 // ==================== BRAND CONFIG ====================
 // Config por brand. JARDINEI é o legado (não pode quebrar). FechaAqui é o novo.
@@ -33,9 +33,9 @@ const BRAND_CONFIG = {
     monthlyPrice: 'R$ 97/mês',
     annualPrice: 'R$ 804/ano (R$67/mês)',
   },
-  fechaqui: {
+  fechaaqui: {
     label: 'FechaAqui',
-    host: (process.env.FECHAQUI_PUBLIC_DOMAIN || 'https://www.fechaqui.com').replace(/^https?:\/\//, ''),
+    host: (process.env.FECHAQUI_PUBLIC_DOMAIN || 'https://www.fechaaqui.com').replace(/^https?:\/\//, ''),
     fromEmail: FROM_EMAIL_FECHAQUI,
     primaryColor: '#0E2A5C',
     appPath: '/orcamentos',
@@ -50,7 +50,7 @@ const BRAND_CONFIG = {
 
 function detectBrand(req) {
   const reqOrigin = (req?.headers?.origin || req?.headers?.referer || '').toLowerCase();
-  if (reqOrigin.includes('fechaqui')) return 'fechaqui';
+  if (reqOrigin.includes('fechaaqui')) return 'fechaaqui';
   return 'jardinei';
 }
 
@@ -58,8 +58,8 @@ function detectBrand(req) {
 const ALLOWED_ORIGINS = [
   'https://www.jardinei.com',
   'https://jardinei.com',
-  'https://www.fechaqui.com',
-  'https://fechaqui.com',
+  'https://www.fechaaqui.com',
+  'https://fechaaqui.com',
   'https://verdepro-proposals.vercel.app',
   'http://localhost:8080',
   'http://localhost:3000',
@@ -372,7 +372,7 @@ export default async function handler(req, res) {
   }
 
   // Brand: body explícito > origin do request > default jardinei
-  const brand = brandFromBody === 'fechaqui' || brandFromBody === 'jardinei'
+  const brand = brandFromBody === 'fechaaqui' || brandFromBody === 'jardinei'
     ? brandFromBody
     : detectBrand(req);
 

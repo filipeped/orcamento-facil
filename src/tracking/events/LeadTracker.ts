@@ -34,7 +34,7 @@ async function getLoggedUserDataForLead(): Promise<{ em?: string; fn?: string; l
     // Cache do profile (dados reais da tabela profiles)
     let profilePhone = '', profileName = '';
     try {
-      const cache = localStorage.getItem('fechaqui_profile_tracking');
+      const cache = localStorage.getItem('fechaaqui_profile_tracking');
       if (cache) {
         const p = JSON.parse(cache);
         profilePhone = p.phone || '';
@@ -164,8 +164,8 @@ export class LeadTracker {
       // Pixel: chamada única (síncrona, sem necessidade de retry)
       try {
         pixelSuccess = BrowserPixelProvider.trackEvent('Lead', {
-          content_name: 'lead_fechaqui',
-          content_category: 'fechaqui_lead',
+          content_name: 'lead_fechaaqui',
+          content_category: 'fechaaqui_lead',
           source: 'form_submit',
           value: options.value,
           currency: options.currency

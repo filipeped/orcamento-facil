@@ -13,8 +13,8 @@ const ASAAS_URL = 'https://api.asaas.com/v3';
 
 // Domínios permitidos
 const ALLOWED_ORIGINS = [
-  'https://www.fechaqui.com',
-  'https://fechaqui.com',
+  'https://www.fechaaqui.com',
+  'https://fechaaqui.com',
   'https://www.jardinei.com',
   'https://jardinei.com',
   'https://www.orcafacil.com',

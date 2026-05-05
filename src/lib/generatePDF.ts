@@ -4,7 +4,7 @@ import { BRAND } from "@/lib/brand";
 // Templates de PDF disponíveis. Inspirados nos layouts do Invoice Fly.
 export type PdfTemplate = "classic" | "modern" | "minimal";
 
-const TEMPLATE_KEY = "fechaqui_pdf_template";
+const TEMPLATE_KEY = "fechaaqui_pdf_template";
 
 export function getActivePdfTemplate(): PdfTemplate {
   try {

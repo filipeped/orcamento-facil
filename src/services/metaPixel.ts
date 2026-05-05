@@ -48,7 +48,7 @@ async function getLoggedUserData(): Promise<{
     let profilePhone = '';
     let profileName = '';
     try {
-      const profileCache = localStorage.getItem('fechaqui_profile_tracking');
+      const profileCache = localStorage.getItem('fechaaqui_profile_tracking');
       if (profileCache) {
         const profile = JSON.parse(profileCache);
         profilePhone = profile.phone || '';
@@ -100,8 +100,9 @@ async function getLoggedUserData(): Promise<{
 const PIXEL_CONFIG = {
   PIXEL_ID: "888149620416465",
   // ✅ SEGURANÇA: Token removido - o CAPI proxy já tem o token configurado via env vars
-  EVENT_SOURCE_URL: "https://www.fechaqui.com",
-  PROXY_URL: "https://cap.jardinei.com/api/events" // proxy compartilhado — preservado
+  EVENT_SOURCE_URL: "https://www.fechaaqui.com",
+  // Proxy CAPI. Setar VITE_CAPI_URL no Vercel quando o proxy autorizar fechaaqui.com.
+  PROXY_URL: import.meta.env.VITE_CAPI_URL || "https://cap.jardinei.com/api/events"
 };
 
 // ✅ VALOR DETERMINÍSTICO: Garante consistência Pixel/CAPI
@@ -162,8 +163,8 @@ async function trackLeadEvent() {
     const dynamicLeadValue = generateDeterministicValue(eventId, 10, 100);
 
     const customData = {
-      content_name: "lead_fechaqui",
-      content_category: "fechaqui_lead",
+      content_name: "lead_fechaaqui",
+      content_category: "fechaaqui_lead",
       source: "form_submit",
       value: dynamicLeadValue,
       currency: "BRL"
@@ -285,8 +286,8 @@ export const trackPageView = async (clientData?: PageViewClientData) => {
 
     // ✅ PREPARAR CUSTOM_DATA PARA PAGEVIEW COM PARÂMETROS OFICIAIS
     const customData = {
-      content_name: 'pagina_fechaqui',
-      content_category: 'fechaqui_app',
+      content_name: 'pagina_fechaaqui',
+      content_category: 'fechaaqui_app',
       source: 'direct_traffic'
     };
 
@@ -297,8 +298,8 @@ export const trackPageView = async (clientData?: PageViewClientData) => {
     // ✅ 1. DISPARAR VIA PIXEL USANDO BROWSERPIXELPROVIDER (padronizado)
     try {
       pixelSuccess = BrowserPixelProvider.trackEvent('PageView', {
-        content_name: 'pagina_fechaqui',
-        content_category: 'fechaqui_app',
+        content_name: 'pagina_fechaaqui',
+        content_category: 'fechaaqui_app',
         source: 'direct_traffic'
       }, {
         eventID: eventId
@@ -482,8 +483,8 @@ export const trackViewContent = async (clientData?: ViewContentClientData) => {
     const validCurrency = 'BRL'; // Código de 3 letras válido
 
     const customData = {
-      content_name: 'conteudo_fechaqui',
-      content_category: 'fechaqui_content',
+      content_name: 'conteudo_fechaaqui',
+      content_category: 'fechaaqui_content',
       source: 'content_view',
       value: dynamicValue, // Valor dinâmico para evitar duplicação
       currency: validCurrency // Moeda com formato correto ISO 4217
@@ -496,8 +497,8 @@ export const trackViewContent = async (clientData?: ViewContentClientData) => {
     // ✅ 1. DISPARAR VIA PIXEL USANDO BROWSERPIXELPROVIDER (padronizado)
     try {
       pixelSuccess = BrowserPixelProvider.trackEvent('ViewContent', {
-        content_name: 'conteudo_fechaqui',
-        content_category: 'fechaqui_content',
+        content_name: 'conteudo_fechaaqui',
+        content_category: 'fechaaqui_content',
         source: 'content_view',
         value: dynamicValue,
         currency: validCurrency

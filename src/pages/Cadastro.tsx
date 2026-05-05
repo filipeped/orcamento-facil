@@ -107,8 +107,8 @@ async function trackLeadWithUserData(userData: { name: string; phone?: string; e
 
     // ✅ PADRONIZADO: Mesmos valores em todos os locais de tracking Lead
     const customData = {
-      content_name: 'lead_fechaqui',
-      content_category: 'fechaqui_lead',
+      content_name: 'lead_fechaaqui',
+      content_category: 'fechaaqui_lead',
       source: 'form_submit',
       value: generateDeterministicValue(eventId, 10, 100),
       currency: 'BRL'
@@ -206,8 +206,8 @@ async function trackCompleteRegistration(userData: { name: string; phone?: strin
     
     // ✅ PADRONIZADO: CompleteRegistration com content_category
     const customData = {
-      content_name: 'cadastro_completo_fechaqui',
-      content_category: 'fechaqui_registration',
+      content_name: 'cadastro_completo_fechaaqui',
+      content_category: 'fechaaqui_registration',
       status: 'registered',
       value: dynamicValue,
       currency: 'BRL'

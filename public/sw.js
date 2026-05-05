@@ -1,5 +1,5 @@
 // Service Worker para FechaAqui PWA
-const CACHE_NAME = 'fechaqui-v1';
+const CACHE_NAME = 'fechaaqui-v1';
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
@@ -39,7 +39,7 @@ self.addEventListener('fetch', (event) => {
   // Skip external requests - let browser handle them directly
   const url = new URL(event.request.url);
   if (
-    !url.hostname.includes('fechaqui.com') &&
+    !url.hostname.includes('fechaaqui.com') &&
     !url.hostname.includes('jardinei.com') &&
     !url.hostname.includes('orcafacil.com') &&
     url.hostname !== 'localhost'

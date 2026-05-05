@@ -20,8 +20,8 @@ const EVOLUTION_API_KEY = process.env.EVOLUTION_API_KEY;
 
 // CORS
 const ALLOWED_ORIGINS = [
-  'https://www.fechaqui.com',
-  'https://fechaqui.com',
+  'https://www.fechaaqui.com',
+  'https://fechaaqui.com',
   'https://www.jardinei.com',
   'https://jardinei.com',
   'https://jardinei-com.vercel.app',
@@ -110,7 +110,7 @@ async function sendWhatsAppCode(phone, code, brand = 'jardinei') {
     return false;
   }
 
-  const brandLabel = brand === 'fechaqui' ? 'FechaAqui' : 'JARDINEI';
+  const brandLabel = brand === 'fechaaqui' ? 'FechaAqui' : 'JARDINEI';
   const phoneNumber = formatPhone(phone);
   const message = `${brand === 'jardinei' ? '🌱 ' : ''}*${brandLabel}*
 
@@ -149,7 +149,7 @@ async function sendWelcomeMessage(phone, userName, brand = 'jardinei') {
   const phoneNumber = formatPhone(phone);
   const firstName = userName ? userName.split(' ')[0] : (brand === 'jardinei' ? 'Jardineiro' : '');
 
-  const message = brand === 'fechaqui'
+  const message = brand === 'fechaaqui'
     ? `*Bem-vindo ao FechaAqui${firstName ? ', ' + firstName : ''}!* 🎉
 
 Sua conta foi criada com sucesso!
@@ -160,7 +160,7 @@ Com o FechaAqui você pode:
 ✅ Enviar por link ou PDF
 ✅ Acompanhar status (visto / aprovado)
 
-🚀 *Comece agora:* ${process.env.FECHAQUI_PUBLIC_DOMAIN || 'https://www.fechaqui.com'}/orcamentos
+🚀 *Comece agora:* ${process.env.FECHAQUI_PUBLIC_DOMAIN || 'https://www.fechaaqui.com'}/orcamentos
 
 Precisa de ajuda? Responda esta mensagem que nosso suporte vai te atender!
 
@@ -219,7 +219,7 @@ export default async function handler(req, res) {
 
   // Detecta brand pelo origin/referer; default JARDINEI (legado)
   const reqOrigin = (req.headers.origin || req.headers.referer || '').toLowerCase();
-  const brand = reqOrigin.includes('fechaqui') ? 'fechaqui' : 'jardinei';
+  const brand = reqOrigin.includes('fechaaqui') ? 'fechaaqui' : 'jardinei';
 
   const { action, phone, code } = req.body;
 
@@ -565,7 +565,7 @@ export default async function handler(req, res) {
       }
 
       // Mensagem customizada para recuperação (parametrizada por brand)
-      const brandLabel = brand === 'fechaqui' ? 'FechaAqui' : 'JARDINEI';
+      const brandLabel = brand === 'fechaaqui' ? 'FechaAqui' : 'JARDINEI';
       const messagePrefix = brand === 'jardinei' ? '🌱 ' : '';
       const message = `${messagePrefix}*${brandLabel}*
 
@@ -846,7 +846,7 @@ Se você não solicitou, ignore esta mensagem.`;
         return res.status(404).json({ error: 'Usuário não encontrado' });
       }
 
-      // Retornar o email real (não o telefone@fechaqui.app placeholder)
+      // Retornar o email real (não o telefone@fechaaqui.app placeholder)
       console.log('📱 Email encontrado pelo telefone:', user.email);
       return res.status(200).json({
         success: true,

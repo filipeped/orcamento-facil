@@ -319,12 +319,12 @@ export default async function handler(req, res) {
       const description = (payment.description || '').toLowerCase();
 
       // Detectar brand pela descrição. Default JARDINEI (preserva compat).
-      const brand = description.includes('fechaqui') || description.includes('fecha aqui')
-        ? 'fechaqui'
+      const brand = description.includes('fechaaqui') || description.includes('fecha aqui')
+        ? 'fechaaqui'
         : 'jardinei';
-      const brandLabel = brand === 'fechaqui' ? 'FechaAqui' : 'JARDINEI';
-      const brandHost = brand === 'fechaqui'
-        ? (process.env.FECHAQUI_PUBLIC_DOMAIN || 'https://www.fechaqui.com').replace(/^https?:\/\//, '')
+      const brandLabel = brand === 'fechaaqui' ? 'FechaAqui' : 'JARDINEI';
+      const brandHost = brand === 'fechaaqui'
+        ? (process.env.FECHAQUI_PUBLIC_DOMAIN || 'https://www.fechaaqui.com').replace(/^https?:\/\//, '')
         : (process.env.JARDINEI_PUBLIC_DOMAIN || 'https://www.jardinei.com').replace(/^https?:\/\//, '');
 
       // 1. Detectar pela descrição (mais confiável - funciona com cupons de desconto)
@@ -487,7 +487,7 @@ export default async function handler(req, res) {
         const valorFormatado = value.toFixed(2).replace('.', ',');
         const dataRenovacao = expiresAt.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
-        const accessPath = brand === 'fechaqui' ? '/orcamentos' : '/dashboard';
+        const accessPath = brand === 'fechaaqui' ? '/orcamentos' : '/dashboard';
         const whatsappMsg = `✅ *Pagamento Confirmado!*
 
 Olá ${nome}! 🎉
@@ -701,12 +701,12 @@ Obrigado por confiar no ${brandLabel}!
 
             // Detectar brand pelo description do pagamento atrasado
             const overdueDescription = (payment.description || '').toLowerCase();
-            const overdueBrand = overdueDescription.includes('fechaqui') || overdueDescription.includes('fecha aqui')
-              ? 'fechaqui'
+            const overdueBrand = overdueDescription.includes('fechaaqui') || overdueDescription.includes('fecha aqui')
+              ? 'fechaaqui'
               : 'jardinei';
-            const overdueLabel = overdueBrand === 'fechaqui' ? 'FechaAqui' : 'JARDINEI';
-            const overdueHost = overdueBrand === 'fechaqui'
-              ? (process.env.FECHAQUI_PUBLIC_DOMAIN || 'https://www.fechaqui.com').replace(/^https?:\/\//, '')
+            const overdueLabel = overdueBrand === 'fechaaqui' ? 'FechaAqui' : 'JARDINEI';
+            const overdueHost = overdueBrand === 'fechaaqui'
+              ? (process.env.FECHAQUI_PUBLIC_DOMAIN || 'https://www.fechaaqui.com').replace(/^https?:\/\//, '')
               : (process.env.JARDINEI_PUBLIC_DOMAIN || 'https://www.jardinei.com').replace(/^https?:\/\//, '');
 
             const overdueMsg = `⚠️ *Atenção: Pagamento Pendente*
