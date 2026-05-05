@@ -27,6 +27,8 @@ import { Logo } from "@/components/Logo";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNotifications } from "@/contexts/NotificationsContext";
 import { ProductTour, TourStep } from "@/components/ProductTour";
+import { BottomNav } from "@/components/BottomNav";
+import { CommandPalette } from "@/components/CommandPalette";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -663,11 +665,17 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           </div>
         )}
 
-        {/* Page Content */}
-        <main className="p-4 lg:p-6 animate-page-in overflow-x-hidden">
+        {/* Page Content — pb extra em mobile pra dar espaço pro BottomNav */}
+        <main className="p-4 lg:p-6 pb-24 md:pb-6 animate-page-in overflow-x-hidden">
           {children}
         </main>
       </div>
+
+      {/* Bottom Navigation (mobile) */}
+      <BottomNav onMoreClick={() => setIsSidebarOpen(true)} />
+
+      {/* Command Palette ⌘K */}
+      <CommandPalette />
 
       {/* Product Tour */}
       {showTour && user?.id && (

@@ -166,10 +166,9 @@ function generateProposalHTML(proposal: Proposal, isFreePlan: boolean = false, t
   const itemsHTML = proposal.items.map(item => {
     const imageHTML = item.imageUrl
       ? `<img src="${item.imageUrl}" alt="${item.name}" style="width: 40px; height: 40px; object-fit: cover; border: 1px solid #e5e5e5;" />`
-      : `<div style="width: 40px; height: 40px; background: #ecfdf5; border: 1px solid #d1fae5; display: flex; align-items: center; justify-content: center;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2">
-            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
-            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+      : `<div style="width: 40px; height: 40px; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16.5 9.4 7.55 4.24"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" x2="12" y1="22.08" y2="12"/>
           </svg>
         </div>`;
 
@@ -241,10 +240,10 @@ function generateProposalHTML(proposal: Proposal, isFreePlan: boolean = false, t
 
         <!-- Dados da empresa -->
         <div style="display: flex; align-items: flex-start; gap: 16px; padding-bottom: 20px; border-bottom: 1px solid ${isModern ? 'rgba(255,255,255,0.2)' : '#e5e7eb'};">
-          <div style="width: 64px; height: 64px; background: ${isModern ? 'rgba(255,255,255,0.15)' : '#ecfdf5'}; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="${isModern ? '#ffffff' : primary}" stroke-width="2">
-              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
-              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+          <div style="width: 64px; height: 64px; background: ${isModern ? 'rgba(255,255,255,0.15)' : '#0E2A5C10'}; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="${isModern ? '#ffffff' : '#0E2A5C'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <path d="M7 7h10M7 12h10M7 17h6"/>
             </svg>
           </div>
           <div style="flex: 1;">

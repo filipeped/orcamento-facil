@@ -967,11 +967,11 @@ function MockEditor() {
         </div>
         <p className="text-[10px] uppercase tracking-wider text-neutral-500 font-semibold mb-2 mt-4 px-1">Catálogo</p>
         {[
-          { name: "Grama Esmeralda", price: "R$ 15/m²", emoji: "🌱" },
-          { name: "Guaimbé", price: "R$ 80", emoji: "🪴" },
-          { name: "Palmeira Areca", price: "R$ 320", emoji: "🌴" },
-          { name: "Buxinho topiaria", price: "R$ 180", emoji: "🌿" },
-          { name: "Lavanda", price: "R$ 45", emoji: "💜" },
+          { name: "Mão de obra (hora)", price: "R$ 90/h", emoji: "🧰" },
+          { name: "Visita técnica", price: "R$ 150", emoji: "📍" },
+          { name: "Material", price: "R$ 320", emoji: "📦" },
+          { name: "Deslocamento", price: "R$ 50", emoji: "🚐" },
+          { name: "Hora extra", price: "R$ 120/h", emoji: "⏱️" },
         ].map((p, i) => (
           <div
             key={i}
