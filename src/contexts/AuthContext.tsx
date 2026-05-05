@@ -236,11 +236,32 @@ async function getUserData(sessionUser: SessionUser): Promise<User> {
   };
 }
 
+const BYPASS_AUTH = import.meta.env.VITE_BYPASS_AUTH === "true";
+
+const FAKE_USER: User = {
+  id: "demo-user-id",
+  name: "Usuário Demo",
+  email: "demo@orcafacil.local",
+  initials: "UD",
+  plan: "Anual",
+  planStatus: "active",
+  company: "Minha Empresa Demo",
+  isAdmin: true,
+  isInTrial: false,
+  trialEndsAt: null,
+  phoneVerified: true,
+};
+
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(BYPASS_AUTH ? FAKE_USER : null);
+  const [isLoading, setIsLoading] = useState(BYPASS_AUTH ? false : true);
 
   useEffect(() => {
+    if (BYPASS_AUTH) {
+      console.log("AuthContext: BYPASS mode active - using fake demo user");
+      return;
+    }
+
     // Check session from localStorage (manual approach - bypasses broken Supabase APIs)
     const checkSession = async () => {
       // Skip check if on auth callback page (it will handle auth)

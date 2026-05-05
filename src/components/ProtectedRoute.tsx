@@ -9,9 +9,15 @@ interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
+const BYPASS_AUTH = import.meta.env.VITE_BYPASS_AUTH === "true";
+
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const { isAuthenticated, isLoading, user } = useAuth();
   const location = useLocation();
+
+  if (BYPASS_AUTH) {
+    return <>{children}</>;
+  }
   const [waiting, setWaiting] = useState(true);
   const [onboardingCompleted, setOnboardingCompleted] = useState<boolean | null>(null);
   const [phoneVerified, setPhoneVerified] = useState<boolean | null>(null);
