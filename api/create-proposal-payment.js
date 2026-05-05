@@ -14,8 +14,12 @@ const ASAAS_URL = 'https://api.asaas.com/v3';
 
 // Domínios permitidos (inclui onde propostas públicas são visualizadas)
 const ALLOWED_ORIGINS = [
+  'https://www.fechaqui.com',
+  'https://fechaqui.com',
   'https://www.jardinei.com',
   'https://jardinei.com',
+  'https://www.orcafacil.com',
+  'https://orcafacil.com',
   'https://verproposta.online',
   'https://www.verproposta.online',
   'https://verdepro-proposals.vercel.app',
@@ -70,7 +74,7 @@ export default async function handler(req, res) {
 
     // 1. Criar ou buscar cliente no Asaas
     let customerId;
-    const customerEmail = clientEmail || `cliente_${proposalId.slice(-8)}@temp.jardinei.com`;
+    const customerEmail = clientEmail || `cliente_${proposalId.slice(-8)}@temp.fechaqui.com`;
 
     // Buscar cliente pelo email
     const searchResponse = await fetch(`${ASAAS_URL}/customers?email=${encodeURIComponent(customerEmail)}`, {

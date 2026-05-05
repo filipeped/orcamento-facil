@@ -233,8 +233,8 @@ export default function PagamentoSucesso() {
   }, [user?.id]);
 
   const planNames: Record<string, string> = {
-    essential: 'OrçaFácil Mensal',
-    pro: 'OrçaFácil Anual',
+    essential: 'FechaAqui Mensal',
+    pro: 'FechaAqui Anual',
   };
 
   // Tracking: PageView + ViewContent
@@ -268,7 +268,7 @@ export default function PagamentoSucesso() {
       trackPurchaseAndSubscribe({
         value: value,
         plan: plan,
-        planName: planNames[plan] || `OrçaFácil ${plan}`,
+        planName: planNames[plan] || `FechaAqui ${plan}`,
         paymentId: paymentId,
         userEmail: user?.email,
         userName: user?.name,
@@ -323,7 +323,7 @@ export default function PagamentoSucesso() {
 
         {/* Subtitle */}
         <p className="text-lg text-neutral-600 mb-2">
-          Bem-vindo ao <span className="font-semibold text-emerald-600">{planNames[plan] || 'OrçaFácil'}</span>
+          Bem-vindo ao <span className="font-semibold text-emerald-600">{planNames[plan] || 'FechaAqui'}</span>
         </p>
 
         {value > 0 && (

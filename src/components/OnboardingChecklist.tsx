@@ -29,7 +29,7 @@ export function OnboardingChecklist({ userId, hasProposals, hasCatalogItems }: O
     const fetchProgress = async () => {
       try {
         // Check if dismissed
-        const dismissed = localStorage.getItem("jardinei_checklist_dismissed");
+        const dismissed = localStorage.getItem("fechaqui_checklist_dismissed");
         if (dismissed === "true") {
           setIsDismissed(true);
           setIsLoading(false);
@@ -60,13 +60,13 @@ export function OnboardingChecklist({ userId, hasProposals, hasCatalogItems }: O
 
   const handleDismiss = () => {
     setIsVisible(false);
-    localStorage.setItem("jardinei_checklist_dismissed", "true");
+    localStorage.setItem("fechaqui_checklist_dismissed", "true");
   };
 
   const items: ChecklistItem[] = [
     {
       id: "tour",
-      label: "Conhecer o OrçaFácil",
+      label: "Conhecer o FechaAqui",
       completed: tourCompleted,
     },
     {

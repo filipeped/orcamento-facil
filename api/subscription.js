@@ -11,15 +11,25 @@ const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const ASAAS_URL = 'https://api.asaas.com/v3';
 
 // Preços dos planos - SINCRONIZADO COM CREATE-PAYMENT.JS E UPGRADE.TSX
+// Backend compartilhado entre JARDINEI (legado) e FechaAqui (novo).
 const PLANS = {
+  // JARDINEI
   essential_monthly: { value: 97, name: 'JARDINEI Mensal', cycle: 'MONTHLY' },
-  pro_annual: { value: 804, name: 'JARDINEI Anual', cycle: 'YEARLY' }, // R$67/mês x 12
+  pro_annual: { value: 804, name: 'JARDINEI Anual', cycle: 'YEARLY' },
+
+  // FECHAQUI
+  fechaqui_essential_monthly: { value: 29, name: 'FechaAqui Mensal', cycle: 'MONTHLY' },
+  fechaqui_pro_annual: { value: 228, name: 'FechaAqui Anual', cycle: 'YEARLY' },
 };
 
 // Domínios permitidos
 const ALLOWED_ORIGINS = [
+  'https://www.fechaqui.com',
+  'https://fechaqui.com',
   'https://www.jardinei.com',
   'https://jardinei.com',
+  'https://www.orcafacil.com',
+  'https://orcafacil.com',
   'https://verdepro-proposals.vercel.app',
   'http://localhost:8080',
   'http://localhost:3000',
@@ -222,7 +232,7 @@ async function handleReactivate(req, res) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name: profile?.full_name || 'Cliente JARDINEI',
+        name: profile?.full_name || 'Cliente',
         email: customerEmail,
         cpfCnpj: cpfCnpj,
         phone: profile?.phone?.replace(/\D/g, '') || null,

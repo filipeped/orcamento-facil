@@ -48,9 +48,9 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
-const NOTIFICATIONS_STORAGE_KEY = "jardinei_notifications";
-const ACTIVE_TAB_STORAGE_KEY = "jardinei_settings_tab";
-const PROPOSAL_SETTINGS_STORAGE_KEY = "jardinei_proposal_settings";
+const NOTIFICATIONS_STORAGE_KEY = "fechaqui_notifications";
+const ACTIVE_TAB_STORAGE_KEY = "fechaqui_settings_tab";
+const PROPOSAL_SETTINGS_STORAGE_KEY = "fechaqui_proposal_settings";
 
 interface ProposalSettings {
   showLogo: boolean;
@@ -686,7 +686,7 @@ export default function Configuracoes() {
         if (user.email) trackingData.email = user.email;
         if (profile.phone) trackingData.phone = profile.phone;
         if (profile.name) trackingData.full_name = profile.name;
-        localStorage.setItem('jardinei_profile_tracking', JSON.stringify(trackingData));
+        localStorage.setItem('fechaqui_profile_tracking', JSON.stringify(trackingData));
       } catch { /* ignore */ }
 
       toast.success("Configurações salvas!");

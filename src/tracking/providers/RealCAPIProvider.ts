@@ -36,8 +36,10 @@ export class RealCAPIProvider {
     // Verificar domínios permitidos (produção, preview e dev)
     const currentDomain = window.location.hostname;
     const allowedDomains = [
-      'jardinei.com',      // Produção
-      'www.jardinei.com',  // Produção com www
+      'fechaqui.com',      // Produção FechaAqui
+      'www.fechaqui.com',
+      'jardinei.com',      // Produção Jardinei (legado, mesmo backend)
+      'www.jardinei.com',
       'localhost',         // Dev local
       '127.0.0.1',         // Dev local IP
       'vercel.app'         // Preview deploys
@@ -174,11 +176,12 @@ export class RealCAPIProvider {
     userData: MetaUserData,
     customData: MetaCustomData
   ): MetaCAPIPayload {
-    // URL dinâmico - usa produção se não for jardinei.com
+    // URL dinâmico — usa a URL atual quando é domínio FechaAqui ou Jardinei, senão fallback FechaAqui
     const currentUrl = window.location.href;
-    const eventSourceUrl = currentUrl.includes('jardinei.com')
+    const isOwnDomain = currentUrl.includes('fechaqui.com') || currentUrl.includes('jardinei.com');
+    const eventSourceUrl = isOwnDomain
       ? currentUrl
-      : 'https://www.jardinei.com'; // Fallback para produção
+      : 'https://www.fechaqui.com';
 
     return {
       data: [{

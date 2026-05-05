@@ -88,8 +88,8 @@ async function trackCompleteRegistration(userData: { email: string; name?: strin
     
     // ✅ PADRONIZADO: CompleteRegistration com content_category
     const customData = {
-      content_name: 'cadastro_completo_jardinei',
-      content_category: 'jardinei_registration',
+      content_name: 'cadastro_completo_fechaqui',
+      content_category: 'fechaqui_registration',
       status: 'registered',
       value: dynamicValue,
       currency: 'BRL'
@@ -196,8 +196,8 @@ async function trackGoogleSignupLead(userData: { email: string; name?: string; p
 
     // ✅ PADRONIZADO: Mesmos valores que todos os outros Leads
     const customData = {
-      content_name: 'lead_jardinei',
-      content_category: 'jardinei_lead',
+      content_name: 'lead_fechaqui',
+      content_category: 'fechaqui_lead',
       source: 'google_signup',
       value: generateDeterministicValue(eventId, 10, 100),
       currency: 'BRL'

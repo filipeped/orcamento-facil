@@ -13,8 +13,12 @@ const ASAAS_URL = 'https://api.asaas.com/v3';
 
 // Domínios permitidos
 const ALLOWED_ORIGINS = [
+  'https://www.fechaqui.com',
+  'https://fechaqui.com',
   'https://www.jardinei.com',
   'https://jardinei.com',
+  'https://www.orcafacil.com',
+  'https://orcafacil.com',
   'https://verdepro-proposals.vercel.app',
   'http://localhost:8080',
   'http://localhost:3000',

@@ -18,8 +18,12 @@ const EVOLUTION_API_KEY = process.env.EVOLUTION_API_KEY;
 
 // Domínios permitidos
 const ALLOWED_ORIGINS = [
+  'https://www.fechaqui.com',
+  'https://fechaqui.com',
   'https://www.jardinei.com',
   'https://jardinei.com',
+  'https://www.orcafacil.com',
+  'https://orcafacil.com',
   'https://verdepro-proposals.vercel.app',
   'http://localhost:8080',
   'http://localhost:3000',
@@ -66,7 +70,7 @@ export default async function handler(req, res) {
       return res.status(404).json({ error: 'Proposta não encontrada' });
     }
 
-    // Buscar perfil do dono (jardineiro)
+    // Buscar perfil do dono
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
       .select('phone, full_name')
@@ -93,7 +97,15 @@ export default async function handler(req, res) {
     // Montar mensagem
     const nomeCliente = clientName || proposal.client_name;
     const nomeDono = profile.full_name?.split(' ')[0] || '';
-    const proposalLink = proposal.short_id ? `jardinei.com/p/${proposal.short_id}` : 'jardinei.com/propostas';
+    // Detectar brand pelo origin/referer do request; default JARDINEI (legado).
+    const reqOrigin = (req.headers.origin || req.headers.referer || '').toLowerCase();
+    const brand = reqOrigin.includes('fechaqui') ? 'fechaqui' : 'jardinei';
+    const brandLabel = brand === 'fechaqui' ? 'FechaAqui' : 'JARDINEI';
+    const brandHost = brand === 'fechaqui'
+      ? (process.env.FECHAQUI_PUBLIC_DOMAIN || 'https://www.fechaqui.com').replace(/^https?:\/\//, '')
+      : (process.env.JARDINEI_PUBLIC_DOMAIN || 'https://www.jardinei.com').replace(/^https?:\/\//, '');
+    const propostasPath = brand === 'fechaqui' ? '/orcamentos' : '/propostas';
+    const proposalLink = proposal.short_id ? `${brandHost}/p/${proposal.short_id}` : `${brandHost}${propostasPath}`;
 
     // Apenas tipo "approved" é suportado (viewed removido - não precisa de WhatsApp)
     if (type !== 'approved') {
@@ -115,7 +127,7 @@ O cliente *${nomeCliente}* aprovou sua proposta:
 
 Bom trabalho! 💪
 
-— JARDINEI`;
+— ${brandLabel}`;
 
     console.log('Enviando WhatsApp para:', phoneNumber);
 

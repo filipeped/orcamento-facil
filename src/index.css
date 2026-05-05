@@ -5,8 +5,9 @@
 @tailwind utilities;
 
 /* ============================================================
-   OrçaFácil v3 — Design System: Terra/Natureza
+   FechaAqui v1 — Design System: Marinho + Verde
    Unica fonte de verdade pra cor, tipografia, espaco, sombra.
+   Paleta: azul-marinho #0E2A5C primary + verde #22C55E accent.
    ============================================================ */
 @layer base {
   :root {
@@ -16,9 +17,11 @@
     --jd-ink: 120 12% 11%;         /* verde-preto, texto principal */
     --jd-muted: 110 8% 45%;        /* verde-cinza, texto secundario */
     --jd-border: 40 20% 88%;       /* bege claro pra bordas */
-    --jd-accent: 161 94% 30%;      /* esmeralda (emerald-600 Tailwind) */
-    --jd-accent-soft: 152 76% 88%; /* esmeralda claro pra badges */
+    --jd-accent: 142 71% 45%;      /* verde brand #22C55E */
+    --jd-accent-soft: 142 76% 90%; /* verde claro pra badges */
     --jd-warm: 32 35% 50%;         /* caramelo pra destaques raros */
+    --jd-marine: 218 74% 21%;      /* azul-marinho brand #0E2A5C — primary */
+    --jd-marine-deep: 218 74% 15%; /* azul-marinho mais escuro pra gradient */
   }
 }
 
@@ -33,17 +36,21 @@
     font-family: 'Inter', system-ui, sans-serif;
   }
 
-  /* Cores semanticas do sistema v3 */
+  /* Cores semanticas */
   .bg-jd-bg { background-color: hsl(var(--jd-bg)); }
   .bg-jd-surface { background-color: hsl(var(--jd-surface)); }
   .bg-jd-accent { background-color: hsl(var(--jd-accent)); }
   .bg-jd-accent-soft { background-color: hsl(var(--jd-accent-soft)); }
+  .bg-jd-marine { background-color: hsl(var(--jd-marine)); }
+  .bg-jd-marine-deep { background-color: hsl(var(--jd-marine-deep)); }
   .text-jd-ink { color: hsl(var(--jd-ink)); }
   .text-jd-muted { color: hsl(var(--jd-muted)); }
   .text-jd-accent { color: hsl(var(--jd-accent)); }
   .text-jd-warm { color: hsl(var(--jd-warm)); }
+  .text-jd-marine { color: hsl(var(--jd-marine)); }
   .border-jd-border { border-color: hsl(var(--jd-border)); }
   .border-jd-accent { border-color: hsl(var(--jd-accent)); }
+  .border-jd-marine { border-color: hsl(var(--jd-marine)); }
 
   /* Sombras do sistema v3 — so 2 tokens */
   .shadow-jd-flat { box-shadow: 0 1px 0 0 hsl(var(--jd-border) / 0.5); }
@@ -112,7 +119,7 @@ select:focus-visible {
   }
 }
 
-/* OrçaFácil Design System - Brazilian Landscaper SaaS */
+/* FechaAqui Design System — Marinho + Verde */
 
 @layer base {
   :root {
@@ -126,40 +133,40 @@ select:focus-visible {
     --popover: 0 0% 100%;
     --popover-foreground: 220 13% 18%;
 
-    /* Primary Green - Emerald 500 */
-    --primary: 160 84% 39%;
+    /* Primary — azul-marinho FechaAqui #0E2A5C */
+    --primary: 218 74% 21%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary - Dark Green for depth */
-    --secondary: 142 72% 29%;
+    /* Secondary — azul-marinho mais escuro pra depth/gradient */
+    --secondary: 218 74% 15%;
     --secondary-foreground: 0 0% 100%;
 
     /* Muted - Soft backgrounds */
     --muted: 210 20% 98%;
     --muted-foreground: 220 9% 46%;
 
-    /* Accent - Golden Yellow for CTAs */
-    --accent: 38 92% 50%;
-    --accent-foreground: 220 13% 9%;
+    /* Accent — verde brand #22C55E pra CTAs e success */
+    --accent: 142 71% 45%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Success */
-    --success: 160 84% 39%;
+    /* Success — verde brand */
+    --success: 142 71% 45%;
     --success-foreground: 0 0% 100%;
 
-    /* Warning */
+    /* Warning — gold mantido pra warnings legítimos */
     --warning: 38 92% 50%;
     --warning-foreground: 220 13% 9%;
 
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 142 76% 36%;
+    --ring: 142 71% 45%;
 
     --radius: 0.75rem;
 
-    /* Custom OrçaFácil tokens */
+    /* Custom verde tokens — alinhados com brand verde #22C55E */
     --verde-50: 138 76% 97%;
     --verde-100: 141 84% 93%;
     --verde-200: 141 79% 85%;
@@ -175,9 +182,9 @@ select:focus-visible {
     --gold-500: 38 92% 50%;
     --gold-600: 32 95% 44%;
 
-    /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(142 76% 36%) 0%, hsl(142 72% 29%) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(38 92% 50%) 0%, hsl(32 95% 44%) 100%);
+    /* Gradients — primary marinho, CTA verde */
+    --gradient-hero: linear-gradient(135deg, hsl(218 74% 21%) 0%, hsl(218 74% 15%) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(142 71% 45%) 0%, hsl(142 71% 35%) 100%);
     --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(138 76% 97%) 100%);
 
     /* Shadows */
@@ -185,18 +192,18 @@ select:focus-visible {
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-    --shadow-card: 0 4px 20px -2px rgb(34 197 94 / 0.1);
-    --shadow-card-hover: 0 8px 30px -4px rgb(34 197 94 / 0.15);
+    --shadow-card: 0 4px 20px -2px rgb(14 42 92 / 0.1);
+    --shadow-card-hover: 0 8px 30px -4px rgb(14 42 92 / 0.15);
 
     /* Sidebar */
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 220 13% 18%;
-    --sidebar-primary: 142 76% 36%;
+    --sidebar-primary: 218 74% 21%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 138 76% 97%;
-    --sidebar-accent-foreground: 142 72% 29%;
+    --sidebar-accent: 142 76% 95%;
+    --sidebar-accent-foreground: 218 74% 21%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 142 76% 36%;
+    --sidebar-ring: 218 74% 21%;
   }
 
   .dark {
@@ -209,33 +216,33 @@ select:focus-visible {
     --popover: 220 13% 12%;
     --popover-foreground: 210 20% 98%;
 
-    --primary: 160 84% 39%;
-    --primary-foreground: 220 13% 9%;
+    --primary: 218 74% 35%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 142 72% 29%;
+    --secondary: 218 74% 25%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 220 13% 15%;
     --muted-foreground: 220 9% 60%;
 
-    --accent: 38 92% 50%;
-    --accent-foreground: 220 13% 9%;
+    --accent: 142 71% 45%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 220 13% 20%;
     --input: 220 13% 20%;
-    --ring: 142 76% 46%;
+    --ring: 218 74% 35%;
 
     --sidebar-background: 220 13% 9%;
     --sidebar-foreground: 210 20% 98%;
-    --sidebar-primary: 142 76% 46%;
-    --sidebar-primary-foreground: 220 13% 9%;
+    --sidebar-primary: 218 74% 35%;
+    --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 220 13% 15%;
     --sidebar-accent-foreground: 210 20% 98%;
     --sidebar-border: 220 13% 20%;
-    --sidebar-ring: 142 76% 46%;
+    --sidebar-ring: 218 74% 35%;
   }
 }
 
@@ -272,8 +279,8 @@ select:focus-visible {
   }
 
   .btn-cta {
-    @apply bg-gradient-to-r from-accent to-gold-600 text-accent-foreground font-bold px-4 py-2.5 sm:px-5 sm:py-3 md:px-6 md:py-3 rounded-lg sm:rounded-xl text-sm sm:text-base;
-    @apply hover:shadow-lg hover:scale-[1.02] transition-all duration-300;
+    @apply bg-accent text-accent-foreground font-bold px-4 py-2.5 sm:px-5 sm:py-3 md:px-6 md:py-3 rounded-lg sm:rounded-xl text-sm sm:text-base;
+    @apply hover:shadow-lg hover:scale-[1.02] hover:bg-accent/90 transition-all duration-300;
   }
 
   .btn-whatsapp {
@@ -329,7 +336,7 @@ select:focus-visible {
   }
 
   .text-gradient-gold {
-    @apply bg-gradient-to-r from-accent to-gold-600 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-accent to-success bg-clip-text text-transparent;
   }
 
   /* Section Backgrounds */
@@ -764,8 +771,8 @@ button, a, input, select, textarea, [role="button"] {
 
 /* Input focus glow effect */
 input:focus, textarea:focus, select:focus {
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
-  border-color: rgb(16, 185, 129) !important;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+  border-color: rgb(34, 197, 94) !important;
 }
 
 /* Image smooth load */
@@ -805,7 +812,7 @@ input:focus, textarea:focus, select:focus {
   }
   50% {
     transform: scale(1.08);
-    color: rgb(16, 185, 129);
+    color: rgb(34, 197, 94);
   }
   100% {
     transform: scale(1);
@@ -820,7 +827,7 @@ input:focus, textarea:focus, select:focus {
 
 .fab:hover {
   transform: scale(1.05);
-  box-shadow: 0 8px 25px -5px rgba(16, 185, 129, 0.4);
+  box-shadow: 0 8px 25px -5px rgba(34, 197, 94, 0.4);
 }
 
 .fab:active {
@@ -865,7 +872,7 @@ input:focus, textarea:focus, select:focus {
 
 /* Subtle border glow for active elements */
 .glow-active {
-  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
 }
 
 /* Progress bar animation */
@@ -954,7 +961,7 @@ input[type="checkbox"]:checked, input[type="radio"]:checked {
   inset: -2px;
   border-radius: inherit;
   border: 2px solid transparent;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(16, 185, 129, 0)) border-box;
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(34, 197, 94, 0)) border-box;
   -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;

@@ -74,7 +74,7 @@ export function PrimeirosPassos({
   const steps = [
     {
       id: 1,
-      title: "Conhecer o OrçaFácil",
+      title: "Conhecer o FechaAqui",
       description: "Faça o tour pelo sistema",
       completed: tourCompleted,
       href: "#",

@@ -20,9 +20,13 @@ const EVOLUTION_API_KEY = process.env.EVOLUTION_API_KEY;
 
 // CORS
 const ALLOWED_ORIGINS = [
+  'https://www.fechaqui.com',
+  'https://fechaqui.com',
   'https://www.jardinei.com',
   'https://jardinei.com',
   'https://jardinei-com.vercel.app',
+  'https://www.orcafacil.com',
+  'https://orcafacil.com',
   'http://localhost:8080',
   'http://localhost:3000',
 ];
@@ -100,14 +104,15 @@ function getPhoneVariations(phone) {
 }
 
 // Enviar código via WhatsApp
-async function sendWhatsAppCode(phone, code) {
+async function sendWhatsAppCode(phone, code, brand = 'jardinei') {
   if (!EVOLUTION_API_KEY) {
     console.error('❌ EVOLUTION_API_KEY não configurada');
     return false;
   }
 
+  const brandLabel = brand === 'fechaqui' ? 'FechaAqui' : 'JARDINEI';
   const phoneNumber = formatPhone(phone);
-  const message = `🌱 *JARDINEI*
+  const message = `${brand === 'jardinei' ? '🌱 ' : ''}*${brandLabel}*
 
 Seu código de verificação: *${code}*
 
@@ -135,16 +140,32 @@ Se você não solicitou este código, ignore esta mensagem.`;
 }
 
 // Enviar mensagem de boas-vindas após cadastro
-async function sendWelcomeMessage(phone, userName) {
+async function sendWelcomeMessage(phone, userName, brand = 'jardinei') {
   if (!EVOLUTION_API_KEY) {
     console.error('❌ EVOLUTION_API_KEY não configurada');
     return false;
   }
 
   const phoneNumber = formatPhone(phone);
-  const firstName = userName ? userName.split(' ')[0] : 'Jardineiro';
+  const firstName = userName ? userName.split(' ')[0] : (brand === 'jardinei' ? 'Jardineiro' : '');
 
-  const message = `🌿 *Bem-vindo ao JARDINEI, ${firstName}!* 🎉
+  const message = brand === 'fechaqui'
+    ? `*Bem-vindo ao FechaAqui${firstName ? ', ' + firstName : ''}!* 🎉
+
+Sua conta foi criada com sucesso!
+
+Com o FechaAqui você pode:
+✅ Criar propostas profissionais em minutos
+✅ Gerenciar seus clientes
+✅ Enviar por link ou PDF
+✅ Acompanhar status (visto / aprovado)
+
+🚀 *Comece agora:* ${process.env.FECHAQUI_PUBLIC_DOMAIN || 'https://www.fechaqui.com'}/orcamentos
+
+Precisa de ajuda? Responda esta mensagem que nosso suporte vai te atender!
+
+_Equipe FechaAqui_`
+    : `🌿 *Bem-vindo ao JARDINEI, ${firstName}!* 🎉
 
 Sua conta foi criada com sucesso!
 
@@ -154,7 +175,7 @@ Com o Jardinei você pode:
 ✅ Acessar catálogo com +800 plantas
 ✅ Acompanhar seus orçamentos
 
-🚀 *Comece agora:* https://www.jardinei.com/propostas
+🚀 *Comece agora:* ${process.env.JARDINEI_PUBLIC_DOMAIN || 'https://www.jardinei.com'}/propostas
 
 Precisa de ajuda? Responda esta mensagem que nosso suporte vai te atender!
 
@@ -195,6 +216,10 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  // Detecta brand pelo origin/referer; default JARDINEI (legado)
+  const reqOrigin = (req.headers.origin || req.headers.referer || '').toLowerCase();
+  const brand = reqOrigin.includes('fechaqui') ? 'fechaqui' : 'jardinei';
 
   const { action, phone, code } = req.body;
 
@@ -292,7 +317,7 @@ export default async function handler(req, res) {
       }
 
       // Enviar via WhatsApp
-      const sent = await sendWhatsAppCode(formattedPhone, verificationCode);
+      const sent = await sendWhatsAppCode(formattedPhone, verificationCode, brand);
 
       if (!sent) {
         return res.status(500).json({
@@ -457,7 +482,7 @@ export default async function handler(req, res) {
         }, { onConflict: 'user_id' });
 
       // Enviar mensagem de boas-vindas via WhatsApp
-      sendWelcomeMessage(formattedPhone, userName); // Não aguarda para não atrasar o cadastro
+      sendWelcomeMessage(formattedPhone, userName, brand); // Não aguarda para não atrasar o cadastro
 
       console.log('✅ Email auto-confirmado para:', email, '| Phone:', formattedPhone);
       return res.status(200).json({ success: true, userId: user.id });
@@ -474,7 +499,7 @@ export default async function handler(req, res) {
     const { name } = req.body;
 
     try {
-      await sendWelcomeMessage(formattedPhone, name || '');
+      await sendWelcomeMessage(formattedPhone, name || '', brand);
       return res.status(200).json({ success: true });
     } catch (error) {
       console.error('Erro ao enviar boas-vindas:', error);
@@ -539,8 +564,10 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Erro ao gerar código' });
       }
 
-      // Mensagem customizada para recuperação
-      const message = `🌱 *JARDINEI*
+      // Mensagem customizada para recuperação (parametrizada por brand)
+      const brandLabel = brand === 'fechaqui' ? 'FechaAqui' : 'JARDINEI';
+      const messagePrefix = brand === 'jardinei' ? '🌱 ' : '';
+      const message = `${messagePrefix}*${brandLabel}*
 
 Seu código para recuperar a senha: *${verificationCode}*
 
@@ -819,7 +846,7 @@ Se você não solicitou, ignore esta mensagem.`;
         return res.status(404).json({ error: 'Usuário não encontrado' });
       }
 
-      // Retornar o email real (não o telefone@jardinei.app)
+      // Retornar o email real (não o telefone@fechaqui.app placeholder)
       console.log('📱 Email encontrado pelo telefone:', user.email);
       return res.status(200).json({
         success: true,

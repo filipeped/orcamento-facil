@@ -25,14 +25,14 @@ export default function Termos() {
           <div className="prose prose-sm max-w-none">
             <h2 className="text-xl font-semibold mt-8 mb-4">1. Aceitação dos Termos</h2>
             <p className="text-muted-foreground mb-4">
-              Ao acessar e usar o OrçaFácil, você concorda em cumprir e estar vinculado a estes
+              Ao acessar e usar o FechaAqui, você concorda em cumprir e estar vinculado a estes
               Termos de Uso. Se você não concordar com qualquer parte destes termos, não poderá
               acessar o serviço.
             </p>
 
             <h2 className="text-xl font-semibold mt-8 mb-4">2. Descrição do Serviço</h2>
             <p className="text-muted-foreground mb-4">
-              O OrçaFácil é uma plataforma SaaS (Software as a Service) que permite a prestadores
+              O FechaAqui é uma plataforma SaaS (Software as a Service) que permite a prestadores
               de serviço criar, gerenciar e enviar orçamentos e faturas profissionais para seus
               clientes, além de receber pagamentos via Pix e cartão.
             </p>
@@ -46,7 +46,7 @@ export default function Termos() {
 
             <h2 className="text-xl font-semibold mt-8 mb-4">4. Uso Aceitável</h2>
             <p className="text-muted-foreground mb-4">
-              Você concorda em usar o OrçaFácil apenas para fins legais e de acordo com estes
+              Você concorda em usar o FechaAqui apenas para fins legais e de acordo com estes
               Termos. Você não deve:
             </p>
             <ul className="list-disc list-inside text-muted-foreground mb-4 space-y-2">
@@ -59,7 +59,7 @@ export default function Termos() {
 
             <h2 className="text-xl font-semibold mt-8 mb-4">5. Propriedade Intelectual</h2>
             <p className="text-muted-foreground mb-4">
-              Todo o conteúdo, recursos e funcionalidades do OrçaFácil são de propriedade
+              Todo o conteúdo, recursos e funcionalidades do FechaAqui são de propriedade
               exclusiva da empresa e estão protegidos por leis de propriedade intelectual.
               O uso do serviço não lhe concede nenhum direito de propriedade sobre o mesmo.
             </p>
@@ -80,7 +80,7 @@ export default function Termos() {
 
             <h2 className="text-xl font-semibold mt-8 mb-4">8. Limitação de Responsabilidade</h2>
             <p className="text-muted-foreground mb-4">
-              O OrçaFácil é fornecido "como está", sem garantias de qualquer tipo. Não nos
+              O FechaAqui é fornecido "como está", sem garantias de qualquer tipo. Não nos
               responsabilizamos por quaisquer danos diretos, indiretos, incidentais ou
               consequenciais decorrentes do uso do serviço.
             </p>
@@ -95,7 +95,7 @@ export default function Termos() {
             <h2 className="text-xl font-semibold mt-8 mb-4">10. Contato</h2>
             <p className="text-muted-foreground mb-4">
               Para dúvidas sobre estes Termos de Uso, entre em contato conosco através do
-              e-mail: suporte@jardinei.com.br
+              e-mail: suporte@fechaqui.com
             </p>
           </div>
         </div>

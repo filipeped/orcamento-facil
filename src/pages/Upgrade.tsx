@@ -331,7 +331,7 @@ export default function Upgrade() {
       features: [
         "Nao pode criar propostas novas",
         "Historico limitado a 30 dias",
-        "Propostas com marca d'agua OrçaFácil",
+        "Propostas com marca d'agua FechaAqui",
       ],
       highlighted: false,
       badge: null,
@@ -341,8 +341,8 @@ export default function Upgrade() {
       id: "essential",
       name: "Mensal",
       description: "Pra quem quer fechar mais",
-      monthlyPrice: 97,
-      annualPrice: 97,
+      monthlyPrice: 29,
+      annualPrice: 29,
       icon: Crown,
       features: [
         "Sua marca em cada orcamento",
@@ -359,15 +359,14 @@ export default function Upgrade() {
       id: "pro",
       name: "Anual",
       description: "Tudo do Mensal, sem limites",
-      monthlyPrice: 67,
-      annualPrice: 67,
+      monthlyPrice: 19,
+      annualPrice: 19,
       icon: Rocket,
       features: [
         "Tudo do Mensal sem nenhum limite",
         "Propostas e clientes ilimitados",
-        "Catalogo completo de plantas",
         "Suporte prioritario no WhatsApp",
-        "Economize R$ 360 comparado ao Mensal",
+        "Economize R$ 120 comparado ao Mensal",
       ],
       highlighted: currentPlanId === "free" || currentPlanId === "essential",
       badge: "Mais escolhido",
@@ -518,7 +517,7 @@ export default function Upgrade() {
 
           <p className="text-base md:text-lg text-neutral-500 mb-4 md:mb-6 max-w-2xl mx-auto">
             {currentPlanId === "free"
-              ? "OrçaFácilro que manda orcamento no WhatsApp perde cliente pra quem manda proposta bonita."
+              ? "Quem manda orcamento no WhatsApp comum perde cliente pra quem manda proposta bonita."
               : currentPlanId === "pro"
               ? "Voce tem acesso ilimitado a tudo. Aproveite!"
               : `Voce esta no ${user?.plan}. Veja o que esta perdendo.`}
@@ -605,7 +604,7 @@ export default function Upgrade() {
                         )}
                         {plan.id === "pro" && !hasDiscount && (
                           <span className="text-lg text-neutral-400 line-through mr-1">
-                            R$ 97
+                            R$ 29
                           </span>
                         )}
                         <span className={cn(
@@ -618,7 +617,7 @@ export default function Upgrade() {
                       </div>
                       {plan.id === "pro" && (
                         <p className="text-xs text-neutral-400 mt-1">
-                          Cobrado R$ 804/ano
+                          Cobrado R$ 228/ano
                         </p>
                       )}
                     </>
@@ -728,7 +727,7 @@ export default function Upgrade() {
         <div className="text-center">
           <p className="text-sm text-neutral-500 mb-3">Ainda tem dúvidas?</p>
           <a
-            href="https://wa.me/5551992185607?text=Oi! Estou vendo os planos do OrçaFácil e quero saber mais sobre como funciona."
+            href="https://wa.me/5551992185607?text=Oi! Estou vendo os planos do FechaAqui e quero saber mais sobre como funciona."
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-5 py-2.5 border border-neutral-200 hover:bg-neutral-100 text-neutral-700 text-sm font-medium rounded-full transition-colors"

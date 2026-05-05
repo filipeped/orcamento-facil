@@ -233,9 +233,22 @@ export function CatalogProvider({ children }: { children: ReactNode }) {
     }
   }, [user?.id]);
 
-  // Carregar plantas (tabela global)
+  // Carregar plantas (tabela global) — só pra usuários com nicho jardinagem/paisagismo.
+  // Nicho vem do localStorage (gravado em OnboardingWizard). Outros nichos NÃO carregam plantas.
   useEffect(() => {
-    loadPlantasFromDb();
+    let nicho: string | null = null;
+    try {
+      nicho = localStorage.getItem("fechaqui_user_industry");
+    } catch { /* ignore */ }
+
+    const carregaPlantas = !nicho || nicho === "jardinagem" || nicho === "paisagismo";
+    if (carregaPlantas) {
+      loadPlantasFromDb();
+    } else {
+      // Marca como carregado pra não travar a UI
+      setPlantas([]);
+      setPlantasLoaded(true);
+    }
   }, [loadPlantasFromDb]);
 
   // Carregar customizações do usuário

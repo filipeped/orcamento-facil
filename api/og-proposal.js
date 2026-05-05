@@ -71,14 +71,14 @@ export default async function handler(req, res) {
       return res.status(404).send('Proposta não encontrada');
     }
 
-    // Buscar perfil do JARDINEIRO (dono da proposta) com mais dados
+    // Buscar perfil do PRESTADOR (dono da proposta) com mais dados
     const { data: profile } = await supabase
       .from('profiles')
       .select('company_name, full_name, logo_url, bio')
       .eq('user_id', proposal.user_id)
       .single();
 
-    // 🎯 DADOS DA EMPRESA DO JARDINEIRO (nunca do Jardinei SaaS)
+    // 🎯 DADOS DA EMPRESA DO PRESTADOR (nunca da plataforma FechaAqui)
     const companyName = escapeHtml(
       proposal.company_name || profile?.company_name || profile?.full_name || 'Orçamento'
     );

@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import { BRAND } from "@/lib/brand";
 
 interface LogoProps {
   variant?: "default" | "white";
@@ -16,30 +15,25 @@ export function Logo({ variant = "default", size = "md", className }: LogoProps)
 
   const colors = {
     default: {
-      text: "text-neutral-900",
-      accent: "text-emerald-600",
+      text: "text-jd-marine",
+      accent: "text-emerald-500",
     },
     white: {
       text: "text-white",
-      accent: "text-emerald-300",
+      accent: "text-emerald-400",
     },
   };
-
-  const name = BRAND.name;
-  const lastChar = name.slice(-1);
-  const rest = name.slice(0, -1);
 
   return (
     <div className={cn("flex items-center", className)}>
       <span
         className={cn(
-          "font-semibold tracking-tight",
+          "font-bold tracking-tight",
           sizes[size].text,
           colors[variant].text
         )}
       >
-        {rest}
-        <span className={colors[variant].accent}>{lastChar}</span>
+        Fecha<span className={colors[variant].accent}>Aqui</span>
       </span>
     </div>
   );

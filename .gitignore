@@ -56,3 +56,6 @@ nul
 
 .env*.local
 .gstack/
+
+# Claude Code local memory (não versionado)
+memory/

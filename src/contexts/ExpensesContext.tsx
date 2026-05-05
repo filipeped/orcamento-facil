@@ -42,11 +42,21 @@ interface ExpensesContextValue {
 
 const ExpensesContext = createContext<ExpensesContextValue | undefined>(undefined);
 
-const STORAGE_KEY = "orcafacil_expenses_v1";
+const STORAGE_KEY = "fechaqui_expenses_v1";
+const LEGACY_STORAGE_KEY = "orcafacil_expenses_v1";
 
 function readStorage(): Expense[] {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    let raw = localStorage.getItem(STORAGE_KEY);
+    // Migração silenciosa: se não tem chave nova mas tem antiga, copia e remove a antiga
+    if (!raw) {
+      const legacy = localStorage.getItem(LEGACY_STORAGE_KEY);
+      if (legacy) {
+        localStorage.setItem(STORAGE_KEY, legacy);
+        localStorage.removeItem(LEGACY_STORAGE_KEY);
+        raw = legacy;
+      }
+    }
     if (!raw) return [];
     const parsed = JSON.parse(raw);
     return Array.isArray(parsed) ? parsed : [];

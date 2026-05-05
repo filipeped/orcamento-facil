@@ -1,5 +1,5 @@
-// Service Worker para JARDINEI PWA
-const CACHE_NAME = 'jardinei-v2';
+// Service Worker para FechaAqui PWA
+const CACHE_NAME = 'fechaqui-v1';
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
@@ -38,7 +38,12 @@ self.addEventListener('fetch', (event) => {
 
   // Skip external requests - let browser handle them directly
   const url = new URL(event.request.url);
-  if (!url.hostname.includes('jardinei.com') && url.hostname !== 'localhost') return;
+  if (
+    !url.hostname.includes('fechaqui.com') &&
+    !url.hostname.includes('jardinei.com') &&
+    !url.hostname.includes('orcafacil.com') &&
+    url.hostname !== 'localhost'
+  ) return;
 
   // Skip API requests (always go to network)
   if (event.request.url.includes('/api/')) return;

@@ -100,7 +100,7 @@ export default function AdminAssinantes() {
 
   const filterUsers = () => {
     // Excluir admin da lista (não conta como assinante)
-    let filtered = users.filter((u) => u.email !== "admin@jardinei.com");
+    let filtered = users.filter((u) => u.email !== "admin@jardinei.com" && u.email !== "admin@fechaqui.com");
 
     // Filtro de busca
     if (search) {
@@ -351,7 +351,7 @@ export default function AdminAssinantes() {
           <div>
             <h1 className="text-xl sm:text-2xl font-bold text-neutral-900">Assinantes</h1>
             <p className="text-sm text-neutral-500">
-              {filteredUsers.length} de {users.filter((u) => u.email !== "admin@jardinei.com").length}
+              {filteredUsers.length} de {users.filter((u) => u.email !== "admin@jardinei.com" && u.email !== "admin@fechaqui.com").length}
             </p>
           </div>
           <Button onClick={exportCSV} variant="outline" size="sm" className="shrink-0">

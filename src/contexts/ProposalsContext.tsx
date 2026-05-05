@@ -43,8 +43,8 @@ export const PLAN_LIMITS = {
   admin: { proposalsPerMonth: Infinity, historyDays: Infinity },
 };
 
-// Limite de propostas ENVIADAS durante o trial
-export const TRIAL_SENT_LIMIT = 5;
+// Limite de propostas ENVIADAS durante o trial — Infinity = ilimitado nos 7 dias
+export const TRIAL_SENT_LIMIT = Infinity;
 
 export interface ProposalItem {
   id: string;
@@ -56,6 +56,21 @@ export interface ProposalItem {
   photos?: string[]; // Galeria de fotos do item
   unit?: string; // Unidade de medida (un, m, m², kg, etc.)
   nomeCientifico?: string; // Nome científico da planta
+  discount?: {
+    amount: number;
+    type: "fixed" | "percentage";
+  };
+}
+
+// Calcula o subtotal de um item já considerando desconto.
+// Se a coluna discount_* não existir no banco (Jardinei legacy), o item.discount vem undefined.
+export function itemSubtotal(item: ProposalItem): number {
+  const base = item.quantity * item.unitPrice;
+  if (!item.discount || !item.discount.amount) return base;
+  if (item.discount.type === "percentage") {
+    return Math.max(0, base * (1 - item.discount.amount / 100));
+  }
+  return Math.max(0, base - item.discount.amount);
 }
 
 export interface ProposalClient {
@@ -83,6 +98,15 @@ export const SERVICE_TYPES: Record<ServiceType, { label: string; icon: string }>
   paisagismo: { label: "Paisagismo", icon: "palette" },
   outro: { label: "Outro", icon: "clipboard-list" },
 };
+
+// O CHECK constraint do banco (compartilhado com Jardinei produção) só aceita
+// 'manutencao', 'paisagismo', 'outro'. Mapeamos os 7 tipos da UI pra esses 3
+// no momento de salvar — preserva legado sem alterar schema.
+function mapServiceTypeForDB(t: ServiceType): "manutencao" | "paisagismo" | "outro" {
+  if (t === "manutencao" || t === "reparo") return "manutencao";
+  if (t === "paisagismo") return "paisagismo";
+  return "outro";
+}
 
 export interface CompanyInfo {
   name: string;
@@ -147,7 +171,7 @@ const ProposalsContext = createContext<ProposalsContextType | undefined>(undefin
 
 // Calculate proposal total
 function calculateTotal(items: ProposalItem[]): number {
-  return items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0);
+  return items.reduce((sum, item) => sum + itemSubtotal(item), 0);
 }
 
 export function ProposalsProvider({ children }: { children: ReactNode }) {
@@ -372,7 +396,7 @@ export function ProposalsProvider({ children }: { children: ReactNode }) {
           serviceType: p.service_type as ServiceType,
           title: p.title,
           description: p.description || "",
-          items: items.map((item: { id: string; name: string; description?: string; quantity: number; unit_price: number; image_url?: string; photos?: string[]; unit?: string; nome_cientifico?: string }) => ({
+          items: items.map((item: { id: string; name: string; description?: string; quantity: number; unit_price: number; image_url?: string; photos?: string[]; unit?: string; nome_cientifico?: string; discount_amount?: number; discount_type?: "fixed" | "percentage" | null }) => ({
             id: item.id,
             name: item.name,
             description: item.description || "",
@@ -381,6 +405,9 @@ export function ProposalsProvider({ children }: { children: ReactNode }) {
             imageUrl: item.image_url,
             photos: item.photos || [],
             unit: item.unit || "un",
+            discount: item.discount_amount && item.discount_type
+              ? { amount: Number(item.discount_amount), type: item.discount_type }
+              : undefined,
             nomeCientifico: item.nome_cientifico || undefined,
           })),
           notes: p.notes || "",
@@ -429,7 +456,7 @@ export function ProposalsProvider({ children }: { children: ReactNode }) {
     // Verificar limite de propostas do plano
     if (monthlyProposalsCount >= monthlyLimit) {
       // Enviar notificação de limite atingido (apenas uma vez por mês)
-      const limitKey = `jardinei_limit_notified_${new Date().getMonth()}_${new Date().getFullYear()}`;
+      const limitKey = `fechaqui_limit_notified_${new Date().getMonth()}_${new Date().getFullYear()}`;
       if (!localStorage.getItem(limitKey)) {
         localStorage.setItem(limitKey, "true");
         // Buscar telefone e enviar WhatsApp
@@ -494,7 +521,7 @@ export function ProposalsProvider({ children }: { children: ReactNode }) {
           client_name: data.client.name,
           client_email: data.client.email,
           client_phone: data.client.phone,
-          service_type: data.serviceType,
+          service_type: mapServiceTypeForDB(data.serviceType),
           title: data.title,
           description: data.description,
           notes: data.notes,
@@ -523,6 +550,8 @@ export function ProposalsProvider({ children }: { children: ReactNode }) {
           photos: item.photos || [],
           unit: item.unit || "un",
           nome_cientifico: item.nomeCientifico || null,
+          discount_amount: item.discount?.amount || 0,
+          discount_type: item.discount?.type || null,
         }));
 
         const { error: itemsError } = await getSupabase()
@@ -572,7 +601,7 @@ export function ProposalsProvider({ children }: { children: ReactNode }) {
         updateData.client_email = data.client.email;
         updateData.client_phone = data.client.phone;
       }
-      if (data.serviceType) updateData.service_type = data.serviceType;
+      if (data.serviceType) updateData.service_type = mapServiceTypeForDB(data.serviceType);
       if (data.title) updateData.title = data.title;
       if (data.description !== undefined) updateData.description = data.description;
       if (data.notes !== undefined) updateData.notes = data.notes;
@@ -609,6 +638,8 @@ export function ProposalsProvider({ children }: { children: ReactNode }) {
             photos: item.photos || [],
             unit: item.unit || "un",
             nome_cientifico: item.nomeCientifico || null,
+            discount_amount: item.discount?.amount || 0,
+            discount_type: item.discount?.type || null,
           }));
 
           await getSupabase().from("proposal_items").insert(itemsToInsert);

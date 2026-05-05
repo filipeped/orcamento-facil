@@ -68,8 +68,8 @@ async function trackUserRegistered(userData: { email: string; name?: string; use
 
     // ✅ PADRONIZADO: Mesmos valores que Cadastro.tsx e metaPixel.ts para evitar duplicação
     const customData = {
-      content_name: "lead_jardinei",
-      content_category: "jardinei_lead",
+      content_name: "lead_fechaqui",
+      content_category: "fechaqui_lead",
       source: "form_submit",
       value: 50, // Valor fixo intermediário para registro via AuthContext
       currency: "BRL"
@@ -119,8 +119,8 @@ interface User {
   phoneVerified: boolean;
 }
 
-// DuraÃ§Ã£o do trial em dias
-const TRIAL_DAYS = 3;
+// Duração do trial em dias
+const TRIAL_DAYS = 7;
 
 // Verifica se está no período de trial (3 dias após plan_started_at ou created_at)
 function checkIsInTrial(planStartedAt: string | null, createdAt: string | null, plan: string): { isInTrial: boolean; trialEndsAt: string | null } {
@@ -218,7 +218,7 @@ async function getUserData(sessionUser: SessionUser): Promise<User> {
     if (profile?.phone) trackingData.phone = profile.phone;
     if (profile?.full_name) trackingData.full_name = profile.full_name;
     else if (name && name !== "Usuario") trackingData.full_name = name;
-    localStorage.setItem('jardinei_profile_tracking', JSON.stringify(trackingData));
+    localStorage.setItem('fechaqui_profile_tracking', JSON.stringify(trackingData));
   } catch { /* ignore */ }
 
   return {
@@ -241,7 +241,7 @@ const BYPASS_AUTH = import.meta.env.VITE_BYPASS_AUTH === "true";
 const FAKE_USER: User = {
   id: "demo-user-id",
   name: "Usuário Demo",
-  email: "demo@orcafacil.local",
+  email: "demo@fechaqui.local",
   initials: "UD",
   plan: "Anual",
   planStatus: "active",

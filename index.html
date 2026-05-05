@@ -3,18 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
-    <title>OrçaFácil — Orçamentos e faturas profissionais para prestadores de serviço</title>
-    <meta name="description" content="App brasileiro que prestadores de servico usam para criar orcamentos e faturas profissionais e receber pagamento via Pix." />
-    <meta name="author" content="OrçaFácil" />
+    <title>FechaAqui — Propostas e faturas profissionais pra fechar negócio</title>
+    <meta name="description" content="App brasileiro que prestadores de serviço usam pra criar propostas e faturas profissionais e receber pagamento via Pix." />
+    <meta name="author" content="FechaAqui" />
 
     <!-- PWA Meta Tags -->
-    <meta name="theme-color" content="#16a34a" />
+    <meta name="theme-color" content="#0E2A5C" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="OrçaFácil" />
+    <meta name="apple-mobile-web-app-title" content="FechaAqui" />
     <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="application-name" content="OrçaFácil" />
-    <meta name="msapplication-TileColor" content="#16a34a" />
+    <meta name="application-name" content="FechaAqui" />
+    <meta name="msapplication-TileColor" content="#0E2A5C" />
     <meta name="msapplication-tap-highlight" content="no" />
 
     <!-- PWA Manifest -->
@@ -34,38 +34,38 @@
     <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-192x192.png" />
 
     <!-- Open Graph / WhatsApp / Facebook -->
-    <meta property="og:title" content="OrçaFácil — Orçamentos e faturas para prestadores de serviço" />
-    <meta property="og:description" content="App brasileiro para prestadores de servico criarem orcamentos e faturas profissionais e receberem via Pix." />
+    <meta property="og:title" content="FechaAqui — Propostas e faturas pra prestadores de serviço" />
+    <meta property="og:description" content="App brasileiro pra prestadores de serviço criarem propostas e faturas profissionais e receberem via Pix." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://orcafacil.com" />
+    <meta property="og:url" content="https://fechaqui.com" />
     <meta property="og:image" content="/icons/icon-512x512.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="OrçaFácil — Orçamentos e faturas profissionais" />
-    <meta property="og:site_name" content="OrçaFácil" />
+    <meta property="og:image:alt" content="FechaAqui — Propostas e faturas profissionais" />
+    <meta property="og:site_name" content="FechaAqui" />
     <meta property="og:locale" content="pt_BR" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@orcafacil" />
+    <meta name="twitter:site" content="@fechaqui" />
     <meta name="twitter:image" content="/icons/icon-512x512.png" />
-    <meta name="twitter:image:alt" content="OrçaFácil — Orçamentos e faturas profissionais" />
+    <meta name="twitter:image:alt" content="FechaAqui — Propostas e faturas profissionais" />
 
     <!-- Structured Data (JSON-LD) para SEO -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "OrçaFácil",
+      "name": "FechaAqui",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Web",
-      "description": "App brasileiro para prestadores de servico criarem orcamentos e faturas profissionais e receberem via Pix.",
-      "url": "https://orcafacil.com",
+      "description": "App brasileiro pra prestadores de serviço criarem propostas e faturas profissionais e receberem via Pix.",
+      "url": "https://fechaqui.com",
       "image": "/icons/icon-512x512.png",
       "author": {
         "@type": "Organization",
-        "name": "OrçaFácil",
-        "url": "https://orcafacil.com"
+        "name": "FechaAqui",
+        "url": "https://fechaqui.com"
       },
       "offers": {
         "@type": "Offer",
@@ -394,7 +394,7 @@
         var cachedUserDataPlain = {};  // Texto puro para fbq('init') - Pixel hasheia sozinho
         var cachedUserDataHashed = {}; // SHA256 para CAPI
         try {
-          var profileJson = localStorage.getItem('jardinei_profile_tracking');
+          var profileJson = localStorage.getItem('fechaqui_profile_tracking');
           if (profileJson) {
             cachedProfile = JSON.parse(profileJson);
             if (cachedProfile.email) {
@@ -469,8 +469,8 @@
 
         // Disparar PageView no Pixel com eventID
         fbq('track', 'PageView', {
-          content_name: 'pagina_jardinei',
-          content_category: 'jardinei_app'
+          content_name: 'pagina_fechaqui',
+          content_category: 'fechaqui_app'
         }, {
           eventID: pageviewEventId
         });
@@ -602,8 +602,8 @@
                 ...(cachedUserDataHashed.ph && { ph: cachedUserDataHashed.ph })
               },
               custom_data: {
-                content_name: 'pagina_jardinei',
-                content_category: 'jardinei_app'
+                content_name: 'pagina_fechaqui',
+                content_category: 'fechaqui_app'
               }
             }]
           };
@@ -638,8 +638,8 @@
 
               // Disparar ViewContent no Pixel com eventID
               fbq('track', 'ViewContent', {
-                content_name: 'conteudo_jardinei',
-                content_category: 'jardinei_content',
+                content_name: 'conteudo_fechaqui',
+                content_category: 'fechaqui_content',
                 content_type: 'service',
                 source: 'content_view',
                 value: 5,
@@ -673,8 +673,8 @@
                     ...(cachedUserDataHashed.ph && { ph: cachedUserDataHashed.ph })
                   },
                   custom_data: {
-                    content_name: 'conteudo_jardinei',
-                    content_category: 'jardinei_content',
+                    content_name: 'conteudo_fechaqui',
+                    content_category: 'fechaqui_content',
                     content_type: 'service',
                     source: 'content_view',
                     value: 5,

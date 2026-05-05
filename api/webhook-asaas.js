@@ -1,6 +1,8 @@
 /**
  * Webhook do Asaas para processar notificações de pagamento
- * URL: https://www.jardinei.com/api/webhook-asaas
+ * URL: https://www.jardinei.com/api/webhook-asaas (compartilhado com FechaAqui)
+ *
+ * Backend multi-tenant: detecta brand pela descrição do payment.
  *
  * Segurança: Configure ASAAS_WEBHOOK_TOKEN no Vercel e no Asaas
  */
@@ -136,7 +138,7 @@ async function sendPurchaseToFacebook(userData, paymentData, browserData = {}) {
         event_id: eventId,
         user_data: capiUserData,
         custom_data: customData,
-        event_source_url: browserData.sourceUrl || 'https://www.jardinei.com/upgrade',
+        event_source_url: browserData.sourceUrl || (paymentData.eventSourceUrl || 'https://www.jardinei.com/upgrade'),
         action_source: 'website'
       }],
       pixel_id: PIXEL_ID
@@ -311,33 +313,48 @@ export default async function handler(req, res) {
       console.log('User ID encontrado:', userId);
 
       // Determinar o plano baseado na descrição (prioridade) e valor (fallback)
+      // Aceita sinônimos das gerações antigas (JARDINEI/OrçaFácil) e novas (FechaAqui).
       let plan = 'free';
       const value = payment.value || 0;
       const description = (payment.description || '').toLowerCase();
 
+      // Detectar brand pela descrição. Default JARDINEI (preserva compat).
+      const brand = description.includes('fechaqui') || description.includes('fecha aqui')
+        ? 'fechaqui'
+        : 'jardinei';
+      const brandLabel = brand === 'fechaqui' ? 'FechaAqui' : 'JARDINEI';
+      const brandHost = brand === 'fechaqui'
+        ? (process.env.FECHAQUI_PUBLIC_DOMAIN || 'https://www.fechaqui.com').replace(/^https?:\/\//, '')
+        : (process.env.JARDINEI_PUBLIC_DOMAIN || 'https://www.jardinei.com').replace(/^https?:\/\//, '');
+
       // 1. Detectar pela descrição (mais confiável - funciona com cupons de desconto)
-      // create-payment.js envia: "JARDINEI Mensal", "JARDINEI Anual (-15%)", etc.
-      if (description.includes('anual')) {
+      // Aceita: "FechaAqui Mensal/Anual", "JARDINEI Mensal/Anual", "OrçaFácil Mensal/Anual", "(-15%)" etc.
+      if (description.includes('anual') || description.includes('pro')) {
         plan = 'pro';
-      } else if (description.includes('mensal') || description.includes('essencial')) {
+      } else if (
+        description.includes('mensal') ||
+        description.includes('essencial') ||
+        description.includes('starter')
+      ) {
         plan = 'essential';
       }
-      // 2. Fallback: detectar pelo valor exato (sem desconto)
-      else if (value === 804) {
-        plan = 'pro'; // Anual R$804
-      } else if (value === 97) {
-        plan = 'essential'; // Mensal R$97
+      // 2. Fallback: detectar pelo valor exato (cobre preço atual + histórico)
+      // Atual: 29 (mensal) / 228 (anual). Histórico Jardinei: 97 / 804.
+      else if (value === 228 || value === 804) {
+        plan = 'pro';
+      } else if (value === 29 || value === 97) {
+        plan = 'essential';
       }
-      // 3. Último fallback: faixa de valor (com possível desconto de cupom)
-      else if (value > 500) {
-        plan = 'pro'; // Anual com desconto (R$804 base)
+      // 3. Último fallback: faixa de valor (cobre cupom). >200 é anual mesmo com desconto pesado.
+      else if (value > 200) {
+        plan = 'pro';
       } else if (value > 0) {
-        plan = 'essential'; // Mensal com desconto (R$97 base)
+        plan = 'essential';
       }
 
       // Detectar período (mensal ou anual)
       let planPeriod = 'monthly';
-      if (description.includes('anual') || value >= 500) {
+      if (description.includes('anual') || value >= 200) {
         planPeriod = 'annual';
       }
 
@@ -445,7 +462,7 @@ export default async function handler(req, res) {
         user_id: userId,
         type: 'payment_confirmed',
         title: 'Pagamento Confirmado! 🎉',
-        message: `Seu plano JARDINEI ${planName} foi ativado com sucesso.`,
+        message: `Seu plano ${brandLabel} ${planName} foi ativado com sucesso.`,
         metadata: { plan, amount: value },
         read: false,
       });
@@ -470,22 +487,23 @@ export default async function handler(req, res) {
         const valorFormatado = value.toFixed(2).replace('.', ',');
         const dataRenovacao = expiresAt.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
+        const accessPath = brand === 'fechaqui' ? '/orcamentos' : '/dashboard';
         const whatsappMsg = `✅ *Pagamento Confirmado!*
 
 Olá ${nome}! 🎉
 
-Seu plano *JARDINEI ${planName}* está ativo.
+Seu plano *${brandLabel} ${planName}* está ativo.
 
 💰 Valor: R$ ${valorFormatado}
 📅 Válido até: ${dataRenovacao}
 
-Agora você tem acesso ao plano ${planName}!
+Agora você tem acesso completo ao plano ${planName}!
 
-👉 Acesse: jardinei.com/dashboard
+👉 Acesse: ${brandHost}${accessPath}
 
-Obrigado por confiar no JARDINEI! 💚
+Obrigado por confiar no ${brandLabel}!
 
-— JARDINEI`;
+— ${brandLabel}`;
         await sendWhatsAppMessage(userData.phone, whatsappMsg);
       }
 
@@ -503,8 +521,9 @@ Obrigado por confiar no JARDINEI! 💚
         const fbPaymentData = {
           value: value,
           plan: plan,
-          planName: description || `JARDINEI ${plan}`,
+          planName: description || `${brandLabel} ${plan}`,
           paymentId: payment.id,
+          eventSourceUrl: `https://${brandHost}/upgrade`,
         };
 
         // 🎯 Buscar dados do browser salvos no checkout (fbp, fbc, IP, UA)
@@ -680,6 +699,16 @@ Obrigado por confiar no JARDINEI! 💚
             const nome = overdueUser?.full_name?.split(' ')[0] || 'Cliente';
             const valorFormatado = payment.value.toFixed(2).replace('.', ',');
 
+            // Detectar brand pelo description do pagamento atrasado
+            const overdueDescription = (payment.description || '').toLowerCase();
+            const overdueBrand = overdueDescription.includes('fechaqui') || overdueDescription.includes('fecha aqui')
+              ? 'fechaqui'
+              : 'jardinei';
+            const overdueLabel = overdueBrand === 'fechaqui' ? 'FechaAqui' : 'JARDINEI';
+            const overdueHost = overdueBrand === 'fechaqui'
+              ? (process.env.FECHAQUI_PUBLIC_DOMAIN || 'https://www.fechaqui.com').replace(/^https?:\/\//, '')
+              : (process.env.JARDINEI_PUBLIC_DOMAIN || 'https://www.jardinei.com').replace(/^https?:\/\//, '');
+
             const overdueMsg = `⚠️ *Atenção: Pagamento Pendente*
 
 Olá ${nome},
@@ -689,11 +718,11 @@ Não conseguimos processar seu pagamento de *R$ ${valorFormatado}*.
 Você tem *7 dias* para regularizar e manter seu plano ativo. Após esse prazo, sua conta volta para o plano Grátis.
 
 🔄 Atualize seus dados de pagamento:
-👉 jardinei.com/configuracoes?tab=billing
+👉 ${overdueHost}/configuracoes?tab=billing
 
 Precisa de ajuda? Responda esta mensagem.
 
-— JARDINEI`;
+— ${overdueLabel}`;
             await sendWhatsAppMessage(overdueUser.phone, overdueMsg);
           }
         } else if (event.event === 'PAYMENT_REFUNDED') {

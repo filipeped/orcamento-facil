@@ -36,13 +36,12 @@ const PLAN_CONFIG = {
     key: "pro",
     period: "annual",
     name: "Anual",
-    price: "R$ 67",
+    price: "R$ 19",
     priceNote: "/mês",
-    totalNote: "Cobrado R$ 804/ano · economia de R$ 360",
+    totalNote: "Cobrado R$ 228/ano · economia de R$ 120",
     features: [
       "Tudo do Mensal sem limites",
       "Propostas e clientes ilimitados",
-      "Catálogo completo de 800+ plantas",
       "Suporte prioritário no WhatsApp",
     ],
     badge: "Mais Escolhido",
@@ -51,7 +50,7 @@ const PLAN_CONFIG = {
     key: "essential",
     period: "monthly",
     name: "Mensal",
-    price: "R$ 97",
+    price: "R$ 29",
     priceNote: "/mês",
     totalNote: "Cancele quando quiser",
     features: [
@@ -178,7 +177,7 @@ function humanizeError(raw: string | undefined): string {
   return raw;
 }
 
-const DRAFT_KEY = "jardinei_checkout_draft";
+const DRAFT_KEY = "fechaqui_checkout_draft";
 
 export default function Checkout() {
   const navigate = useNavigate();
@@ -255,7 +254,7 @@ export default function Checkout() {
       hasTracked.current = true;
       trackPageView();
       // InitiateCheckout com dados do plano selecionado
-      const planValue = plan.key === "pro" ? 804 : 97;
+      const planValue = plan.key === "pro" ? 228 : 29;
       trackInitiateCheckout({
         planId: plan.key,
         planName: plan.name,
@@ -310,6 +309,7 @@ export default function Checkout() {
               customerEmail: user.email,
               customerName: nameFromProfile,
               cpfCnpj: cpfFromProfile,
+              brand: "fechaqui",
             }),
             timeoutMs: 30000,
           }, 3);
@@ -458,6 +458,7 @@ export default function Checkout() {
             password: formData.password,
             phone: phoneDigits,
             trackingData,
+            brand: "fechaqui",
           }),
           timeoutMs: 30000,
         }, 3);
@@ -481,7 +482,7 @@ export default function Checkout() {
 
       if (resp.status === 409 || data.alreadyExists) {
         setErrors({
-          email: "Este e-mail já tem cadastro no OrçaFácil.",
+          email: "Este e-mail já tem cadastro no FechaAqui.",
         });
         setTouched((t) => ({ ...t, email: true }));
         setEmailAlreadyExists(true);
@@ -719,7 +720,7 @@ export default function Checkout() {
                   </div>
                   {emailAlreadyExists ? (
                     <div id="email-error" role="alert" className="mt-2 p-3 bg-amber-50 border border-amber-200 rounded-lg">
-                      <p className="text-sm font-semibold text-amber-900 mb-1.5">E-mail já cadastrado no OrçaFácil</p>
+                      <p className="text-sm font-semibold text-amber-900 mb-1.5">E-mail já cadastrado no FechaAqui</p>
                       <p className="text-xs text-amber-800 leading-relaxed mb-2.5">
                         Já existe uma conta com esse e-mail. Você pode entrar com sua senha ou usar outro e-mail pra criar nova conta.
                       </p>
@@ -987,7 +988,7 @@ export default function Checkout() {
             <details className="md:hidden bg-jd-surface rounded-xl border border-jd-border mb-4 overflow-hidden group">
               <summary className="px-4 py-3 flex items-center justify-between cursor-pointer list-none">
                 <div className="flex items-center gap-2 min-w-0">
-                  <span className="text-sm font-medium text-jd-ink truncate">OrçaFácil {plan.name}</span>
+                  <span className="text-sm font-medium text-jd-ink truncate">FechaAqui {plan.name}</span>
                   {plan.key === "pro" && (
                     <span className="text-[10px] uppercase tracking-[0.2em] text-jd-accent italic font-display">destacado</span>
                   )}
@@ -1001,7 +1002,7 @@ export default function Checkout() {
                 {plan.key === "pro" && (
                   <div className="flex items-center justify-between py-2.5 text-sm">
                     <span className="text-jd-muted">Total hoje</span>
-                    <span className="font-medium text-jd-ink tabular-nums">R$ 804,00</span>
+                    <span className="font-medium text-jd-ink tabular-nums">R$ 228,00</span>
                   </div>
                 )}
                 <p className="text-sm text-jd-accent italic font-display mb-4">{plan.totalNote}</p>
@@ -1042,7 +1043,7 @@ export default function Checkout() {
                 <p className="text-[11px] font-medium text-jd-accent uppercase tracking-[0.22em] mb-1.5">
                   Seu plano
                 </p>
-                <h2 className="font-display text-2xl md:text-3xl font-medium text-jd-ink mb-5 tracking-tight">OrçaFácil {plan.name}</h2>
+                <h2 className="font-display text-2xl md:text-3xl font-medium text-jd-ink mb-5 tracking-tight">FechaAqui {plan.name}</h2>
 
                 {/* Breakdown de preço */}
                 <div className="border border-jd-border rounded-lg p-4 mb-5">
@@ -1053,7 +1054,7 @@ export default function Checkout() {
                   {plan.key === "pro" && (
                     <div className="flex items-center justify-between border-t border-jd-border pt-2.5 mt-2.5">
                       <span className="text-xs text-jd-muted">Total cobrado hoje</span>
-                      <span className="text-sm font-medium text-jd-ink tabular-nums">R$ 804,00</span>
+                      <span className="text-sm font-medium text-jd-ink tabular-nums">R$ 228,00</span>
                     </div>
                   )}
                   <p className="text-xs text-jd-accent font-medium mt-2 italic font-display">
@@ -1111,7 +1112,7 @@ export default function Checkout() {
 
                 {/* Depoimento em destaque — serif */}
                 <blockquote className="font-display text-[15px] text-jd-ink leading-relaxed mb-4">
-                  "Fechei 11 projetos mês passado usando o OrçaFácil. Melhor investimento que fiz."
+                  "Fechei 11 projetos mês passado usando o FechaAqui. Melhor investimento que fiz."
                 </blockquote>
 
                 {/* Autor */}

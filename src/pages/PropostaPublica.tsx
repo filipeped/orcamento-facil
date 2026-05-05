@@ -12,8 +12,10 @@ import {
   MessageCircle,
   CreditCard,
   QrCode,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SignaturePad, SignaturePadHandle } from "@/components/SignaturePad";
 
 interface ProposalStyle {
   showLogo: boolean;
@@ -72,6 +74,11 @@ export default function PropostaPublica() {
   const [proposal, setProposal] = useState<Proposal | null>(null);
   const [style, setStyle] = useState<ProposalStyle>(defaultStyle);
   const [profileData, setProfileData] = useState<ProfileData>(defaultProfile);
+  // E-signature modal (FechaAqui)
+  const [showSignModal, setShowSignModal] = useState(false);
+  const [signatureDataUrl, setSignatureDataUrl] = useState<string | null>(null);
+  const [signedName, setSignedName] = useState("");
+  const signaturePadRef = useRef<SignaturePadHandle>(null);
 
   // Payment state
   const [isCreatingPayment, setIsCreatingPayment] = useState(false);
@@ -228,16 +235,23 @@ export default function PropostaPublica() {
     ? `https://wa.me/55${whatsappNumber}?text=${encodeURIComponent(`Olá! Tenho interesse na proposta #${proposal.shortId?.split('/')[0] || proposal.id.slice(-6).toUpperCase()}\n\n${proposalUrl}`)}`
     : '';
 
-  const handleAccept = async () => {
+  // Botão "Aprovar" agora abre modal de assinatura.
+  const handleAccept = () => {
+    setSignedName(proposal.client.name || "");
+    setShowSignModal(true);
+  };
+
+  const submitApproval = async (sigDataUrl: string | null, name: string) => {
     setIsAccepting(true);
     try {
-      // Chamar API para aprovar (não requer autenticação)
       const response = await fetch('/api/approve-proposal', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           proposalId: proposal.id,
           clientName: proposal.client.name,
+          signatureDataUrl: sigDataUrl,
+          signedName: name,
         }),
       });
 
@@ -246,6 +260,7 @@ export default function PropostaPublica() {
       if (response.ok && data.success) {
         setAccepted(true);
         setShowPaymentOption(true);
+        setShowSignModal(false);
       } else {
         console.error('Erro ao aprovar:', data);
         alert('Erro ao aprovar proposta. Tente novamente.');
@@ -533,7 +548,7 @@ export default function PropostaPublica() {
             ) : !isExpired ? (
               <div className="text-center">
                 <p className="text-xs sm:text-sm text-stone-600 mb-3 sm:mb-4">
-                  Para aprovar esta proposta, clique no botão abaixo:
+                  Para aprovar esta proposta, assine no botão abaixo:
                 </p>
                 <button
                   onClick={handleAccept}
@@ -548,7 +563,7 @@ export default function PropostaPublica() {
                   ) : (
                     <>
                       <Check className="w-4 h-4 sm:w-5 sm:h-5" />
-                      Aprovar Orçamento
+                      Assinar e Aprovar
                     </>
                   )}
                 </button>
@@ -573,6 +588,71 @@ export default function PropostaPublica() {
           </button>
         </div>
       </div>
+
+      {/* Modal de assinatura digital (FechaAqui) */}
+      {showSignModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 no-print">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 relative">
+            <button
+              onClick={() => !isAccepting && setShowSignModal(false)}
+              className="absolute top-3 right-3 p-2 rounded-lg hover:bg-neutral-100 transition-colors"
+              aria-label="Fechar"
+              disabled={isAccepting}
+            >
+              <X className="w-5 h-5 text-neutral-500" />
+            </button>
+
+            <h2 className="text-xl font-semibold text-neutral-900 mb-1">Assinar e aprovar</h2>
+            <p className="text-sm text-neutral-500 mb-5">
+              Sua assinatura confirma a aprovação desta proposta.
+            </p>
+
+            <label className="block text-xs font-medium text-neutral-700 mb-1.5">Seu nome completo</label>
+            <input
+              type="text"
+              value={signedName}
+              onChange={(e) => setSignedName(e.target.value)}
+              placeholder="Nome do responsável"
+              className="w-full px-3 py-2.5 rounded-lg border border-neutral-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none mb-4 text-sm"
+              disabled={isAccepting}
+            />
+
+            <label className="block text-xs font-medium text-neutral-700 mb-1.5">Assinatura</label>
+            <SignaturePad
+              ref={signaturePadRef}
+              height={180}
+              onChange={setSignatureDataUrl}
+            />
+
+            <div className="flex gap-2 mt-5">
+              <button
+                onClick={() => setShowSignModal(false)}
+                className="flex-1 px-4 py-3 rounded-lg border border-neutral-200 text-neutral-700 text-sm font-medium hover:bg-neutral-50 transition-colors"
+                disabled={isAccepting}
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={() => submitApproval(signatureDataUrl, signedName.trim())}
+                disabled={isAccepting || !signedName.trim() || !signatureDataUrl}
+                className="flex-1 px-4 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+              >
+                {isAccepting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Aprovando...
+                  </>
+                ) : (
+                  <>
+                    <Check className="w-4 h-4" />
+                    Confirmar aprovação
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

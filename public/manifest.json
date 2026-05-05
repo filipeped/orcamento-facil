@@ -1,11 +1,11 @@
 {
-  "name": "JARDINEI - Propostas Profissionais",
-  "short_name": "JARDINEI",
-  "description": "Crie propostas profissionais para seus clientes de jardinagem",
-  "start_url": "/propostas",
+  "name": "FechaAqui — Propostas Profissionais",
+  "short_name": "FechaAqui",
+  "description": "Crie propostas profissionais e feche mais negócios",
+  "start_url": "/orcamentos",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#16a34a",
+  "theme_color": "#0E2A5C",
   "orientation": "portrait-primary",
   "categories": ["business", "productivity"],
   "lang": "pt-BR",
@@ -65,7 +65,7 @@
       "sizes": "1080x1920",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Dashboard de Propostas"
+      "label": "Painel de Propostas"
     }
   ],
   "shortcuts": [
@@ -73,14 +73,14 @@
       "name": "Nova Proposta",
       "short_name": "Nova",
       "description": "Criar uma nova proposta",
-      "url": "/propostas/nova",
+      "url": "/orcamentos/novo",
       "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
     },
     {
-      "name": "Catálogo",
-      "short_name": "Catálogo",
+      "name": "Meus Itens",
+      "short_name": "Itens",
       "description": "Ver catálogo de serviços",
-      "url": "/catalogo",
+      "url": "/meus-itens",
       "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
     }
   ]

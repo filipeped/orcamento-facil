@@ -80,7 +80,7 @@ function Nav() {
       }`}
     >
       <div className="max-w-4xl mx-auto px-5 sm:px-6 flex items-center justify-between">
-        <Link to="/v2" aria-label="OrçaFácil">
+        <Link to="/v2" aria-label="FechaAqui">
           <Logo />
         </Link>
         <div className="flex items-center gap-1 md:gap-2">
@@ -832,7 +832,7 @@ function ProductPreview() {
               </div>
               <div className="flex-1 flex justify-center">
                 <div className="bg-white border border-neutral-200 rounded-md px-3 py-1 text-[10px] text-neutral-500 font-mono">
-                  app.jardinei.com.br/{tab}
+                  app.fechaqui.com/{tab}
                 </div>
               </div>
             </div>
@@ -864,7 +864,7 @@ function MockDashboard() {
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center">
             <Leaf size={16} className="text-white" />
           </div>
-          <span className="font-bold text-sm text-neutral-900">OrçaFácil</span>
+          <span className="font-bold text-sm text-neutral-900">FechaAqui</span>
         </div>
         <nav className="space-y-1 text-sm">
           {[
@@ -1147,7 +1147,7 @@ function Proof() {
   // So 2 testemunhos — mais humano, menos parede de texto
   const testimonials = [
     {
-      quote: "Eu fechava 2 serviços por mês chorando. No primeiro mês de OrçaFácil bati R$18 mil. O cliente responde diferente quando chega link bonito.",
+      quote: "Eu fechava 2 serviços por mês chorando. No primeiro mês de FechaAqui bati R$18 mil. O cliente responde diferente quando chega link bonito.",
       headline: "R$ 7k → R$ 18k/mês",
       name: "Carlos Oliveira",
       role: "Eletricista · São Paulo",
@@ -1170,7 +1170,7 @@ function Proof() {
             Gente como você
           </p>
           <h2 className="font-display text-jd-ink text-[28px] md:text-[40px] leading-[1.1] tracking-[-0.015em] font-medium">
-            Quem usa OrçaFácil <em className="italic text-jd-accent font-normal">fecha mais.</em>
+            Quem usa FechaAqui <em className="italic text-jd-accent font-normal">fecha mais.</em>
           </h2>
         </Reveal>
 
@@ -1354,15 +1354,15 @@ function FAQ() {
   const faqs = [
     {
       q: "Não manjo muito de computador. Vou conseguir?",
-      a: "Se você usa WhatsApp, você usa OrçaFácil. Só escolher os itens, colocar o valor e apertar enviar. Feito pra quem detesta tecnologia. E se travar, tem suporte no WhatsApp respondendo em minutos.",
+      a: "Se você usa WhatsApp, você usa FechaAqui. Só escolher os itens, colocar o valor e apertar enviar. Feito pra quem detesta tecnologia. E se travar, tem suporte no WhatsApp respondendo em minutos.",
     },
     {
       q: "Preciso ter CNPJ ou empresa formalizada?",
-      a: "Não. OrçaFácil atende MEI, autônomo, pessoa física, empresa registrada — qualquer um. Você coloca o nome ou razão social que quiser aparecer pro cliente.",
+      a: "Não. FechaAqui atende MEI, autônomo, pessoa física, empresa registrada — qualquer um. Você coloca o nome ou razão social que quiser aparecer pro cliente.",
     },
     {
       q: "Combina com meu WhatsApp? Não quero parar de usar.",
-      a: "Combina, é feito pra isso. Você monta o orçamento no OrçaFácil e manda o link ou o PDF pelo WhatsApp. O cliente clica, vê tudo bonito e aprova. O zap continua sendo seu canal — só que agora seu orçamento chega profissional.",
+      a: "Combina, é feito pra isso. Você monta o orçamento no FechaAqui e manda o link ou o PDF pelo WhatsApp. O cliente clica, vê tudo bonito e aprova. O zap continua sendo seu canal — só que agora seu orçamento chega profissional.",
     },
     {
       q: "Tem limite de orçamentos, faturas ou clientes?",
@@ -1495,7 +1495,7 @@ function Footer() {
             <a href="https://wa.me/5551992185607" target="_blank" rel="noopener" className="hover:text-jd-ink transition-colors">WhatsApp</a>
           </div>
           <p className="text-xs text-jd-muted">
-            © {new Date().getFullYear()} OrçaFácil
+            © {new Date().getFullYear()} FechaAqui
           </p>
         </div>
       </div>

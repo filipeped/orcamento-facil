@@ -19,8 +19,12 @@ const EVOLUTION_API_KEY = process.env.EVOLUTION_API_KEY;
 
 // Domínios permitidos (inclui onde propostas públicas são visualizadas)
 const ALLOWED_ORIGINS = [
+  'https://www.fechaqui.com',
+  'https://fechaqui.com',
   'https://www.jardinei.com',
   'https://jardinei.com',
+  'https://www.orcafacil.com',
+  'https://orcafacil.com',
   'https://verproposta.online',
   'https://www.verproposta.online',
   'https://verdepro-proposals.vercel.app',
@@ -47,13 +51,13 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { proposalId, clientName } = req.body;
+    const { proposalId, clientName, signatureDataUrl, signedName } = req.body;
 
     if (!proposalId) {
       return res.status(400).json({ error: 'proposalId é obrigatório' });
     }
 
-    console.log('Aprovando proposta:', proposalId, 'por:', clientName);
+    console.log('Aprovando proposta:', proposalId, 'por:', clientName, signatureDataUrl ? '(com assinatura)' : '');
 
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
@@ -78,14 +82,53 @@ export default async function handler(req, res) {
       });
     }
 
+    // 1.5. Upload da assinatura (se enviada — feature FechaAqui, opcional)
+    let signatureUrl = null;
+    if (signatureDataUrl && typeof signatureDataUrl === 'string' && signatureDataUrl.startsWith('data:image/')) {
+      try {
+        // Converter dataURL → buffer
+        const base64Data = signatureDataUrl.split(',')[1];
+        const buffer = Buffer.from(base64Data, 'base64');
+        const filePath = `${proposal.user_id}/${proposalId}.png`;
+
+        const { error: uploadError } = await supabase.storage
+          .from('signatures')
+          .upload(filePath, buffer, {
+            contentType: 'image/png',
+            upsert: true,
+          });
+
+        if (!uploadError) {
+          const { data: urlData } = supabase.storage.from('signatures').getPublicUrl(filePath);
+          signatureUrl = urlData?.publicUrl || null;
+          console.log('✅ Assinatura salva:', signatureUrl);
+        } else {
+          console.warn('⚠️ Falha upload assinatura (não bloqueia):', uploadError.message);
+        }
+      } catch (sigErr) {
+        console.warn('⚠️ Erro ao processar assinatura (não bloqueia):', sigErr);
+      }
+    }
+
     // 2. Atualizar status para aprovado (com WHERE status != 'approved' para evitar race condition)
+    const clientIp = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.headers['x-real-ip'] || null;
+    const updatePayload = {
+      status: 'approved',
+      approved_at: new Date().toISOString(),
+      signature: clientName || proposal.client_name,
+    };
+    // Campos novos (FechaAqui) — só setam se a coluna existir no banco; se não existir, Supabase ignora silencioso? Não, gera erro.
+    // Solução: só inclui se signatureUrl foi gerada (ou seja, bucket/coluna existem).
+    if (signatureUrl) {
+      updatePayload.signature_url = signatureUrl;
+      updatePayload.signed_at = new Date().toISOString();
+      updatePayload.signed_ip = clientIp;
+      updatePayload.signed_name = signedName || clientName || proposal.client_name;
+    }
+
     const { data: updated, error: updateError } = await supabase
       .from('proposals')
-      .update({
-        status: 'approved',
-        approved_at: new Date().toISOString(),
-        signature: clientName || proposal.client_name,
-      })
+      .update(updatePayload)
       .eq('id', proposalId)
       .neq('status', 'approved')
       .select('id');
@@ -131,7 +174,15 @@ export default async function handler(req, res) {
 
         const nomeDono = profile.full_name?.split(' ')[0] || '';
         const totalFormatado = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(proposal.total || 0);
-        const proposalLink = proposal.short_id ? `jardinei.com/p/${proposal.short_id}` : 'jardinei.com/propostas';
+        // Detectar brand: client manda na header origin/referer; default JARDINEI (legado).
+        const reqOrigin = (req.headers.origin || req.headers.referer || '').toLowerCase();
+        const brand = reqOrigin.includes('fechaqui') ? 'fechaqui' : 'jardinei';
+        const brandLabel = brand === 'fechaqui' ? 'FechaAqui' : 'JARDINEI';
+        const brandHost = brand === 'fechaqui'
+          ? (process.env.FECHAQUI_PUBLIC_DOMAIN || 'https://www.fechaqui.com').replace(/^https?:\/\//, '')
+          : (process.env.JARDINEI_PUBLIC_DOMAIN || 'https://www.jardinei.com').replace(/^https?:\/\//, '');
+        const propostasPath = brand === 'fechaqui' ? '/orcamentos' : '/propostas';
+        const proposalLink = proposal.short_id ? `${brandHost}/p/${proposal.short_id}` : `${brandHost}${propostasPath}`;
 
         const message = `🎉 *Proposta Aprovada!*
 
@@ -148,7 +199,7 @@ O cliente *${proposal.client_name}* aprovou sua proposta:
 
 Bom trabalho! 💪
 
-— JARDINEI`;
+— ${brandLabel}`;
 
         try {
           await fetch(`${EVOLUTION_URL}/message/sendText/${EVOLUTION_INSTANCE}`, {
