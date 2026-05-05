@@ -1,6 +1,76 @@
 import { Proposal } from "@/contexts/ProposalsContext";
 import { BRAND } from "@/lib/brand";
 
+// Templates de PDF disponíveis. Inspirados nos layouts do Invoice Fly.
+export type PdfTemplate = "classic" | "modern" | "minimal";
+
+const TEMPLATE_KEY = "fechaqui_pdf_template";
+
+export function getActivePdfTemplate(): PdfTemplate {
+  try {
+    const v = localStorage.getItem(TEMPLATE_KEY);
+    if (v === "classic" || v === "modern" || v === "minimal") return v;
+  } catch { /* ignore */ }
+  return "classic";
+}
+
+export function setActivePdfTemplate(t: PdfTemplate) {
+  try { localStorage.setItem(TEMPLATE_KEY, t); } catch { /* ignore */ }
+}
+
+interface TemplateStyle {
+  topBarHeight: string;
+  topBarBg: string;
+  headerBg: string;
+  titleColor: string;
+  titleSize: string;
+  totalBorder: string;
+  totalBg: string;
+  totalColor: string;
+}
+
+function getTemplateStyle(template: PdfTemplate, primary: string): TemplateStyle {
+  switch (template) {
+    case "modern":
+      // Header colorido grande tipo invoice-fly template3
+      return {
+        topBarHeight: "0px",
+        topBarBg: "transparent",
+        headerBg: `linear-gradient(135deg, #0E2A5C 0%, ${primary} 100%)`,
+        titleColor: "#ffffff",
+        titleSize: "32px",
+        totalBorder: `2px solid ${primary}`,
+        totalBg: `${primary}10`,
+        totalColor: primary,
+      };
+    case "minimal":
+      // Sem cor no topo, tipografia limpa tipo invoice-fly template5
+      return {
+        topBarHeight: "0px",
+        topBarBg: "transparent",
+        headerBg: "transparent",
+        titleColor: "#0f172a",
+        titleSize: "28px",
+        totalBorder: "1px solid #0f172a",
+        totalBg: "transparent",
+        totalColor: "#0f172a",
+      };
+    case "classic":
+    default:
+      // Barra colorida sutil no topo (atual)
+      return {
+        topBarHeight: "4px",
+        topBarBg: primary,
+        headerBg: "transparent",
+        titleColor: "#1f2937",
+        titleSize: "28px",
+        totalBorder: "2px solid #1f2937",
+        totalBg: "transparent",
+        totalColor: "#1f2937",
+      };
+  }
+}
+
 // Converte uma imagem URL para base64
 async function imageToBase64(url: string): Promise<string | null> {
   try {
@@ -69,7 +139,9 @@ function formatDateLong(dateString: string): string {
 }
 
 // Gera o HTML do orçamento para PDF
-function generateProposalHTML(proposal: Proposal, isFreePlan: boolean = false): string {
+function generateProposalHTML(proposal: Proposal, isFreePlan: boolean = false, template: PdfTemplate = "classic"): string {
+  const primary = "#22C55E"; // verde brand FechaAqui
+  const tpl = getTemplateStyle(template, primary);
   // Marca d'água para plano grátis
   const watermarkHTML = isFreePlan ? `
     <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); z-index: 1000; pointer-events: none;">
@@ -135,34 +207,41 @@ function generateProposalHTML(proposal: Proposal, isFreePlan: boolean = false): 
     `
     : '';
 
+  // Header HTML varia conforme template — modern usa fundo colorido, classic e minimal não.
+  const isModern = template === "modern";
+  const titleSubColor = isModern ? "rgba(255,255,255,0.7)" : "#9ca3af";
+  const titleNumColor = isModern ? "#ffffff" : "#1f2937";
+  const headerInnerStyle = isModern
+    ? `background: ${tpl.headerBg}; padding: 32px 24px; color: white;`
+    : `padding: 24px;`;
+
   return `
     <div style="font-family: system-ui, -apple-system, sans-serif; max-width: 800px; margin: 0 auto; background: white; position: relative;">
       ${watermarkHTML}
-      <!-- Barra colorida -->
-      <div style="height: 4px; background: #16a34a;"></div>
+      ${tpl.topBarHeight !== "0px" ? `<div style="height: ${tpl.topBarHeight}; background: ${tpl.topBarBg};"></div>` : ""}
 
       <!-- Cabeçalho -->
-      <div style="padding: 24px;">
+      <div style="${headerInnerStyle}">
         <!-- Título -->
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
-          <h2 style="font-size: 28px; font-weight: bold; color: #1f2937; margin: 0; letter-spacing: -0.025em;">ORÇAMENTO</h2>
+          <h2 style="font-size: ${tpl.titleSize}; font-weight: bold; color: ${tpl.titleColor}; margin: 0; letter-spacing: -0.025em;">ORÇAMENTO</h2>
           <div style="text-align: right;">
-            <p style="font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin: 0;">Número</p>
-            <p style="font-size: 18px; font-weight: bold; color: #1f2937; margin: 4px 0 0 0;">${proposal.shortId?.split('/')[0] || proposal.id.slice(-6).toUpperCase()}</p>
+            <p style="font-size: 10px; color: ${titleSubColor}; text-transform: uppercase; letter-spacing: 0.05em; margin: 0;">Número</p>
+            <p style="font-size: 18px; font-weight: bold; color: ${titleNumColor}; margin: 4px 0 0 0;">${proposal.shortId?.split('/')[0] || proposal.id.slice(-6).toUpperCase()}</p>
           </div>
         </div>
 
         <!-- Dados da empresa -->
-        <div style="display: flex; align-items: flex-start; gap: 16px; padding-bottom: 20px; border-bottom: 1px solid #e5e7eb;">
-          <div style="width: 64px; height: 64px; background: #ecfdf5; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2">
+        <div style="display: flex; align-items: flex-start; gap: 16px; padding-bottom: 20px; border-bottom: 1px solid ${isModern ? 'rgba(255,255,255,0.2)' : '#e5e7eb'};">
+          <div style="width: 64px; height: 64px; background: ${isModern ? 'rgba(255,255,255,0.15)' : '#ecfdf5'}; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="${isModern ? '#ffffff' : primary}" stroke-width="2">
               <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
               <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
             </svg>
           </div>
           <div style="flex: 1;">
-            <h1 style="font-size: 16px; font-weight: bold; color: #1f2937; margin: 0;">${proposal.company?.name || "Empresa"}</h1>
-            <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 8px; font-size: 13px; color: #6b7280;">
+            <h1 style="font-size: 16px; font-weight: bold; color: ${isModern ? '#ffffff' : '#1f2937'}; margin: 0;">${proposal.company?.name || "Empresa"}</h1>
+            <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 8px; font-size: 13px; color: ${isModern ? 'rgba(255,255,255,0.85)' : '#6b7280'};">
               ${proposal.company?.phone ? `<span>${proposal.company.phone}</span>` : ''}
               ${proposal.company?.email ? `<span>${proposal.company.email}</span>` : ''}
             </div>
@@ -210,9 +289,9 @@ function generateProposalHTML(proposal: Proposal, isFreePlan: boolean = false): 
         <!-- Total -->
         <div style="margin-top: 24px; display: flex; justify-content: flex-end;">
           <div style="width: 240px;">
-            <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 2px solid #1f2937;">
-              <span style="font-weight: bold; color: #1f2937; font-size: 16px;">TOTAL</span>
-              <span style="font-weight: bold; color: #1f2937; font-size: 16px;">${formatCurrency(proposal.total)}</span>
+            <div style="display: flex; justify-content: space-between; padding: 12px; border-bottom: ${tpl.totalBorder}; background: ${tpl.totalBg}; border-radius: ${tpl.totalBg !== 'transparent' ? '8px' : '0'};">
+              <span style="font-weight: bold; color: ${tpl.totalColor}; font-size: 16px;">TOTAL</span>
+              <span style="font-weight: bold; color: ${tpl.totalColor}; font-size: 16px;">${formatCurrency(proposal.total)}</span>
             </div>
           </div>
         </div>
@@ -255,10 +334,12 @@ function generateProposalHTML(proposal: Proposal, isFreePlan: boolean = false): 
 
 // Gera PDF a partir de uma proposta
 // isFreePlan: se true, adiciona marca d'agua da marca
-export async function generateProposalPDF(proposal: Proposal, isFreePlan: boolean = false): Promise<void> {
+// template: layout visual do PDF (default lê do localStorage / 'classic')
+export async function generateProposalPDF(proposal: Proposal, isFreePlan: boolean = false, template?: PdfTemplate): Promise<void> {
+  const tpl = template || getActivePdfTemplate();
   // Criar elemento temporário com o HTML do orçamento
   const container = document.createElement('div');
-  container.innerHTML = generateProposalHTML(proposal, isFreePlan);
+  container.innerHTML = generateProposalHTML(proposal, isFreePlan, tpl);
   container.style.position = 'absolute';
   container.style.left = '-9999px';
   container.style.top = '0';

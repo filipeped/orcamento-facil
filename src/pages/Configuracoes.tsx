@@ -303,6 +303,15 @@ export default function Configuracoes() {
   // Proposal settings (Supabase)
   const [proposalSettings, setProposalSettings] = useState<ProposalSettings>(defaultProposalSettings);
 
+  // Template de PDF (localStorage — não vai pro banco compartilhado com Jardinei)
+  const [pdfTemplate, setPdfTemplate] = useState<"classic" | "modern" | "minimal">(() => {
+    try {
+      const v = localStorage.getItem("fechaqui_pdf_template");
+      if (v === "classic" || v === "modern" || v === "minimal") return v;
+    } catch { /* ignore */ }
+    return "classic";
+  });
+
   // Fetch proposal settings from Supabase
   const fetchProposalSettings = async () => {
     if (!user) return;
@@ -990,6 +999,42 @@ export default function Configuracoes() {
               {/* Estilo do Orçamento */}
               <div className="mt-6 pt-6 border-t border-neutral-200">
                 <h3 className="text-base font-semibold text-neutral-900 mb-4">Estilo do Orçamento</h3>
+
+              {/* Template de PDF */}
+              <div className="mb-5">
+                <p className="text-xs text-neutral-500 mb-2">Template do PDF</p>
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { id: "classic", label: "Clássico", desc: "Barra colorida" },
+                    { id: "modern", label: "Moderno", desc: "Header gradiente" },
+                    { id: "minimal", label: "Minimalista", desc: "Sem cor" },
+                  ].map((tpl) => {
+                    const active = pdfTemplate === tpl.id;
+                    return (
+                      <button
+                        key={tpl.id}
+                        onClick={() => {
+                          setPdfTemplate(tpl.id as "classic" | "modern" | "minimal");
+                          try { localStorage.setItem("fechaqui_pdf_template", tpl.id); } catch { /* ignore */ }
+                        }}
+                        className={cn(
+                          "px-3 py-3 rounded-xl border-2 text-left transition-all",
+                          active
+                            ? "border-emerald-500 bg-emerald-50"
+                            : "border-neutral-200 hover:border-neutral-300"
+                        )}
+                      >
+                        <p className={cn("text-sm font-medium", active ? "text-emerald-900" : "text-neutral-900")}>
+                          {tpl.label}
+                        </p>
+                        <p className={cn("text-[10px] mt-0.5", active ? "text-emerald-700" : "text-neutral-500")}>
+                          {tpl.desc}
+                        </p>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
 
               {/* Cor do orçamento */}
               <div className="mb-5" data-tour="estilo-orcamento">

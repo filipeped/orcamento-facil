@@ -41,6 +41,8 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { uploadImage } from "@/lib/storage";
+import { CsvImportDialog } from "@/components/CsvImportDialog";
+import type { ImportedItem } from "@/lib/csvImport";
 
 export default function Catalogo() {
   const { items, isLoading, updatePrice, getPrice, addItem, updateItem, deleteItem, duplicateItem } = useCatalog();
@@ -50,6 +52,26 @@ export default function Catalogo() {
   const [catalogFilter, setCatalogFilter] = useState<"Plantas" | "Serviços e Materiais">("Plantas");
   const [selectedPlantCategory, setSelectedPlantCategory] = useState<string>("Todas");
   const [currentPage, setCurrentPage] = useState(1);
+  const [showImportDialog, setShowImportDialog] = useState(false);
+
+  const handleImportItems = async (data: ImportedItem[] | unknown[]): Promise<{ inserted: number; failed: number }> => {
+    const items = data as ImportedItem[];
+    let inserted = 0;
+    let failed = 0;
+    for (const it of items) {
+      try {
+        await addItem(it.name, it.category || "Serviços", it.price, undefined, it.unit || "un");
+        inserted++;
+      } catch (err) {
+        console.error("Erro ao importar item:", err);
+        failed++;
+      }
+    }
+    if (inserted > 0) {
+      toast.success(`${inserted} item(s) importado(s)`);
+    }
+    return { inserted, failed };
+  };
 
   // Debounce search input (300ms)
   useEffect(() => {
@@ -268,16 +290,35 @@ export default function Catalogo() {
           <h1 className="text-xl sm:text-2xl font-semibold tracking-tight text-neutral-900">
             Meus Itens
           </h1>
-          <Button
-            onClick={() => setShowAddItem(true)}
-            size="sm"
-            className="gap-1.5"
-            data-tour="adicionar-item"
-          >
-            <Plus size={16} />
-            <span className="hidden sm:inline">Novo Item</span>
-          </Button>
+          <div className="flex gap-2">
+            <Button
+              onClick={() => setShowImportDialog(true)}
+              size="sm"
+              variant="outline"
+              className="gap-1.5"
+              title="Importar itens de um arquivo CSV"
+            >
+              <Upload size={16} />
+              <span className="hidden sm:inline">Importar CSV</span>
+            </Button>
+            <Button
+              onClick={() => setShowAddItem(true)}
+              size="sm"
+              className="gap-1.5"
+              data-tour="adicionar-item"
+            >
+              <Plus size={16} />
+              <span className="hidden sm:inline">Novo Item</span>
+            </Button>
+          </div>
         </header>
+
+        <CsvImportDialog
+          open={showImportDialog}
+          onClose={() => setShowImportDialog(false)}
+          mode="items"
+          onImport={handleImportItems}
+        />
 
         {/* Search & Filters */}
         <div data-tour="filtros-itens" className="sticky top-14 z-10 bg-neutral-50 -mx-4 px-4 pt-1 pb-3 space-y-2">
